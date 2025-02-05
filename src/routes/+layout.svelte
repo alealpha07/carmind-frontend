@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Header from './Header.svelte';
 	import '../app.css';
+	import '../grid.css';
 
 	let { children } = $props();
 </script>
