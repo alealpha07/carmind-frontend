@@ -15,6 +15,7 @@
   } } = $props();
 
 
+  //TODO handle events for buttons (emit events)
   function formatDate(date: Date){
     return date.toLocaleDateString("it-IT");
   }
