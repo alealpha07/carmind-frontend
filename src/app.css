@@ -17,6 +17,10 @@
 	--color-text-light: #ECF0F1;
 	--column-width: 42rem;
 	--column-margin-top: 4rem;
+	--color-success: #2ECC71;
+	--color-alert: #E67E22;
+	--color-error: #E74C3C;
+
 	font-family: var(--font-body);
 	color: var(--color-text);
 }
@@ -83,7 +87,6 @@ pre {
 	margin: 0 auto;
 }
 
-input,
 button {
 	font-size: inherit;
 	font-family: inherit;
