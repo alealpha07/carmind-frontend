@@ -4,84 +4,50 @@
 
 <div id="form-container">
 	<div class="row">
-    <label for="dateElement">DateField</label>
-	<input
-		type="date"
-		id="start"
-		name="trip-start"
-		value="2018-07-22"
-		min="2018-01-01"
-		max="2018-12-31"
-	/>
-	<br />
-	<label for="textElement">TextField</label>
-	<input type="text" id="textElement" placeholder="test" />
-	<br />
-	<label for="numberElement">NumberField</label>
-	<input type="number" id="numberElement" placeholder="test" />
-	<br />
-	<div class="align-container">
-    <label style="display: inline-block;">BoolField</label>
-    <label style="display: inline-block;" class="switch" for="boolElement">
-      <input type="checkbox" id="boolElement" />
-      <div class="slider round"></div>
-    </label>
-  </div>
-	<label for="fileElement">FileField</label>
-	<input type="file" id="fileElement" />
-	<br />
+    <div class="col-12" style="margin-top: 5px;">
+      <label for="dateElement"><b>DateField</b></label> <br>
+      <input type="date" id="start" name="trip-start" value="2018-07-22" min="2018-01-01" max="2018-12-31"/>
+    </div>
+    <div class="col-12" style="margin-top: 5px;">
+      <label for="textElement"><b>TextField</b></label> <br>
+      <input type="text" id="textElement" placeholder="test" />
+    </div>
+    <div class="col-12" style="margin-top: 5px;">
+      <label for="numberElement"><b>NumberField</b></label> <br>
+      <input type="number" id="numberElement" placeholder="test" />
+    </div>
+    <div class="col-12" style="margin-top: 5px;">
+      <div class="align-container">
+        <b>BoolField</b>
+        <label style="display: inline-block;" class="switch" for="boolElement">
+          <input type="checkbox" id="boolElement" />
+          <div class="slider round"></div>
+        </label>
+      </div>
+    </div>
+    <div class="col-12" style="margin-top: 5px;">
+      <label for="fileElement"><b>FileField</b></label> <br>
+      <input type="file" id="fileElement" />
+    </div>
   </div>
 </div>
 
 <style>
+	#form-container {
+		width: 30vw;
+		margin: auto;
+		margin-top: 50px;
+	}
 
-  #form-container {
-    width: 50vw;
-    margin: auto;
-    margin-top: 50px;
+	.align-container {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+	}
+
+  input{
+    width: 100%;
   }
-
-  .align-container {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-	input {
-		font-size: inherit;
-		font-family: inherit;
-		border: solid var(--color-theme-1) 1px;
-		background-color: transparent;
-		border-radius: 11px;
-		padding: 11px;
-		cursor: pointer;
-		color: var(--color-text);
-		transition-duration: 300ms;
-	}
-
-  input:focus{
-    outline: solid var(--color-theme-1-darker) 1px;
-  }
-	input[type='file'] {
-		border: none;
-		cursor: default;
-	}
-  input[type='file']:focus {
-    outline: none;
-		border: none;
-		cursor: default;
-	}
-	input::file-selector-button {
-		font-size: inherit;
-		font-family: inherit;
-		border: solid var(--color-theme-1) 1px;
-		background-color: transparent;
-		border-radius: 11px;
-		padding: 11px;
-		cursor: pointer;
-		color: var(--color-theme-1);
-		transition-duration: 300ms;
-	}
 
 	.switch {
 		display: inline-block;
@@ -93,7 +59,7 @@
 		display: none;
 	}
 	.slider {
-		background-color: #ccc;
+		background-color: var(--color-bg-4);
 		bottom: 0;
 		cursor: pointer;
 		left: 0;
@@ -103,7 +69,7 @@
 		transition: 0.4s;
 	}
 	.slider:before {
-		background-color: #fff;
+		background-color: var(--color-text-light);
 		bottom: 4px;
 		content: '';
 		height: 18px;

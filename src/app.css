@@ -87,7 +87,7 @@ pre {
 	margin: 0 auto;
 }
 
-button {
+button, input, input::file-selector-button {
 	font-size: inherit;
 	font-family: inherit;
 	border: solid var(--color-theme-1) 1px;
@@ -99,7 +99,7 @@ button {
 	transition-duration: 300ms;
 }
 
-button.button-secondary {
+button.button-secondary, input::file-selector-button {
 	background-color: transparent;
 	color: var(--color-theme-1);
 }
@@ -130,6 +130,27 @@ button.button-minor:hover{
 
 button:focus:not(:focus-visible) {
 	outline: none;
+}
+
+input {
+	border: solid var(--color-theme-1) 1px;
+	background-color: transparent;
+	color: var(--color-text);
+}
+
+input:focus {
+	outline: solid var(--color-theme-1-darker) 1px;
+}
+input[type='file'] {
+	border: none;
+	cursor: default;
+	padding: 0;
+	border-radius: 0;
+}
+input[type='file']:focus {
+	outline: none;
+	border: none;
+	cursor: default;
 }
 
 @media (min-width: 720px) {
