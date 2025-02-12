@@ -2,7 +2,7 @@
 	let { label= 'test' } = $props();
 </script>
 
-<div id="form-container">
+<div id="container">
 	<div class="row">
 		<div class="col-12" style="margin-top: 5px;">
 			<label for="form-element-file"><b>{label}</b></label> <br />
@@ -12,11 +12,6 @@
 </div>
 
 <style>
-	#form-container {
-		width: 30vw;
-		margin: auto;
-		margin-top: 50px;
-	}
 
 	input {
 		width: 100%;
