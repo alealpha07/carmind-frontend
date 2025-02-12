@@ -1,5 +1,5 @@
 <script lang="ts">
-	let { data = ['test', '2024-02-22'], fields = [{ type: 'text', label: 'label' }, {type: 'date', label: 'label2', min: '2023-01-01', max: '2025-12-31'}] } = $props();
+	let { data = ['test', '2024-02-22'], fields = [{ type: 'text', label: 'label' }, {type: 'number', label: 'label2', placeholder: '0'}, {type: 'boolean'}] } = $props();
 </script>
 
 <div id="form-container">
@@ -17,23 +17,18 @@
 			</div>
       {:else if field.type == 'number'}
 			<div class="col-12" style="margin-top: 5px;">
-				<label for="numberElement"><b>NumberField</b></label> <br />
-				<input type="number" id="numberElement" placeholder="test" />
+				<label for="form-element-{index}"><b>{field.label}</b></label> <br />
+				<input type="number" id="form-element-{index}" placeholder="{field.placeholder}" />
 			</div>
       {:else if field.type == 'boolean'}
 			<div class="col-12" style="margin-top: 5px;">
 				<div class="align-container">
 					<b>BoolField</b>
-					<label style="display: inline-block;" class="switch" for="boolElement">
-						<input type="checkbox" id="boolElement" />
+					<label style="display: inline-block;" class="switch" for="form-element-{index}">
+						<input type="checkbox" id="form-element-{index}" />
 						<div class="slider round"></div>
 					</label>
 				</div>
-			</div>
-      {:else if field.type == 'file'}
-			<div class="col-12" style="margin-top: 5px;">
-				<label for="fileElement"><b>FileField</b></label> <br />
-				<input type="file" id="fileElement" />
 			</div>
       {/if}
 		{/each}
