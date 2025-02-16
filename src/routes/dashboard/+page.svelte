@@ -1,9 +1,11 @@
 <script>
     import AuthService from "../../services/AuthService";
+    import { isLoggedIn } from '../../stores/auth';
     import { goto } from '$app/navigation';
     import { onMount } from 'svelte';
     onMount(() => {
         AuthService.getUser().then(() => {
+            isLoggedIn.set(true);
             //user is logged in
         }).catch(() => {
             goto(`/`, {replaceState:true}); 

@@ -42,6 +42,9 @@
 				<li aria-current={$page.url.pathname.startsWith('/dashboard') ? 'page' : undefined}>
 					<a href="/dashboard">Dashboard</a>
 				</li>
+				<li aria-current={$page.url.pathname.startsWith('/profile') ? 'page' : undefined}>
+					<a href="/profile">Profile</a>
+				</li>
 			{/if}
 			<li aria-current={$page.url.pathname.startsWith('/login') ? 'page' : undefined}>
 				{#if loggedIn}
@@ -134,7 +137,7 @@
 		border-top: var(--size) solid var(--color-theme-1);
 	}
 
-	nav a,button {
+	nav a, button {
 		display: flex;
 		height: 100%;
 		align-items: center;
@@ -146,12 +149,18 @@
 		letter-spacing: 0.1em;
 		text-decoration: none;
 		transition: color 0.2s linear;
-		border: none;
+		border: solid transparent 1px;
 		cursor: pointer;
 		background-color: transparent;
 	}
 
-	a:hover, button:hover {
+	button:hover{
+		color: var(--color-text-light);
+		background-color: var(--color-theme-1);
+		border-color: var(--color-theme-1);
+	}
+
+	a:hover{
 		color: var(--color-theme-1);
 	}
 </style>
