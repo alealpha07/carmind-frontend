@@ -20,6 +20,7 @@
 	--color-success: #2ECC71;
 	--color-alert: #E67E22;
 	--color-error: #E74C3C;
+	--color-error-transparent: rgba(231, 76, 60, 0.2);
 
 	font-family: var(--font-body);
 	color: var(--color-text);
@@ -170,3 +171,12 @@ input[type='file']:focus {
 	width: 1px;
 	white-space: nowrap;
 }
+
+.error-box{
+	color: var(--color-error);
+	border-left: solid var(--color-error) 8px;
+	background-color: var(--color-error-transparent); 
+	padding-top: 10px;
+	padding-bottom: 10px;
+	font-size: large;
+   }

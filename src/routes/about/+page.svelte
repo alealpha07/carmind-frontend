@@ -1,18 +1,6 @@
 <script lang="ts">
-    import DataForm from '$lib/components/DataForm.svelte';
-    import Dialog from '$lib/components/Dialog.svelte';
-
-    let showDialog = $state(false);
-
-    let fromData = ['test1', 1, true];
-    let errorData = $state("prova errore");
-    function toggleDialog(){
-        showDialog = !showDialog;
-    }
-
-    function showData(){
-        errorData = "prova diocane";
-    }
+    import FileForm from '$lib/components/FileUploadForm.svelte';
+	import FileService from '../../services/FileService';
 </script>
 
 <svelte:head>
@@ -20,8 +8,4 @@
     <meta name="description" content="About this app" />
 </svelte:head>
 
-<button onclick={showData}>Change data</button>
-
-<DataForm bind:error={errorData} data={fromData} clickLeft={()=>console.log('left')} clickRight={(data: any)=>console.log(data)}></DataForm>
-<button onclick={toggleDialog}>toggle</button>
-<Dialog bind:show={showDialog}><p>prova</p></Dialog>
+<FileForm label="Assicurazione" fileType={FileService.FileTypes.insurance} vehicleId={1} successCallback={() => {console.log('success')}}></FileForm>

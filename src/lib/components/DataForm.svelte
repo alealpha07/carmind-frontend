@@ -12,7 +12,7 @@
   //fields = [{ type: 'text', label: 'label' }, {type: 'number', label: 'label2', placeholder: '0', min: 0, step: 0.5}, {type: 'boolean', label: 'test'}, {type: 'date', min: '2024-01-30'}]
 
   let errorShow = $derived.by(() => {
-    let result = error != "";
+    let result = error != "" && error != null;
     if(result){
       setTimeout(() => {
         error = ""
@@ -28,7 +28,7 @@
 <div id="container" style="position: relative;">
   <div class="row">
     {#if errorShow}
-    <p>{error}</p>
+    <p class="error-box"><b>{error}</b></p>
     {/if}
   </div>
 	<div class="row">
