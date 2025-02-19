@@ -13,7 +13,7 @@
 	function logout(){
 		AuthService.logout().then(() => {
 			isLoggedIn.set(false);
-			if($page.url.pathname  === "/dashboard"){
+			if($page.url.pathname  != "/about" && $page.url.pathname  != "/"){
 				goto(`/`, {replaceState:true}); 
 			}
 		})

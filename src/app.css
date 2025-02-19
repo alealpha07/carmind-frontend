@@ -180,3 +180,7 @@ input[type='file']:focus {
 	padding-bottom: 10px;
 	font-size: large;
    }
+   .error-box b{
+	display:inline-block;
+	max-width: 100%;
+   }
