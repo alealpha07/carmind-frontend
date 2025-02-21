@@ -1,5 +1,5 @@
 <script lang="ts">
-	import AuthService from '../../services/AuthService';
+	import AuthService from '$services/AuthService';
 	import type {User} from '$types';
 	import { isLoggedIn } from '../../stores/auth';
 	import { goto } from '$app/navigation';

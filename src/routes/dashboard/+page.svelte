@@ -1,5 +1,5 @@
 <script>
-    import AuthService from "../../services/AuthService";
+    import AuthService from "$services/AuthService";
     import { isLoggedIn } from '../../stores/auth';
     import { goto } from '$app/navigation';
     import { onMount } from 'svelte';

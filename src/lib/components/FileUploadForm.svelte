@@ -1,5 +1,5 @@
 <script lang="ts">
-	import FileService from '../../services/FileService';
+	import FileService from '$services/FileService';
 	let { label, fileType, vehicleId, error = $bindable(), successCallback } = $props();
 
 	let file: any;

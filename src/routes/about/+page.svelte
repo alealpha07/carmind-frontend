@@ -1,6 +1,6 @@
 <script lang="ts">
     import FileForm from '$lib/components/FileUploadForm.svelte';
-	import FileService from '../../services/FileService';
+	import FileService from '$services/FileService';
 </script>
 
 <svelte:head>

@@ -2,7 +2,7 @@
 	import { page } from '$app/stores';
 	import logo from '$lib/images/svelte-logo.svg';
 	import github from '$lib/images/github.svg';
-	import AuthService from "../services/AuthService";
+	import AuthService from "$services/AuthService";
     import { goto } from '$app/navigation';
 	import { isLoggedIn } from '../stores/auth';
     let loggedIn = false;
