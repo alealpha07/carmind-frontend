@@ -10,8 +10,8 @@
 	--color-bg-3: #ECF0F1;
 	--color-bg-4: #BDC3C7;
 	--color-bg-5: lightblue;
-	--color-theme-1: #ff3e00;
-	--color-theme-1-darker: #b32d00;
+	--color-theme-1: #3498DB;
+	--color-theme-1-darker: #2980B9;
 	--color-theme-2: #4075a6;
 	--color-text: rgba(0, 0, 0, 0.7);
 	--color-text-light: #ECF0F1;
@@ -27,11 +27,13 @@
 }
 
 body {
+	max-width: 100%;
 	min-height: 100vh;
 	margin: 0;
 	background-attachment: fixed;
 	background-color: var(--color-bg-1);
 	background-size: 100vw 100vh;
+	/* TODO FIX BACKGROUND IN MOBILE*/
 	background-image: radial-gradient(50% 50% at 50% 50%,
 			rgba(255, 255, 255, 0.75) 0%,
 			rgba(255, 255, 255, 0) 100%),
@@ -187,4 +189,10 @@ input[type='file']:focus {
 .error-box b {
 	display: inline-block;
 	max-width: 100%;
+}
+
+.align-container{
+	display: flex;
+	align-items: center;
+	gap: 8px;
 }

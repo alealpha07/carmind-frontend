@@ -82,12 +82,6 @@
     width: 100%;
   }
 
-	.align-container {
-		display: flex;
-		align-items: center;
-		gap: 8px;
-	}
-
 	input {
 		width: 100%;
 	}

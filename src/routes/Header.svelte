@@ -1,22 +1,17 @@
 <script>
 	import { page } from '$app/stores';
 	import logo from '$lib/images/svelte-logo.svg';
-	import github from '$lib/images/github.svg';
-	import AuthService from "$services/AuthService";
-    import { goto } from '$app/navigation';
+	import AuthService from '$services/AuthService';
+	import { goto } from '$app/navigation';
 	import { isLoggedIn } from '../stores/auth';
-    let loggedIn = false;
-    // Subscribe to store to react to changes
-    $: isLoggedIn.subscribe(value => {
-        loggedIn = value;
-    });
-	function logout(){
+	let loggedIn = $derived(isLoggedIn);
+	function logout() {
 		AuthService.logout().then(() => {
 			isLoggedIn.set(false);
-			if($page.url.pathname  != "/about" && $page.url.pathname  != "/"){
-				goto(`/`, {replaceState:true}); 
+			if ($page.url.pathname != '/about' && $page.url.pathname != '/') {
+				goto(`/`, { replaceState: true });
 			}
-		})
+		});
 	}
 </script>
 
@@ -34,9 +29,6 @@
 		<ul>
 			<li aria-current={$page.url.pathname === '/' ? 'page' : undefined}>
 				<a href="/">Home</a>
-			</li>
-			<li aria-current={$page.url.pathname === '/about' ? 'page' : undefined}>
-				<a href="/about">About</a>
 			</li>
 			{#if loggedIn}
 				<li aria-current={$page.url.pathname.startsWith('/dashboard') ? 'page' : undefined}>
@@ -60,8 +52,8 @@
 	</nav>
 
 	<div class="corner">
-		<a href="https://github.com/sveltejs/kit">
-			<img src={github} alt="GitHub" />
+		<a href="/about" style="color: transparent; width: fit-content;">
+			<span class="mdi--about-circle-outline">About</span>
 		</a>
 	</div>
 </header>
@@ -137,7 +129,8 @@
 		border-top: var(--size) solid var(--color-theme-1);
 	}
 
-	nav a, button {
+	nav a,
+	button {
 		display: flex;
 		height: 100%;
 		align-items: center;
@@ -154,13 +147,28 @@
 		background-color: transparent;
 	}
 
-	button:hover{
+	button:hover {
 		color: var(--color-text-light);
 		background-color: var(--color-theme-1);
 		border-color: var(--color-theme-1);
 	}
 
-	a:hover{
+	a:hover {
 		color: var(--color-theme-1);
+	}
+
+	.mdi--about-circle-outline {
+		display: inline-block;
+		margin: 0;
+		width: 32px;
+		height: 32px;
+		--svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M11 9h2V7h-2m1 13c-4.41 0-8-3.59-8-8s3.59-8 8-8s8 3.59 8 8s-3.59 8-8 8m0-18A10 10 0 0 0 2 12a10 10 0 0 0 10 10a10 10 0 0 0 10-10A10 10 0 0 0 12 2m-1 15h2v-6h-2z'/%3E%3C/svg%3E");
+		background-color: var(--color-text);
+		-webkit-mask-image: var(--svg);
+		mask-image: var(--svg);
+		-webkit-mask-repeat: no-repeat;
+		mask-repeat: no-repeat;
+		-webkit-mask-size: 100% 100%;
+		mask-size: 100% 100%;
 	}
 </style>
