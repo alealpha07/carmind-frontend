@@ -32,12 +32,10 @@ body {
 	background-attachment: fixed;
 	background-color: var(--color-bg-1);
 	background-size: 100vw 100vh;
-	background-image: radial-gradient(
-			50% 50% at 50% 50%,
+	background-image: radial-gradient(50% 50% at 50% 50%,
 			rgba(255, 255, 255, 0.75) 0%,
-			rgba(255, 255, 255, 0) 100%
-		),
-		linear-gradient(180deg, var(--color-bg-0) 0%, var(--color-bg-1) 15%, var(--color-bg-2) 50%);
+			rgba(255, 255, 255, 0) 100%),
+		linear-gradient(180deg, var(--color-bg-0) 0%, var(--color-bg-1) 20%, var(--color-bg-2) 60%);
 }
 
 h1,
@@ -88,7 +86,9 @@ pre {
 	margin: 0 auto;
 }
 
-button, input, input::file-selector-button {
+button,
+input,
+input::file-selector-button {
 	font-size: inherit;
 	font-family: inherit;
 	border: solid var(--color-theme-1) 1px;
@@ -100,7 +100,8 @@ button, input, input::file-selector-button {
 	transition-duration: 300ms;
 }
 
-button.button-secondary, input::file-selector-button {
+button.button-secondary,
+input::file-selector-button {
 	background-color: transparent;
 	color: var(--color-theme-1);
 }
@@ -111,19 +112,19 @@ button.button-minor {
 	border-color: var(--color-text);
 }
 
-button:hover{
+button:hover {
 	background-color: var(--color-theme-1-darker);
 	transition-duration: 300ms;
 	border: solid var(--color-theme-1-darker) 1px;
 }
 
-button.button-secondary:hover{
+button.button-secondary:hover {
 	color: var(--color-theme-1-darker);
 	background-color: transparent;
 	border: solid var(--color-theme-1-darker) 1px;
 }
 
-button.button-minor:hover{
+button.button-minor:hover {
 	color: var(--color-theme-1);
 	background-color: transparent;
 	border: solid var(--color-theme-1) 1px;
@@ -142,12 +143,14 @@ input {
 input:focus {
 	outline: solid var(--color-theme-1-darker) 1px;
 }
+
 input[type='file'] {
 	border: none;
 	cursor: default;
 	padding: 0;
 	border-radius: 0;
 }
+
 input[type='file']:focus {
 	outline: none;
 	border: none;
@@ -172,15 +175,16 @@ input[type='file']:focus {
 	white-space: nowrap;
 }
 
-.error-box{
+.error-box {
 	color: var(--color-error);
 	border-left: solid var(--color-error) 8px;
-	background-color: var(--color-error-transparent); 
+	background-color: var(--color-error-transparent);
 	padding-top: 10px;
 	padding-bottom: 10px;
 	font-size: large;
-   }
-   .error-box b{
-	display:inline-block;
+}
+
+.error-box b {
+	display: inline-block;
 	max-width: 100%;
-   }
+}
