@@ -4,7 +4,20 @@
 	import AuthService from '$services/AuthService';
 	import { goto } from '$app/navigation';
 	import { isLoggedIn } from '../stores/auth';
-	let loggedIn = $derived(isLoggedIn);
+    import { onMount } from 'svelte';
+	let loggedIn = false;
+	$: isLoggedIn.subscribe(value => {
+		loggedIn = value;
+	});
+
+	onMount(() => {
+        AuthService.getUser().then(() => {
+            isLoggedIn.set(true);
+        }).catch(() => {
+			isLoggedIn.set(false);
+        })
+    });
+
 	function logout() {
 		AuthService.logout().then(() => {
 			isLoggedIn.set(false);
