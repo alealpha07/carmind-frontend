@@ -66,7 +66,7 @@
 	<meta name="description" content="Only logged in users page" />
 </svelte:head>
 
-<Dialog show={showDialog}>
+<Dialog show={showDialog} style="top: 30vh;">
 	<h1>{formTitle}</h1>
 	<DataForm
 		data={formData}
@@ -132,11 +132,6 @@
 </div>
 
 <style>
-	@media only screen and (min-width: 601px) {
-		#dialogForm {
-			width: 30%;
-		}
-	}
 
 	.row {
 		width: 100%;

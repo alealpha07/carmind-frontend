@@ -10,6 +10,19 @@
 </div>
 
 <style>
+
+    @media only screen and (min-width: 576px) {
+		dialog {
+			width: 50% !important;
+		}
+	}
+
+    @media only screen and (min-width: 768px) {
+		dialog {
+			width: 20% !important;
+		}
+	}
+
     #dialog-container {
         width: 100vw;
         height: 100vh;
@@ -22,7 +35,7 @@
     dialog {
         position: absolute;
         border: none;
-        background-color: var(--color-bg-3);
+        background-color: #e3ebf2;
         border-radius: 15px;
         box-shadow: 10px 10px 10px var(--color-bg-5);
         padding: 15px;
