@@ -4,7 +4,7 @@
 </script>
 
 <dialog open={show} {...others}>
-    {@render children()};
+    {@render children()}
 </dialog>
 
 
@@ -17,7 +17,8 @@
         box-shadow: 10px 10px 10px var(--color-bg-5);
         padding: 15px;
         margin: auto;
-        width: 50%;
+        width: 60%;
         height: 50%;
+        z-index: 999999;
     }
 </style>

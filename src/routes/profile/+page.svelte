@@ -4,6 +4,8 @@
 	import { isLoggedIn } from '../../stores/auth';
 	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
+	import Dialog from '$lib/components/Dialog.svelte';  
+	import DataForm from '$lib/components/DataForm.svelte';
 
 	let user: User = $state({ email: '', name: '', surname: '', birthDate: new Date() });
 
@@ -27,7 +29,7 @@
 	}
 
 	function showEditProfileDialog(){
-		console.log("show dialog edit")
+		console.log('show dialog edit');
 	}
 </script>
 
@@ -68,8 +70,8 @@
 					<div class="align-container">
 						<span style="margin-right: 50px;" class="mdi--lock-outline"></span>
 						<p>Reset Password</p>
-						<span style="margin-left: 5px;" class="mdi--reload" onclick={showResetPassowrdDialog}>
-						</span>
+						<button id="reset-password-btn" aria-label="Reset Password" onclick={showResetPassowrdDialog}><span style="margin-left: 5px;" class="mdi--reload">
+						</span></button>
 					</div>
 				</div>
 				<div class="row">
@@ -212,6 +214,19 @@
 		mask-size: 100% 100%;
 	}
 	.mdi--reload:hover {
+		background-color: var(--color-theme-1);
+		cursor: pointer;
+	}
+
+	#reset-password-btn{
+		width: fit-content;
+		height: fit-content;
+		background-color: transparent;
+		color: transparent;
+		border: none;
+	}
+
+	#reset-password-btn:hover .mdi--reload{
 		background-color: var(--color-theme-1);
 		cursor: pointer;
 	}

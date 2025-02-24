@@ -25,7 +25,7 @@
   
 </script>
 
-<div class="container" style="position: relative;">
+<div class="container" style="position: relative; width: 95%; margin: auto;">
   <div class="row">
     {#if errorShow}
     <p class="error-box"><b>{error}</b></p>
