@@ -4,10 +4,15 @@
 	import { isLoggedIn } from '../../stores/auth';
 	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
-	import Dialog from '$lib/components/Dialog.svelte';  
+	import Dialog from '$lib/components/Dialog.svelte';
 	import DataForm from '$lib/components/DataForm.svelte';
 
 	let user: User = $state({ email: '', name: '', surname: '', birthDate: new Date() });
+	let showDialog = $state(false);
+	let formData: any = $state([]);
+	let formFields: Array<object> = $state([]);
+	let formClickRight = $state();
+	let formTitle = $state('');
 
 	onMount(() => {
 		AuthService.getUser()
@@ -24,12 +29,35 @@
 		return new Date(date).toLocaleDateString('it-IT');
 	}
 
-	function showResetPassowrdDialog() {
+	function showResetPasswordDialog() {
+		formData = ['', '', ''];
+		formFields = [
+			{ type: 'password', label: 'Old Password' },
+			{ type: 'password', label: 'New Password' },
+			{ type: 'password', label: 'Confirm New Password' }
+		];
+		formClickRight = confirmResetPassword;
+		formTitle = 'Reset Password';
+		showDialog = true;
 		console.log('show dialog password');
 	}
 
-	function showEditProfileDialog(){
+	function showEditProfileDialog() {
 		console.log('show dialog edit');
+	}
+
+	function resetForm() {
+		showDialog = false;
+		formData = [];
+		formFields = [];
+	}
+
+	function confirmResetPassword(result: Array<string>) {
+		console.log(result);
+	}
+
+	function confirmEditProfile(result: Array<string>) {
+		console.log(result);
 	}
 </script>
 
@@ -38,6 +66,17 @@
 	<meta name="description" content="Only logged in users page" />
 </svelte:head>
 
+<Dialog show={showDialog}>
+	<h1>{formTitle}</h1>
+	<DataForm
+		data={formData}
+		fields={formFields}
+		buttonLeft={{ label: 'Cancel' }}
+		buttonRight={{ label: 'Confirm' }}
+		clickLeft={resetForm}
+		clickRight={formClickRight}
+	></DataForm>
+</Dialog>
 <div class="container">
 	<div class="row">
 		<h1><b style="">{user.name} {user.surname}</b></h1>
@@ -70,13 +109,20 @@
 					<div class="align-container">
 						<span style="margin-right: 50px;" class="mdi--lock-outline"></span>
 						<p>Reset Password</p>
-						<button id="reset-password-btn" aria-label="Reset Password" onclick={showResetPassowrdDialog}><span style="margin-left: 5px;" class="mdi--reload">
-						</span></button>
+						<button
+							id="reset-password-btn"
+							aria-label="Reset Password"
+							onclick={showResetPasswordDialog}
+						>
+							<span style="margin-left: 5px;" class="mdi--reload"></span>
+						</button>
 					</div>
 				</div>
 				<div class="row">
-					<button style="width: 85%; margin: auto; margin-top: 30px; margin-bottom: 20px;"
-						onclick={showEditProfileDialog}>
+					<button
+						style="width: 85%; margin: auto; margin-top: 30px; margin-bottom: 20px;"
+						onclick={showEditProfileDialog}
+					>
 						Edit Profile
 					</button>
 				</div>
@@ -86,6 +132,12 @@
 </div>
 
 <style>
+	@media only screen and (min-width: 601px) {
+		#dialogForm {
+			width: 30%;
+		}
+	}
+
 	.row {
 		width: 100%;
 	}
@@ -218,7 +270,7 @@
 		cursor: pointer;
 	}
 
-	#reset-password-btn{
+	#reset-password-btn {
 		width: fit-content;
 		height: fit-content;
 		background-color: transparent;
@@ -226,7 +278,7 @@
 		border: none;
 	}
 
-	#reset-password-btn:hover .mdi--reload{
+	#reset-password-btn:hover .mdi--reload {
 		background-color: var(--color-theme-1);
 		cursor: pointer;
 	}

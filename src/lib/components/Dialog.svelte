@@ -3,12 +3,22 @@
 
 </script>
 
-<dialog open={show} {...others}>
-    {@render children()}
-</dialog>
-
+<div id="dialog-container" style="display: {show ? 'block':'none'}">
+    <dialog open={show} {...others}>
+        {@render children()}
+    </dialog>
+</div>
 
 <style>
+    #dialog-container {
+        width: 100vw;
+        height: 100vh;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 999998;
+    }
+
     dialog {
         position: absolute;
         border: none;
@@ -17,8 +27,8 @@
         box-shadow: 10px 10px 10px var(--color-bg-5);
         padding: 15px;
         margin: auto;
-        width: 60%;
-        height: 50%;
+        width: fit-content;
+        height: fit-content;
         z-index: 999999;
     }
 </style>
