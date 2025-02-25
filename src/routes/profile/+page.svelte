@@ -50,10 +50,10 @@
 		formClickRight = confirmResetPassword;
 		formTitle = 'Reset Password';
 		showDialog = true;
-		console.log('show dialog password');
 	}
 
 	function showEditProfileDialog() {
+		// TODO continue here
 		console.log('show dialog edit');
 	}
 
