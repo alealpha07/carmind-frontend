@@ -10,18 +10,41 @@
 </div>
 
 <style>
+    @media only screen and (max-width: 575px) {
+		dialog {
+			width: 80% !important;
+		}
+	}
 
     @media only screen and (min-width: 576px) {
 		dialog {
-			width: 50% !important;
+			width: 60% !important;
 		}
 	}
 
     @media only screen and (min-width: 768px) {
 		dialog {
-			width: 20% !important;
+			width: 50% !important;
 		}
 	}
+
+    @media only screen and (min-width: 992px) {
+        dialog {
+			width: 50% !important;
+		}
+    }
+
+    @media only screen and (min-width: 1200px) {
+        dialog {
+			width: 30% !important;
+		}
+    }
+
+    @media only screen and (min-width: 1400px) {
+        dialog {
+			width: 20% !important;
+		}
+    }
 
     #dialog-container {
         width: 100vw;

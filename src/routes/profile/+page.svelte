@@ -82,7 +82,7 @@
 		<h1><b style="">{user.name} {user.surname}</b></h1>
 	</div>
 	<div class="row justify-content-center">
-		<div class="col-12 col-sm-12 col-md-5" style="padding: 0;">
+		<div class="col-12 col-sm-12 col-md-8 col-xl-5" style="padding: 0;">
 			<div id="main-card" class="container justify-content-center">
 				<div id="user-icon-container">
 					<span class="mdi--account"></span>
