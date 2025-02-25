@@ -21,6 +21,7 @@
 	--color-alert: #E67E22;
 	--color-error: #E74C3C;
 	--color-error-transparent: rgba(231, 76, 60, 0.2);
+	--color-success-transparent: rgba(46, 204, 113, 0.2);
 
 	font-family: var(--font-body);
 	color: var(--color-text);
@@ -177,7 +178,7 @@ input[type='file']:focus {
 	white-space: nowrap;
 }
 
-.error-box {
+.error-box, .success-box {
 	color: var(--color-error);
 	border-left: solid var(--color-error) 8px;
 	background-color: var(--color-error-transparent);
@@ -186,7 +187,13 @@ input[type='file']:focus {
 	font-size: large;
 }
 
-.error-box b {
+.success-box {
+	color: var(--color-success);
+	border-left: solid var(--color-success) 8px;
+	background-color: var(--color-success-transparent);
+}
+
+.error-box b, .success-box b {
 	display: inline-block;
 	max-width: 100%;
 }

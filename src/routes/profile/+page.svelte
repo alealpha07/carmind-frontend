@@ -14,6 +14,16 @@
 	let formClickRight = $state();
 	let formTitle = $state('');
 	let formError = $state('');
+	let formSuccessMessage: string = $state('');
+	let showSuccess = $derived.by(() => {
+		let result = formSuccessMessage != '' && formSuccessMessage != null;
+		if (result) {
+			setTimeout(() => {
+				formSuccessMessage = '';
+			}, 5000);
+		}
+		return result;
+	});
 
 	onMount(() => {
 		AuthService.getUser()
@@ -58,6 +68,7 @@
 
 	function confirmResetPassword(result: Array<string>) {
 		AuthService.resetPassword(result[0], result[1], result[2]).then((res) => {
+			formSuccessMessage = (res as string);
 			resetForm();
 		}).catch((err) =>{
 			formError= err.response.data;
@@ -85,6 +96,9 @@
 		clickLeft={resetForm}
 		clickRight={formClickRight}
 	></DataForm>
+</Dialog>
+<Dialog unpersistent show={showSuccess} style="background-color: transparent; border: none; box-shadow: none; bottom: 10px; margin-right: 30px;">
+	<p class="success-box"><b>{formSuccessMessage}</b></p>
 </Dialog>
 <div class="container">
 	<div class="row">

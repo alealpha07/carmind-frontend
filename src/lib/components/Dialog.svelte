@@ -1,13 +1,19 @@
 <script lang="ts">
-    let {show = $bindable(), children, ...others} = $props();
+    let {show = $bindable(), unpersistent=false, children, ...others} = $props();
 
 </script>
 
-<div id="dialog-container" style="display: {show ? 'block':'none'}">
+{#if unpersistent }
+<dialog open={show} {...others}>
+    {@render children()}
+</dialog>
+{:else}
+<div id="dialog-container" style="display: {show ? 'block':'none'}"> 
     <dialog open={show} {...others}>
         {@render children()}
     </dialog>
 </div>
+{/if}
 
 <style>
     @media only screen and (max-width: 575px) {
