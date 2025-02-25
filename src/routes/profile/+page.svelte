@@ -13,6 +13,7 @@
 	let formFields: Array<object> = $state([]);
 	let formClickRight = $state();
 	let formTitle = $state('');
+	let formError = $state('');
 
 	onMount(() => {
 		AuthService.getUser()
@@ -50,10 +51,17 @@
 		showDialog = false;
 		formData = [];
 		formFields = [];
+		formTitle = '';
+		formError = '';
+		formClickRight= ()=>{};
 	}
 
 	function confirmResetPassword(result: Array<string>) {
-		console.log(result);
+		AuthService.resetPassword(result[0], result[1], result[2]).then((res) => {
+			resetForm();
+		}).catch((err) =>{
+			formError= err.response.data;
+		});
 	}
 
 	function confirmEditProfile(result: Array<string>) {
@@ -71,6 +79,7 @@
 	<DataForm
 		data={formData}
 		fields={formFields}
+		bind:error={formError}
 		buttonLeft={{ label: 'Cancel' }}
 		buttonRight={{ label: 'Confirm' }}
 		clickLeft={resetForm}

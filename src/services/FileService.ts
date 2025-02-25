@@ -11,7 +11,6 @@ class FileService {
   };
 
   static upload(file: FormData, vehicleId: Number, type: string) {
-    // eslint-disable-next-line no-async-promise-executor
     return new Promise(async (resolve, reject) => {
       try {
         const res = await axios.post(`${BASE_URL}/upload?id=${vehicleId}&type=${type}`, file, { withCredentials: true, headers: { "Content-Type": "multipart/form-data" }});
@@ -24,7 +23,6 @@ class FileService {
   }
 
   static get(vehicleId: Number, type: string) {
-    // eslint-disable-next-line no-async-promise-executor
     return new Promise(async (resolve, reject) => {
       try {
         const res = await axios.get(`${BASE_URL}/upload?id=${vehicleId}&type=${type}`, { withCredentials: true, responseType: "blob"});
