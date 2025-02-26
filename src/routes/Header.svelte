@@ -28,7 +28,7 @@
 	}
 </script>
 
-<header>
+<header style="max-width: 100%; overflow:hidden;">
 	<div class="corner">
 		<a href="https://kit.svelte.dev">
 			<img src={logo} alt="SvelteKit" />
@@ -41,14 +41,23 @@
 		</svg>
 		<ul>
 			<li aria-current={$page.url.pathname === '/' ? 'page' : undefined}>
-				<a href="/">Home</a>
+				<a href="/">
+					<p class="nav-text"><b>Home</b></p>
+					<span class="mdi--home nav-icon"></span>
+				</a>
 			</li>
 			{#if loggedIn}
 				<li aria-current={$page.url.pathname.startsWith('/dashboard') ? 'page' : undefined}>
-					<a href="/dashboard">Dashboard</a>
+					<a href="/dashboard">
+						<p class="nav-text"><b>Dashboard</b></p>
+						<span class="mdi--car nav-icon"></span>
+					</a>
 				</li>
 				<li aria-current={$page.url.pathname.startsWith('/profile') ? 'page' : undefined}>
-					<a href="/profile">Profile</a>
+					<a href="/profile">
+						<p class="nav-text"><b>Profile</b></p>
+						<span class="mdi--user nav-icon"></span>
+					</a>
 				</li>
 			{/if}
 			<li aria-current={$page.url.pathname.startsWith('/login') ? 'page' : undefined}>
@@ -72,6 +81,15 @@
 </header>
 
 <style>
+	@media only screen and (max-width: 576px) {
+		.nav-text {
+			display: none;
+		}
+		.nav-icon {
+			display: inline-block !important;
+		}
+	}
+
 	header {
 		display: flex;
 		justify-content: space-between;
@@ -176,6 +194,52 @@
 		width: 32px;
 		height: 32px;
 		--svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M11 9h2V7h-2m1 13c-4.41 0-8-3.59-8-8s3.59-8 8-8s8 3.59 8 8s-3.59 8-8 8m0-18A10 10 0 0 0 2 12a10 10 0 0 0 10 10a10 10 0 0 0 10-10A10 10 0 0 0 12 2m-1 15h2v-6h-2z'/%3E%3C/svg%3E");
+		background-color: var(--color-text);
+		-webkit-mask-image: var(--svg);
+		mask-image: var(--svg);
+		-webkit-mask-repeat: no-repeat;
+		mask-repeat: no-repeat;
+		-webkit-mask-size: 100% 100%;
+		mask-size: 100% 100%;
+	}
+
+	a:hover .nav-icon, a:hover .mdi--about-circle-outline{
+		background-color: var(--color-theme-1) !important;
+	}
+
+	.mdi--home {
+		display: none;
+		width: 24px;
+		height: 24px;
+		--svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M10 20v-6h4v6h5v-8h3L12 3L2 12h3v8z'/%3E%3C/svg%3E");
+		background-color: var(--color-text);
+		-webkit-mask-image: var(--svg);
+		mask-image: var(--svg);
+		-webkit-mask-repeat: no-repeat;
+		mask-repeat: no-repeat;
+		-webkit-mask-size: 100% 100%;
+		mask-size: 100% 100%;
+	}
+
+	.mdi--car {
+	display: none;
+	width: 24px;
+	height: 24px;
+	--svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='m5 11l1.5-4.5h11L19 11m-1.5 5a1.5 1.5 0 0 1-1.5-1.5a1.5 1.5 0 0 1 1.5-1.5a1.5 1.5 0 0 1 1.5 1.5a1.5 1.5 0 0 1-1.5 1.5m-11 0A1.5 1.5 0 0 1 5 14.5A1.5 1.5 0 0 1 6.5 13A1.5 1.5 0 0 1 8 14.5A1.5 1.5 0 0 1 6.5 16M18.92 6c-.2-.58-.76-1-1.42-1h-11c-.66 0-1.22.42-1.42 1L3 12v8a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1h12v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-8z'/%3E%3C/svg%3E");
+	background-color: var(--color-text);
+	-webkit-mask-image: var(--svg);
+	mask-image: var(--svg);
+	-webkit-mask-repeat: no-repeat;
+	mask-repeat: no-repeat;
+	-webkit-mask-size: 100% 100%;
+	mask-size: 100% 100%;
+	}
+
+	.mdi--user {
+		display: none;
+		width: 24px;
+		height: 24px;
+		--svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M12 4a4 4 0 0 1 4 4a4 4 0 0 1-4 4a4 4 0 0 1-4-4a4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4'/%3E%3C/svg%3E");
 		background-color: var(--color-text);
 		-webkit-mask-image: var(--svg);
 		mask-image: var(--svg);
