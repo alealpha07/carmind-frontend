@@ -92,13 +92,13 @@
 	</div>
 	<div class="row">
 		<div class="col-12" style="height: 42px;">
-			<div style="width: fit-content; position: absolute; right: 0;">
-				<button onclick={clickLeft} class="button-secondary">{buttonLeft.label}</button>
-				<button
+			<div style="width: 100%; display:flex; flex-direction:row-reverse;">
+				<button style="width: fit-content; margin:0; margin-left:5px;"
 					onclick={() => {
 						clickRight(tempData);
-					}}>{buttonRight.label}</button
-				>
+					}}>{buttonRight.label}
+				</button>
+				<button style="width: fit-content; margin:0;" onclick={clickLeft} class="button-secondary">{buttonLeft.label}</button>
 			</div>
 		</div>
 	</div>
@@ -109,12 +109,11 @@
 		margin-top: 15px;
 	}
 
-	.row {
-		width: 100%;
-	}
-
-	input {
-		width: 100%;
+	input,
+	button {
+		width: calc(100% - 22px);
+		margin: auto;
+		display: inline-block;
 	}
 
 	.switch {

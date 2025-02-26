@@ -203,3 +203,12 @@ input[type='file']:focus {
 	align-items: center;
 	gap: 8px;
 }
+
+.container{
+	width: calc(100% - 24px);
+}
+
+.row {
+	width: 100%;
+	margin: auto !important;	
+}

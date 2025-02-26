@@ -104,8 +104,8 @@
 	<div class="row">
 		<h1><b style="">{user.name} {user.surname}</b></h1>
 	</div>
-	<div class="row justify-content-center">
-		<div class="col-12 col-sm-12 col-md-5 col-xl-5" style="padding: 0;">
+	<div class="row justify-content-center align-content-center">
+		<div class="col-12 col-sm-10 col-md-6 col-lg-5 col-xl-5" style="padding: 0;">
 			<div id="main-card" class="container justify-content-center">
 				<div id="user-icon-container">
 					<span class="mdi--account"></span>
@@ -155,10 +155,6 @@
 </div>
 
 <style>
-
-	.row {
-		width: 100%;
-	}
 
 	#main-card {
 		position: relative;

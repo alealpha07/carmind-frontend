@@ -36,7 +36,7 @@
 
     @media only screen and (min-width: 992px) {
         dialog {
-			width: 50% !important;
+			width: 40% !important;
 		}
     }
 
