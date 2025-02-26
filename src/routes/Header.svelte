@@ -163,7 +163,7 @@
 	nav a,
 	button {
 		display: flex;
-		height: 100%;
+		height: 80%;
 		align-items: center;
 		padding: 0 0.5rem;
 		color: var(--color-text);
@@ -173,9 +173,11 @@
 		letter-spacing: 0.1em;
 		text-decoration: none;
 		transition: color 0.2s linear;
+		transition-property:none;
 		border: solid transparent 1px;
 		cursor: pointer;
 		background-color: transparent;
+		margin-top: 5px;
 	}
 
 	button:hover {
