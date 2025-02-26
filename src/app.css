@@ -205,7 +205,7 @@ input[type='file']:focus {
 }
 
 .container{
-	width: calc(100% - 24px);
+	width: calc(100% - 24px) !important;
 }
 
 .row {
