@@ -77,8 +77,8 @@
 						type="date"
 						id="form-element-{field.key}"
 						bind:value={tempData[field.key]}
-						min={(field.min as Date).toISOString().split('T')[0]}
-						max={(field.max as Date).toISOString().split('T')[0]}
+						min={!field.min ? null : (field.min as Date).toISOString().split('T')[0]}
+						max={!field.max ? null : (field.max as Date).toISOString().split('T')[0]}
 					/>
 				</div>
 			{:else if field.type == 'number'}
@@ -95,7 +95,7 @@
 					/>
 				</div>
 			{:else if field.type == 'boolean'}
-				<div class="col-12">
+				<div class="col-12 align-content-end">
 					<div class="align-container">
 						<b>{field.label}</b>
 						<label style="display: inline-block;" class="switch" for="form-element-{field.key}">
