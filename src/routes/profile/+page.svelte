@@ -7,9 +7,9 @@
 	import Dialog from '$lib/components/Dialog.svelte';
 	import DataForm from '$lib/components/DataForm.svelte';
 
-	let user: User = $state({ email: '', name: '', surname: '', birthDate: new Date() });
+	let user: User = $state({ email: '', name: '', surname: '', birthDate: new Date(), password:'', confirmNewPassword: '', newPassword: ''});
 	let showDialog = $state(false);
-	let formData: any = $state([]);
+	let formData: object = $state({});
 	let formFields: Array<object> = $state([]);
 	let formClickRight = $state();
 	let formTitle = $state('');
@@ -41,11 +41,11 @@
 	}
 
 	function showResetPasswordDialog() {
-		formData = ['', '', ''];
+		formData = {password: '', newPassword: '', confirmNewPassword: ''};
 		formFields = [
-			{ type: 'password', label: 'Old Password' },
-			{ type: 'password', label: 'New Password' },
-			{ type: 'password', label: 'Confirm New Password' }
+			{ type: 'password', label: 'Old Password', key: 'password' },
+			{ type: 'password', label: 'New Password', key: 'newPassword' },
+			{ type: 'password', label: 'Confirm New Password', key: 'confirmNewPassword' }
 		];
 		formClickRight = confirmResetPassword;
 		formTitle = 'Reset Password';
@@ -53,11 +53,11 @@
 	}
 
 	function showEditProfileDialog() {
-		formData = [user.name, user.surname, user.birthDate];
+		formData = {name: user.name, surname: user.surname, birthDate: user.birthDate};
 		formFields = [
-			{ type: 'text', label: 'Name' },
-			{ type: 'text', label: 'Surname' },
-			{ type: 'date', label: 'Birthdate'}
+			{ type: 'text', label: 'Name', key: 'name' },
+			{ type: 'text', label: 'Surname', key: 'surname' },
+			{ type: 'date', label: 'Birthdate', key: 'birthDate'}
 		];
 		formClickRight = confirmEditProfile;
 		formTitle = 'Edit Profile';
@@ -73,8 +73,8 @@
 		formClickRight= ()=>{};
 	}
 
-	function confirmResetPassword(result: Array<string>) {
-		AuthService.resetPassword(result[0], result[1], result[2]).then((res) => {
+	function confirmResetPassword(result: User) {
+		AuthService.resetPassword(result.password, result.newPassword, result.confirmNewPassword).then((res) => {
 			formSuccessMessage = (res as string);
 			resetForm();
 		}).catch((err) =>{
@@ -82,8 +82,8 @@
 		});
 	}
 
-	function confirmEditProfile(result: Array<string>) {
-		AuthService.editProfile(result[0], result[1], new Date(result[2])).then((res) => {
+	function confirmEditProfile(result: User) {
+		AuthService.editProfile(result.name, result.surname, new Date(result.birthDate)).then((res) => {
 			AuthService.getUser().then((ress) => {
 				user = ress as User;
 				formSuccessMessage = (res as string);

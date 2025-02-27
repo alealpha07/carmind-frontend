@@ -1,6 +1,6 @@
 <script lang="ts">
 	let {
-		data = [],
+		data = {},
 		fields = [],
 		buttonLeft = { label: 'buttonLeft' },
 		buttonRight = { label: 'buttonRight' },
@@ -9,8 +9,8 @@
 		clickRight
 	} = $props();
 
-	//data = ['test', 0, false, '2024-01-31'],
-	//fields = [{ type: 'text', label: 'label' }, {type: 'number', label: 'label2', placeholder: '0', min: 0, step: 0.5}, {type: 'boolean', label: 'test'}, {type: 'date', min: '2024-01-30'}]
+	//data = {txt: '',num: 0, bool: false, dte: '2024-01-31'},
+	//fields = [{ type: 'text', label: 'label', key: 'txt' }, {type: 'number', label: 'label2', placeholder: '0', min: 0, step: 0.5, key: 'num' }, {type: 'boolean', label: 'test', key: 'bool' }, {type: 'date', min: '2024-01-30', key: 'dte' }]
 
 	let errorShow = $derived.by(() => {
 		let result = error != '' && error != null;
@@ -32,47 +32,47 @@
 		{/if}
 	</div>
 	<div class="row">
-		{#each fields as field, index}
+		{#each fields as field}
 			{#if field.type == 'text'}
 				<div class="col-12">
-					<label for="form-element-{index}"><b>{field.label}</b></label> <br />
+					<label for="form-element-{field.key}"><b>{field.label}</b></label> <br />
 					<input
 						type="text"
-						id="form-element-{index}"
+						id="form-element-{field.key}"
 						placeholder={field.label}
-						bind:value={tempData[index]}
+						bind:value={tempData[field.key]}
 					/>
 				</div>
 			{:else if field.type == 'password'}
 				<div class="col-12">
-					<label for="form-element-{index}"><b>{field.label}</b></label> <br />
+					<label for="form-element-{field.key}"><b>{field.label}</b></label> <br />
 					<input
 						type="password"
-						id="form-element-{index}"
+						id="form-element-{field.key}"
 						placeholder={field.label}
-						bind:value={tempData[index]}
+						bind:value={tempData[field.key]}
 					/>
 				</div>
 			{:else if field.type == 'date'}
 			
 				<div class="col-12">
-					<label for="form-element-{index}"><b>{field.label}</b></label> <br />
+					<label for="form-element-{field.key}"><b>{field.label}</b></label> <br />
 					<input
-						class={tempData[index] = new Date(tempData[index]).toISOString().split('T')[0]}
+						class={tempData[field.key] = new Date(tempData[field.key]).toISOString().split('T')[0]}
 						type="date"
-						id="form-element-{index}"
-						bind:value={tempData[index]}
+						id="form-element-{field.key}"
+						bind:value={tempData[field.key]}
 						min={field.min}
 						max={field.max}
 					/>
 				</div>
 			{:else if field.type == 'number'}
 				<div class="col-12">
-					<label for="form-element-{index}"><b>{field.label}</b></label> <br />
+					<label for="form-element-{field.key}"><b>{field.label}</b></label> <br />
 					<input
 						type="number"
-						id="form-element-{index}"
-						bind:value={tempData[index]}
+						id="form-element-{field.key}"
+						bind:value={tempData[field.key]}
 						placeholder={field.placeholder}
 						min={field.min}
 						max={field.max}
@@ -83,8 +83,8 @@
 				<div class="col-12">
 					<div class="align-container">
 						<b>{field.label}</b>
-						<label style="display: inline-block;" class="switch" for="form-element-{index}">
-							<input type="checkbox" id="form-element-{index}" bind:checked={tempData[index]} />
+						<label style="display: inline-block;" class="switch" for="form-element-{field.key}">
+							<input type="checkbox" id="form-element-{field.key}" bind:checked={tempData[field.key]} />
 							<div class="slider round"></div>
 						</label>
 					</div>

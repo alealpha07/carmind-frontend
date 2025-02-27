@@ -3,5 +3,7 @@ export type User = {
     name: string;
     surname: string;
     birthDate: Date;
+    password: string;
+    newPassword: string;
+    confirmNewPassword: string;
   };
-  
