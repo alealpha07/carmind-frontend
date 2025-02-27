@@ -22,7 +22,15 @@
 		return result;
 	});
 
-	let tempData = $derived(JSON.parse(JSON.stringify(data)));
+	let tempData = $derived.by(() => {
+		let tmp = JSON.parse(JSON.stringify(data));
+		fields.forEach((field: any) => {
+			if (field.type == "date"){
+				tmp[field.key] = new Date(tmp[field.key]).toISOString().split('T')[0]
+			}
+		})
+		return tmp;
+	});
 </script>
 
 <div class="container" style="position: relative; width: 95%; margin: auto;">
@@ -58,7 +66,6 @@
 				<div class="col-12">
 					<label for="form-element-{field.key}"><b>{field.label}</b></label> <br />
 					<input
-						class={tempData[field.key] = new Date(tempData[field.key]).toISOString().split('T')[0]}
 						type="date"
 						id="form-element-{field.key}"
 						bind:value={tempData[field.key]}
