@@ -1,4 +1,5 @@
 <script lang="ts">
+	import type { Field } from '$types';
 	let {
 		data = {},
 		fields = [],
@@ -7,6 +8,12 @@
 		error = $bindable(),
 		clickLeft,
 		clickRight
+	}: {
+		data: any,
+		fields: Array<Field>,
+		buttonLeft: {label: string}, buttonRight: {label: string},
+		error: string,
+		clickLeft: Function, clickRight: Function
 	} = $props();
 
 	//data = {txt: '',num: 0, bool: false, dte: '2024-01-31'},
@@ -24,7 +31,7 @@
 
 	let tempData = $derived.by(() => {
 		let tmp = JSON.parse(JSON.stringify(data));
-		fields.forEach((field: any) => {
+		fields.forEach((field) => {
 			if (field.type == "date"){
 				tmp[field.key] = new Date(tmp[field.key]).toISOString().split('T')[0]
 			}

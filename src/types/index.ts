@@ -7,3 +7,15 @@ export type User = {
     newPassword: string;
     confirmNewPassword: string;
   };
+
+
+export type Field = {
+  type: string,
+  label: string,
+  placeholder?: string,
+  key: string,
+  min?: number | Date,
+  max?: number | Date
+  step?: number,
+
+};
