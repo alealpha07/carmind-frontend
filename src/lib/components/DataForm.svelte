@@ -22,7 +22,7 @@
 		return result;
 	});
 
-	let tempData = JSON.parse(JSON.stringify(data));
+	let tempData = $derived(JSON.parse(JSON.stringify(data)));
 </script>
 
 <div class="container" style="position: relative; width: 95%; margin: auto;">
@@ -54,9 +54,11 @@
 					/>
 				</div>
 			{:else if field.type == 'date'}
+			
 				<div class="col-12">
 					<label for="form-element-{index}"><b>{field.label}</b></label> <br />
 					<input
+						class={tempData[index] = new Date(tempData[index]).toISOString().split('T')[0]}
 						type="date"
 						id="form-element-{index}"
 						bind:value={tempData[index]}

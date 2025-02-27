@@ -63,6 +63,18 @@ class AuthService {
     });
   }
 
+  static editProfile(name: string, surname: string, birthDate: Date) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const res = await axios.post(`${BASE_URL}/auth/editprofile`, {name: name, surname: surname, birthDate: birthDate}, { withCredentials: true, });
+        const data = res.data;
+        resolve(data);
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
+
 }
 
 export default AuthService;

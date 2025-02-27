@@ -53,8 +53,15 @@
 	}
 
 	function showEditProfileDialog() {
-		// TODO continue here
-		console.log('show dialog edit');
+		formData = [user.name, user.surname, user.birthDate];
+		formFields = [
+			{ type: 'text', label: 'Name' },
+			{ type: 'text', label: 'Surname' },
+			{ type: 'date', label: 'Birthdate'}
+		];
+		formClickRight = confirmEditProfile;
+		formTitle = 'Edit Profile';
+		showDialog = true;
 	}
 
 	function resetForm() {
@@ -76,7 +83,15 @@
 	}
 
 	function confirmEditProfile(result: Array<string>) {
-		console.log(result);
+		AuthService.editProfile(result[0], result[1], new Date(result[2])).then((res) => {
+			AuthService.getUser().then((ress) => {
+				user = ress as User;
+				formSuccessMessage = (res as string);
+				resetForm();
+			})		
+		}).catch((err) =>{
+			formError= err.response.data;
+		});
 	}
 </script>
 
