@@ -30,7 +30,7 @@
 
 <header style="max-width: 100%; overflow:hidden;">
 	<div class="corner">
-		<a href="https://kit.svelte.dev">
+		<a href="/">
 			<img src={logo} alt="SvelteKit" />
 		</a>
 	</div>
@@ -40,16 +40,10 @@
 			<path d="M0,0 L1,2 C1.5,3 1.5,3 2,3 L2,0 Z" />
 		</svg>
 		<ul>
-			<li aria-current={$page.url.pathname === '/' ? 'page' : undefined}>
-				<a href="/">
-					<p class="nav-text"><b>Home</b></p>
-					<span class="mdi--home nav-icon"></span>
-				</a>
-			</li>
 			{#if loggedIn}
-				<li aria-current={$page.url.pathname.startsWith('/dashboard') ? 'page' : undefined}>
-					<a href="/dashboard">
-						<p class="nav-text"><b>Dashboard</b></p>
+				<li aria-current={$page.url.pathname.startsWith('/vehicles') ? 'page' : undefined}>
+					<a href="/vehicles">
+						<p class="nav-text"><b>Vehicles</b></p>
 						<span class="mdi--car nav-icon"></span>
 					</a>
 				</li>

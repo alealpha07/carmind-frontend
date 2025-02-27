@@ -21,7 +21,7 @@
 		AuthService.login(username, password)
 			.then(() => {
 				isLoggedIn.set(true);
-				goto(`/dashboard`, { replaceState: true });
+				goto(`/vehicles`, { replaceState: true });
 			})
 			.catch((err) => (error = err.response.data));
 	}

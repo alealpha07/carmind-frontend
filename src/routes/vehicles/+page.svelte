@@ -14,12 +14,12 @@
 </script>
 
 <svelte:head>
-    <title>Dashboard</title>
+    <title>Vehicles</title>
     <meta name="description" content="Only logged in users page" />
 </svelte:head>
 
 <div class="text-column">
-    <h1>Dashboard</h1>
+    <h1>Vehicles</h1>
     <p>
         This is a protected page!
     </p>
