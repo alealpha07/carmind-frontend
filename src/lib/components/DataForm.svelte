@@ -40,6 +40,15 @@
 		});
 		return tmp;
 	});
+
+	function getSanitizedData(){
+		fields.forEach((field) => {
+			if (field.type == 'date') {
+				tempData[field.key] = new Date(tempData[field.key]);
+			}
+		});
+		return tempData;
+	}
 </script>
 
 <div class="container" style="position: relative; width: 95%; margin: auto;">
@@ -117,7 +126,7 @@
 				<button
 					style="width: fit-content; margin:0; margin-left:5px;"
 					onclick={() => {
-						clickRight(tempData);
+						clickRight(getSanitizedData());
 					}}
 					>{buttonRight.label}
 				</button>

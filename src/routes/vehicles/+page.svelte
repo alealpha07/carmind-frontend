@@ -78,6 +78,7 @@
 	}
 
 	function confirmAddVehicle(result: Vehicle) {
+		console.log(result)
 		VehicleService.addVehicle(
 			result.type,
 			result.brand,
@@ -85,11 +86,11 @@
 			Number(result.registrationYear),
 			result.plateNumber,
 			result.isInsured,
-			new Date(result.startDateInsurance),
-			new Date(result.endDateInsurance),
+			result.startDateInsurance,
+			result.endDateInsurance,
 			result.hasBill,
-			new Date(result.endDateBill),
-			new Date(result.endDateRevision)
+			result.endDateBill,
+			result.endDateRevision
 		)
 			.then((res) => {
 				//TODO RELOAD VEHICLE

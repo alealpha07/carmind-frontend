@@ -94,7 +94,7 @@
 	}
 
 	function confirmEditProfile(result: User) {
-		AuthService.editProfile(result.name, result.surname, new Date(result.birthDate))
+		AuthService.editProfile(result.name, result.surname, result.birthDate)
 			.then((res) => {
 				AuthService.getUser().then((ress) => {
 					user = ress as User;
