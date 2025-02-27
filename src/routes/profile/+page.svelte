@@ -1,17 +1,26 @@
 <script lang="ts">
 	import AuthService from '$services/AuthService';
-	import type { User } from '$types';
+	import type { User, Field } from '$types';
 	import { isLoggedIn } from '../../stores/auth';
 	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
 	import Dialog from '$lib/components/Dialog.svelte';
 	import DataForm from '$lib/components/DataForm.svelte';
 
-	let user: User = $state({ email: '', name: '', surname: '', birthDate: new Date(), password:'', confirmNewPassword: '', newPassword: ''});
+	let user: User = $state({
+		id: 0,
+		email: '',
+		name: '',
+		surname: '',
+		birthDate: new Date(),
+		password: '',
+		confirmNewPassword: '',
+		newPassword: ''
+	});
 	let showDialog = $state(false);
 	let formData: object = $state({});
-	let formFields: Array<object> = $state([]);
-	let formClickRight = $state();
+	let formFields: Array<Field> = $state([]);
+	let formClickRight: Function = $state(()=>{});
 	let formTitle = $state('');
 	let formError = $state('');
 	let formSuccessMessage: string = $state('');
@@ -41,7 +50,7 @@
 	}
 
 	function showResetPasswordDialog() {
-		formData = {password: '', newPassword: '', confirmNewPassword: ''};
+		formData = { password: '', newPassword: '', confirmNewPassword: '' };
 		formFields = [
 			{ type: 'password', label: 'Old Password', key: 'password' },
 			{ type: 'password', label: 'New Password', key: 'newPassword' },
@@ -53,11 +62,11 @@
 	}
 
 	function showEditProfileDialog() {
-		formData = {name: user.name, surname: user.surname, birthDate: user.birthDate};
+		formData = { name: user.name, surname: user.surname, birthDate: user.birthDate };
 		formFields = [
 			{ type: 'text', label: 'Name', key: 'name' },
 			{ type: 'text', label: 'Surname', key: 'surname' },
-			{ type: 'date', label: 'Birthdate', key: 'birthDate'}
+			{ type: 'date', label: 'Birthdate', key: 'birthDate' }
 		];
 		formClickRight = confirmEditProfile;
 		formTitle = 'Edit Profile';
@@ -70,28 +79,32 @@
 		formFields = [];
 		formTitle = '';
 		formError = '';
-		formClickRight= ()=>{};
+		formClickRight = () => {};
 	}
 
 	function confirmResetPassword(result: User) {
-		AuthService.resetPassword(result.password, result.newPassword, result.confirmNewPassword).then((res) => {
-			formSuccessMessage = (res as string);
-			resetForm();
-		}).catch((err) =>{
-			formError= err.response.data;
-		});
+		AuthService.resetPassword(result.password, result.newPassword, result.confirmNewPassword)
+			.then((res) => {
+				formSuccessMessage = res as string;
+				resetForm();
+			})
+			.catch((err) => {
+				formError = err.response.data;
+			});
 	}
 
 	function confirmEditProfile(result: User) {
-		AuthService.editProfile(result.name, result.surname, new Date(result.birthDate)).then((res) => {
-			AuthService.getUser().then((ress) => {
-				user = ress as User;
-				formSuccessMessage = (res as string);
-				resetForm();
-			})		
-		}).catch((err) =>{
-			formError= err.response.data;
-		});
+		AuthService.editProfile(result.name, result.surname, new Date(result.birthDate))
+			.then((res) => {
+				AuthService.getUser().then((ress) => {
+					user = ress as User;
+					formSuccessMessage = res as string;
+					resetForm();
+				});
+			})
+			.catch((err) => {
+				formError = err.response.data;
+			});
 	}
 </script>
 
@@ -112,7 +125,11 @@
 		clickRight={formClickRight}
 	></DataForm>
 </Dialog>
-<Dialog unpersistent show={showSuccess} style="background-color: transparent; border: none; box-shadow: none; bottom: 10px; margin-right: 30px;">
+<Dialog
+	unpersistent
+	show={showSuccess}
+	style="background-color: transparent; border: none; box-shadow: none; bottom: 10px; margin-right: 30px;"
+>
 	<p class="success-box"><b>{formSuccessMessage}</b></p>
 </Dialog>
 <div class="container">
@@ -170,7 +187,6 @@
 </div>
 
 <style>
-
 	#main-card {
 		position: relative;
 		border: none;

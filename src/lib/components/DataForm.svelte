@@ -9,11 +9,13 @@
 		clickLeft,
 		clickRight
 	}: {
-		data: any,
-		fields: Array<Field>,
-		buttonLeft: {label: string}, buttonRight: {label: string},
-		error: string,
-		clickLeft: Function, clickRight: Function
+		data: any;
+		fields: Array<Field>;
+		buttonLeft: { label: string };
+		buttonRight: { label: string };
+		error: string;
+		clickLeft: Function;
+		clickRight: Function;
 	} = $props();
 
 	//data = {txt: '',num: 0, bool: false, dte: '2024-01-31'},
@@ -32,10 +34,10 @@
 	let tempData = $derived.by(() => {
 		let tmp = JSON.parse(JSON.stringify(data));
 		fields.forEach((field) => {
-			if (field.type == "date"){
-				tmp[field.key] = new Date(tmp[field.key]).toISOString().split('T')[0]
+			if (field.type == 'date') {
+				tmp[field.key] = new Date(tmp[field.key]).toISOString().split('T')[0];
 			}
-		})
+		});
 		return tmp;
 	});
 </script>
@@ -69,15 +71,14 @@
 					/>
 				</div>
 			{:else if field.type == 'date'}
-			
 				<div class="col-12">
 					<label for="form-element-{field.key}"><b>{field.label}</b></label> <br />
 					<input
 						type="date"
 						id="form-element-{field.key}"
 						bind:value={tempData[field.key]}
-						min={field.min}
-						max={field.max}
+						min={(field.min as Date).toISOString().split('T')[0]}
+						max={(field.max as Date).toISOString().split('T')[0]}
 					/>
 				</div>
 			{:else if field.type == 'number'}
@@ -88,8 +89,8 @@
 						id="form-element-{field.key}"
 						bind:value={tempData[field.key]}
 						placeholder={field.placeholder}
-						min={field.min}
-						max={field.max}
+						min={field.min as number}
+						max={field.max as number}
 						step={field.step}
 					/>
 				</div>
@@ -98,7 +99,11 @@
 					<div class="align-container">
 						<b>{field.label}</b>
 						<label style="display: inline-block;" class="switch" for="form-element-{field.key}">
-							<input type="checkbox" id="form-element-{field.key}" bind:checked={tempData[field.key]} />
+							<input
+								type="checkbox"
+								id="form-element-{field.key}"
+								bind:checked={tempData[field.key]}
+							/>
 							<div class="slider round"></div>
 						</label>
 					</div>
@@ -109,12 +114,16 @@
 	<div class="row">
 		<div class="col-12" style="height: 42px;">
 			<div style="width: 100%; display:flex; flex-direction:row-reverse;">
-				<button style="width: fit-content; margin:0; margin-left:5px;"
+				<button
+					style="width: fit-content; margin:0; margin-left:5px;"
 					onclick={() => {
 						clickRight(tempData);
-					}}>{buttonRight.label}
+					}}
+					>{buttonRight.label}
 				</button>
-				<button style="width: fit-content; margin:0;" onclick={clickLeft} class="button-secondary">{buttonLeft.label}</button>
+				<button style="width: fit-content; margin:0;" onclick={() => {clickLeft()}} class="button-secondary"
+					>{buttonLeft.label}</button
+				>
 			</div>
 		</div>
 	</div>

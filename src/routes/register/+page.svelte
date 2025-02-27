@@ -1,6 +1,5 @@
 <script>
 	import AuthService from '$services/AuthService';
-	import { isLoggedIn } from '../../stores/auth';
 	import { goto } from '$app/navigation';
 	let username = $state();
 	let password = $state();
@@ -8,7 +7,7 @@
 	let name = $state();
 	let surname = $state();
 	let birthDate = $state();
-  let error = $state();
+	let error = $state();
 
 	let errorShow = $derived.by(() => {
 		let result = error != '' && error != null;
@@ -25,7 +24,7 @@
 			.then(() => {
 				goto(`/login`, { replaceState: true });
 			})
-			.catch((err) => error=err.response.data);
+			.catch((err) => (error = err.response.data));
 	}
 </script>
 

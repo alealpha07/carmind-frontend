@@ -4,19 +4,21 @@
 	import AuthService from '$services/AuthService';
 	import { goto } from '$app/navigation';
 	import { isLoggedIn } from '../stores/auth';
-    import { onMount } from 'svelte';
+	import { onMount } from 'svelte';
 	let loggedIn = false;
-	$: isLoggedIn.subscribe(value => {
+	$: isLoggedIn.subscribe((value) => {
 		loggedIn = value;
 	});
 
 	onMount(() => {
-        AuthService.getUser().then(() => {
-            isLoggedIn.set(true);
-        }).catch(() => {
-			isLoggedIn.set(false);
-        })
-    });
+		AuthService.getUser()
+			.then(() => {
+				isLoggedIn.set(true);
+			})
+			.catch(() => {
+				isLoggedIn.set(false);
+			});
+	});
 
 	function logout() {
 		AuthService.logout().then(() => {
@@ -167,7 +169,7 @@
 		letter-spacing: 0.1em;
 		text-decoration: none;
 		transition: color 0.2s linear;
-		transition-property:none;
+		transition-property: none;
 		border: solid transparent 1px;
 		cursor: pointer;
 		background-color: transparent;
@@ -199,15 +201,16 @@
 		mask-size: 100% 100%;
 	}
 
-	a:hover .nav-icon, a:hover .mdi--about-circle-outline{
+	a:hover .nav-icon,
+	a:hover .mdi--about-circle-outline {
 		background-color: var(--color-theme-1) !important;
 	}
 
-	.mdi--home {
+	.mdi--car {
 		display: none;
 		width: 24px;
 		height: 24px;
-		--svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M10 20v-6h4v6h5v-8h3L12 3L2 12h3v8z'/%3E%3C/svg%3E");
+		--svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='m5 11l1.5-4.5h11L19 11m-1.5 5a1.5 1.5 0 0 1-1.5-1.5a1.5 1.5 0 0 1 1.5-1.5a1.5 1.5 0 0 1 1.5 1.5a1.5 1.5 0 0 1-1.5 1.5m-11 0A1.5 1.5 0 0 1 5 14.5A1.5 1.5 0 0 1 6.5 13A1.5 1.5 0 0 1 8 14.5A1.5 1.5 0 0 1 6.5 16M18.92 6c-.2-.58-.76-1-1.42-1h-11c-.66 0-1.22.42-1.42 1L3 12v8a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1h12v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-8z'/%3E%3C/svg%3E");
 		background-color: var(--color-text);
 		-webkit-mask-image: var(--svg);
 		mask-image: var(--svg);
@@ -215,20 +218,6 @@
 		mask-repeat: no-repeat;
 		-webkit-mask-size: 100% 100%;
 		mask-size: 100% 100%;
-	}
-
-	.mdi--car {
-	display: none;
-	width: 24px;
-	height: 24px;
-	--svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='m5 11l1.5-4.5h11L19 11m-1.5 5a1.5 1.5 0 0 1-1.5-1.5a1.5 1.5 0 0 1 1.5-1.5a1.5 1.5 0 0 1 1.5 1.5a1.5 1.5 0 0 1-1.5 1.5m-11 0A1.5 1.5 0 0 1 5 14.5A1.5 1.5 0 0 1 6.5 13A1.5 1.5 0 0 1 8 14.5A1.5 1.5 0 0 1 6.5 16M18.92 6c-.2-.58-.76-1-1.42-1h-11c-.66 0-1.22.42-1.42 1L3 12v8a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1h12v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-8z'/%3E%3C/svg%3E");
-	background-color: var(--color-text);
-	-webkit-mask-image: var(--svg);
-	mask-image: var(--svg);
-	-webkit-mask-repeat: no-repeat;
-	mask-repeat: no-repeat;
-	-webkit-mask-size: 100% 100%;
-	mask-size: 100% 100%;
 	}
 
 	.mdi--user {

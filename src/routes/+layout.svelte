@@ -36,7 +36,7 @@
 		max-width: 64rem;
 		margin: 0 auto;
 		box-sizing: border-box;
-		min-height: fit-content	;
+		min-height: fit-content;
 	}
 
 	footer {

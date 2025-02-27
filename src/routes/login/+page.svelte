@@ -62,7 +62,7 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-12  align-content-center">
+				<div class="col-12 align-content-center">
 					<button onclick={() => login()}>Login</button>
 					<p style="width:100%; text-align:center;">
 						Don't have an account? <a href="/register">Register</a>

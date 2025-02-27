@@ -7,19 +7,19 @@
 	--color-bg-0: rgb(202, 216, 228);
 	--color-bg-1: hsl(209, 36%, 86%);
 	--color-bg-2: hsl(224, 44%, 95%);
-	--color-bg-3: #ECF0F1;
-	--color-bg-4: #BDC3C7;
+	--color-bg-3: #ecf0f1;
+	--color-bg-4: #bdc3c7;
 	--color-bg-5: lightblue;
-	--color-theme-1: #3498DB;
-	--color-theme-1-darker: #2980B9;
+	--color-theme-1: #3498db;
+	--color-theme-1-darker: #2980b9;
 	--color-theme-2: #4075a6;
 	--color-text: rgba(0, 0, 0, 0.7);
-	--color-text-light: #ECF0F1;
+	--color-text-light: #ecf0f1;
 	--column-width: 42rem;
 	--column-margin-top: 4rem;
-	--color-success: #2ECC71;
-	--color-alert: #E67E22;
-	--color-error: #E74C3C;
+	--color-success: #2ecc71;
+	--color-alert: #e67e22;
+	--color-error: #e74c3c;
 	--color-error-transparent: rgba(231, 76, 60, 0.2);
 	--color-success-transparent: rgba(46, 204, 113, 0.2);
 
@@ -35,9 +35,11 @@ body {
 	background-color: var(--color-bg-1);
 	background-size: 100vw 100vh;
 	/* TODO FIX BACKGROUND IN MOBILE*/
-	background-image: radial-gradient(50% 50% at 50% 50%,
+	background-image: radial-gradient(
+			50% 50% at 50% 50%,
 			rgba(255, 255, 255, 0.75) 0%,
-			rgba(255, 255, 255, 0) 100%),
+			rgba(255, 255, 255, 0) 100%
+		),
 		linear-gradient(180deg, var(--color-bg-0) 0%, var(--color-bg-1) 20%, var(--color-bg-2) 60%);
 }
 
@@ -178,7 +180,8 @@ input[type='file']:focus {
 	white-space: nowrap;
 }
 
-.error-box, .success-box {
+.error-box,
+.success-box {
 	color: var(--color-error);
 	border-left: solid var(--color-error) 8px;
 	background-color: var(--color-error-transparent);
@@ -193,22 +196,23 @@ input[type='file']:focus {
 	background-color: var(--color-success-transparent);
 }
 
-.error-box b, .success-box b {
+.error-box b,
+.success-box b {
 	display: inline-block;
 	max-width: 100%;
 }
 
-.align-container{
+.align-container {
 	display: flex;
 	align-items: center;
 	gap: 8px;
 }
 
-.container{
+.container {
 	width: calc(100% - 24px) !important;
 }
 
 .row {
 	width: 100%;
-	margin: auto !important;	
+	margin: auto !important;
 }
