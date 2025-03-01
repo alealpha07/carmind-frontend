@@ -1,6 +1,7 @@
 <script lang="ts">
 	//TODO template image removal => use files instead
 	//TODO handle files
+	import image from "$lib/images/mdi--car.png";
 
 	let {
 		data = {
@@ -63,7 +64,7 @@
 			<img
 				id="vehicle-image"
 				width="100%"
-				src="https://www.piambellihybrid.it/storage/WhatsApp-Image-2024-07-30-at-15.20.44-3.jpeg"
+				src={data.image || image}
 				alt="vehicle image"
 			/>
 			<p>{data.type}</p>
@@ -105,7 +106,7 @@
 	<div class="row">
 		<div class="col-6">
 			<!-- TODO handle fiels -->
-			<button class="button-minor" id="view-btn">View Files</button>
+			<button class="button-minor" id="manage-btn">Manage Files</button>
 		</div>
 		<div class="col-6">
 			<button onclick={clickDelete} class="button-secondary" id="delete-btn">Delete</button>
@@ -128,7 +129,7 @@
 	}
 	div.right-col div.row span {
 		position: absolute;
-		right: 10px;
+		right: 0px;
 	}
 	#vehicle-container {
 		width: 300px;
@@ -139,7 +140,7 @@
 		padding: 15px;
 		position: relative;
 	}
-	#view-btn {
+	#manage-btn {
 		position: absolute;
 		bottom: 15px;
 		left: 15px;
@@ -168,6 +169,7 @@
 		mask-repeat: no-repeat;
 		-webkit-mask-size: 100% 100%;
 		mask-size: 100% 100%;
+		display: inline-block;
 	}
 	.mdi--stopwatch-alert {
 		width: 24px;
