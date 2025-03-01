@@ -219,6 +219,9 @@
 			clickEdit={() => {
 				showEditVehicle(vehicle);
 			}}
+			clickManageFiles={() => {
+				//TODO Handle files
+			}}
 		></VehicleCard>
 	{/each}
 </div>

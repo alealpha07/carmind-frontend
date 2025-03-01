@@ -18,7 +18,8 @@
 			endDateRevision: new Date()
 		},
 		clickDelete,
-		clickEdit
+		clickEdit,
+		clickManageFiles
 	} = $props();
 
 	let currentDate = new Date();
@@ -55,6 +56,7 @@
 		const differenceInDays = differenceInMs / (1000 * 60 * 60 * 24);
 		return differenceInDays <= 30 && differenceInDays >= 0;
 	}
+
 </script>
 
 <div id="vehicle-container">
@@ -101,7 +103,8 @@
 	<div class="row">
 		<div class="col-6">
 			<!-- TODO handle fiels -->
-			<button class="button-minor" id="manage-btn">Manage Files</button>
+
+			<button onclick={clickManageFiles} class="button-minor" id="manage-btn">Manage Files</button>
 		</div>
 		<div class="col-6">
 			<button onclick={clickDelete} class="button-secondary" id="delete-btn">Delete</button>
