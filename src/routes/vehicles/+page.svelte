@@ -8,9 +8,12 @@
 	import { isLoggedIn } from '../../stores/auth';
 	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
+	import { json } from '@sveltejs/kit';
+	import { resolveRoute } from '$app/paths';
 
 	let vehicles: Array<Vehicle> = $state([]);
 	let showDialog = $state(false);
+	let formId: number = $state(-1);
 	let formData: object = $state({});
 	let formFields: Array<Field> = $state([]);
 	let formClickRight: Function = $state(() => {});
@@ -26,6 +29,20 @@
 		}
 		return result;
 	});
+	const EDIT_ADD_FORM_FIELDS =
+	[
+			{ type: 'text', label: 'Type', key: 'type' },
+			{ type: 'text', label: 'Brand', key: 'brand' },
+			{ type: 'text', label: 'Model', key: 'model' },
+			{ type: 'text', label: 'Registration Year', key: 'registrationYear' },
+			{ type: 'text', label: 'Plate Number', key: 'plateNumber' },
+			{ type: 'boolean', label: 'Is Insured?', key: 'isInsured' },
+			{ type: 'date', label: 'Start Date Insurance', key: 'startDateInsurance' },
+			{ type: 'date', label: 'End Date Insurance', key: 'endDateInsurance' },
+			{ type: 'boolean', label: 'Has Bill?', key: 'hasBill' },
+			{ type: 'date', label: 'End Date Bill', key: 'endDateBill' },
+			{ type: 'date', label: 'End Date Revision', key: 'endDateRevision' }
+	];	
 
 	onMount(() => {
 		AuthService.getUser()
@@ -54,21 +71,30 @@
 			endDateBill: null,
 			endDateRevision: null
 		};
-		formFields = [
-			{ type: 'text', label: 'Type', key: 'type' },
-			{ type: 'text', label: 'Brand', key: 'brand' },
-			{ type: 'text', label: 'Model', key: 'model' },
-			{ type: 'text', label: 'Registration Year', key: 'registrationYear' },
-			{ type: 'text', label: 'Plate Number', key: 'plateNumber' },
-			{ type: 'boolean', label: 'Is Insured?', key: 'isInsured' },
-			{ type: 'date', label: 'Start Date Insurance', key: 'startDateInsurance' },
-			{ type: 'date', label: 'End Date Insurance', key: 'endDateInsurance' },
-			{ type: 'boolean', label: 'Has Bill?', key: 'hasBill' },
-			{ type: 'date', label: 'End Date Bill', key: 'endDateBill' },
-			{ type: 'date', label: 'End Date Revision', key: 'endDateRevision' }
-		];
+		formFields = EDIT_ADD_FORM_FIELDS;
 		formClickRight = confirmAddVehicle;
 		formTitle = 'Add Vehicle';
+		showDialog = true;
+	}
+
+	function showEditVehicle(vehicle:Vehicle) {
+		formData = {
+			type: vehicle.type,
+			brand: vehicle.brand,
+			model: vehicle.model,
+			registrationYear: vehicle.registrationYear,
+			plateNumber: vehicle.plateNumber,
+			isInsured: vehicle.isInsured,
+			startDateInsurance: vehicle.startDateInsurance,
+			endDateInsurance: vehicle.endDateInsurance,
+			hasBill: vehicle.hasBill,
+			endDateBill: vehicle.endDateBill,
+			endDateRevision: vehicle.endDateRevision
+		};
+		formFields = EDIT_ADD_FORM_FIELDS;
+		formId = vehicle.id;
+		formClickRight = confirmEditVehicle;
+		formTitle = 'Edit Vehicle';
 		showDialog = true;
 	}
 
@@ -76,6 +102,7 @@
 		showDialog = false;
 		formData = [];
 		formFields = [];
+		formId = -1;
 		formTitle = '';
 		formError = '';
 		formClickRight = () => {};
@@ -104,6 +131,32 @@
 				formError = err.response.data;
 			});
 	}
+
+	function confirmEditVehicle(result:Vehicle){
+		VehicleService.editVehicle(
+			result.type,
+			result.brand,
+			result.model,
+			Number(result.registrationYear),
+			result.plateNumber,
+			result.isInsured,
+			result.startDateInsurance,
+			result.endDateInsurance,
+			result.hasBill,
+			result.endDateBill,
+			result.endDateRevision,
+			formId
+		)
+			.then((res) => {
+				//TODO RELOAD VEHICLE
+				formSuccessMessage = res as string;
+				resetForm();
+			})
+			.catch((err) => {
+				formError = err.response.data;
+			});
+	}
+
 </script>
 
 <svelte:head>
@@ -134,7 +187,7 @@
 	<h1>Vehicles</h1>
 	<button onclick={showAddVehicle}>Add Vehicle</button>
 	<p>This is a protected page!</p>
-	{#each vehicles as vehicle}
-		<VehicleCard data={vehicle} clickDelete={()=>{}} clickEdit={()=>{}}></VehicleCard>
+	{#each vehicles as vehicle (vehicle.id)}
+		<VehicleCard data={vehicle} clickDelete={()=>{}} clickEdit={() => {showEditVehicle(vehicle)}}></VehicleCard>
 	{/each}
 </div>

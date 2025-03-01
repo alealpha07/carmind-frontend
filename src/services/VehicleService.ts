@@ -53,6 +53,48 @@ class VehicleService {
 			}
 		});
 	}
+
+	static editVehicle(
+		type: string,
+		brand: string,
+		model: string,
+		registrationYear: number,
+		plateNumber: string,
+		isInsured: boolean,
+		startDateInsurance: Date,
+		endDateInsurance: Date,
+		hasBill: boolean,
+		endDateBill: Date,
+		endDateRevision: Date,
+		id: number
+	) {
+		return new Promise(async (resolve, reject) => {
+			try {
+				const res = await axios.put(
+					`${BASE_URL}/vehicle`,
+					{
+						type,
+						brand,
+						model,
+						registrationYear,
+						plateNumber,
+						isInsured,
+						startDateInsurance,
+						endDateInsurance,
+						hasBill,
+						endDateBill,
+						endDateRevision,
+						id
+					},
+					{ withCredentials: true }
+				);
+				const data = res.data;
+				resolve(data);
+			} catch (error) {
+				reject(error);
+			}
+		});
+	}
 }
 
 export default VehicleService;
