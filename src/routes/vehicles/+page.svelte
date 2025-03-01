@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Dialog from '$lib/components/Dialog.svelte';
 	import DataForm from '$lib/components/DataForm.svelte';
+	import VehicleCard from '$lib/components/VehicleCard.svelte';
 	import AuthService from '$services/AuthService';
 	import VehicleService from '$services/VehicleService';
 	import type { Vehicle, Field } from '$types';
@@ -8,6 +9,7 @@
 	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
 
+	let vehicles: Array<Vehicle> = $state([]);
 	let showDialog = $state(false);
 	let formData: object = $state({});
 	let formFields: Array<Field> = $state([]);
@@ -29,7 +31,9 @@
 		AuthService.getUser()
 			.then(() => {
 				isLoggedIn.set(true);
-				//user is logged in
+				VehicleService.getVehicles().then((data) =>{
+					vehicles = data as Array<Vehicle>;
+				})
 			})
 			.catch(() => {
 				goto(`/`, { replaceState: true });
@@ -78,7 +82,6 @@
 	}
 
 	function confirmAddVehicle(result: Vehicle) {
-		console.log(result)
 		VehicleService.addVehicle(
 			result.type,
 			result.brand,
@@ -131,4 +134,7 @@
 	<h1>Vehicles</h1>
 	<button onclick={showAddVehicle}>Add Vehicle</button>
 	<p>This is a protected page!</p>
+	{#each vehicles as vehicle}
+		<VehicleCard data={vehicle} clickDelete={()=>{}} clickEdit={()=>{}}></VehicleCard>
+	{/each}
 </div>

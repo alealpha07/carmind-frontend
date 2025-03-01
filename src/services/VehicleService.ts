@@ -41,6 +41,18 @@ class VehicleService {
 			}
 		});
 	}
+
+	static getVehicles() {
+		return new Promise(async (resolve, reject) => {
+			try {
+				const res = await axios.get(`${BASE_URL}/vehicle`,{ withCredentials: true });
+				const data = res.data;
+				resolve(data);
+			} catch (error) {
+				reject(error);
+			}
+		});
+	}
 }
 
 export default VehicleService;

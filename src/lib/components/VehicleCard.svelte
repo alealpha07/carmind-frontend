@@ -44,10 +44,12 @@
 	);
 
 	function formatDate(date: Date) {
+		date = new Date(date);
 		return date.toLocaleDateString('it-IT');
 	}
 
 	function isWithin30Days(date: Date, currentDate: Date): boolean {
+		date = new Date(date);
 		const differenceInMs = date.getTime() - currentDate.getTime();
 		const differenceInDays = differenceInMs / (1000 * 60 * 60 * 24);
 		return differenceInDays <= 30 && differenceInDays >= 0;
