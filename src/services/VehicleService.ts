@@ -95,6 +95,17 @@ class VehicleService {
 			}
 		});
 	}
+	static deleteVehicle(id: number) {
+		return new Promise(async (resolve, reject) => {
+			try {
+				const res = await axios.delete(`${BASE_URL}/vehicle?id=${id}`,{ withCredentials: true });
+				const data = res.data;
+				resolve(data);
+			} catch (error) {
+				reject(error);
+			}
+		});
+	}
 }
 
 export default VehicleService;

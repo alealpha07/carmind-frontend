@@ -98,6 +98,15 @@
 		showDialog = true;
 	}
 
+	function showDeleteVehicle(vehicle:Vehicle) {
+		formData = {};
+		formFields = [];
+		formId = vehicle.id;
+		formClickRight = confirmDeleteVehicle;
+		formTitle = 'Do you really want to delete the vehicle';
+		showDialog = true;
+	}
+
 	function resetForm() {
 		showDialog = false;
 		formData = [];
@@ -157,6 +166,20 @@
 			});
 	}
 
+
+
+	function confirmDeleteVehicle(result:Vehicle){
+		VehicleService.deleteVehicle(formId)
+			.then((res) => {
+				//TODO RELOAD VEHICLE
+				formSuccessMessage = res as string;
+				resetForm();
+			})
+			.catch((err) => {
+				formError = err.response.data;
+			});
+	}
+
 </script>
 
 <svelte:head>
@@ -188,6 +211,6 @@
 	<button onclick={showAddVehicle}>Add Vehicle</button>
 	<p>This is a protected page!</p>
 	{#each vehicles as vehicle (vehicle.id)}
-		<VehicleCard data={vehicle} clickDelete={()=>{}} clickEdit={() => {showEditVehicle(vehicle)}}></VehicleCard>
+		<VehicleCard data={vehicle} clickDelete={()=>{showDeleteVehicle(vehicle)}} clickEdit={() => {showEditVehicle(vehicle)}}></VehicleCard>
 	{/each}
 </div>
