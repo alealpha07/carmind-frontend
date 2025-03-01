@@ -41,7 +41,7 @@
 		return tmp;
 	});
 
-	function getSanitizedData(){
+	function getSanitizedData() {
 		fields.forEach((field) => {
 			if (field.type == 'date') {
 				tempData[field.key] = new Date(tempData[field.key]);
@@ -130,8 +130,12 @@
 					}}
 					>{buttonRight.label}
 				</button>
-				<button style="width: fit-content; margin:0;" onclick={() => {clickLeft()}} class="button-secondary"
-					>{buttonLeft.label}</button
+				<button
+					style="width: fit-content; margin:0;"
+					onclick={() => {
+						clickLeft();
+					}}
+					class="button-secondary">{buttonLeft.label}</button
 				>
 			</div>
 		</div>

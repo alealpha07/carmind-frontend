@@ -29,28 +29,25 @@
 		}
 		return result;
 	});
-	const EDIT_ADD_FORM_FIELDS =
-	[
-			{ type: 'text', label: 'Type', key: 'type' },
-			{ type: 'text', label: 'Brand', key: 'brand' },
-			{ type: 'text', label: 'Model', key: 'model' },
-			{ type: 'text', label: 'Registration Year', key: 'registrationYear' },
-			{ type: 'text', label: 'Plate Number', key: 'plateNumber' },
-			{ type: 'boolean', label: 'Is Insured?', key: 'isInsured' },
-			{ type: 'date', label: 'Start Date Insurance', key: 'startDateInsurance' },
-			{ type: 'date', label: 'End Date Insurance', key: 'endDateInsurance' },
-			{ type: 'boolean', label: 'Has Bill?', key: 'hasBill' },
-			{ type: 'date', label: 'End Date Bill', key: 'endDateBill' },
-			{ type: 'date', label: 'End Date Revision', key: 'endDateRevision' }
-	];	
+	const EDIT_ADD_FORM_FIELDS = [
+		{ type: 'text', label: 'Type', key: 'type' },
+		{ type: 'text', label: 'Brand', key: 'brand' },
+		{ type: 'text', label: 'Model', key: 'model' },
+		{ type: 'text', label: 'Registration Year', key: 'registrationYear' },
+		{ type: 'text', label: 'Plate Number', key: 'plateNumber' },
+		{ type: 'boolean', label: 'Is Insured?', key: 'isInsured' },
+		{ type: 'date', label: 'Start Date Insurance', key: 'startDateInsurance' },
+		{ type: 'date', label: 'End Date Insurance', key: 'endDateInsurance' },
+		{ type: 'boolean', label: 'Has Bill?', key: 'hasBill' },
+		{ type: 'date', label: 'End Date Bill', key: 'endDateBill' },
+		{ type: 'date', label: 'End Date Revision', key: 'endDateRevision' }
+	];
 
 	onMount(() => {
 		AuthService.getUser()
 			.then(() => {
 				isLoggedIn.set(true);
-				VehicleService.getVehicles().then((data) =>{
-					vehicles = data as Array<Vehicle>;
-				})
+				reloadVehicles();
 			})
 			.catch(() => {
 				goto(`/`, { replaceState: true });
@@ -77,7 +74,7 @@
 		showDialog = true;
 	}
 
-	function showEditVehicle(vehicle:Vehicle) {
+	function showEditVehicle(vehicle: Vehicle) {
 		formData = {
 			type: vehicle.type,
 			brand: vehicle.brand,
@@ -98,7 +95,7 @@
 		showDialog = true;
 	}
 
-	function showDeleteVehicle(vehicle:Vehicle) {
+	function showDeleteVehicle(vehicle: Vehicle) {
 		formData = {};
 		formFields = [];
 		formId = vehicle.id;
@@ -132,7 +129,7 @@
 			result.endDateRevision
 		)
 			.then((res) => {
-				//TODO RELOAD VEHICLE
+				reloadVehicles();
 				formSuccessMessage = res as string;
 				resetForm();
 			})
@@ -141,7 +138,7 @@
 			});
 	}
 
-	function confirmEditVehicle(result:Vehicle){
+	function confirmEditVehicle(result: Vehicle) {
 		VehicleService.editVehicle(
 			result.type,
 			result.brand,
@@ -157,7 +154,7 @@
 			formId
 		)
 			.then((res) => {
-				//TODO RELOAD VEHICLE
+				reloadVehicles();
 				formSuccessMessage = res as string;
 				resetForm();
 			})
@@ -166,12 +163,10 @@
 			});
 	}
 
-
-
-	function confirmDeleteVehicle(result:Vehicle){
+	function confirmDeleteVehicle(result: Vehicle) {
 		VehicleService.deleteVehicle(formId)
 			.then((res) => {
-				//TODO RELOAD VEHICLE
+				reloadVehicles();
 				formSuccessMessage = res as string;
 				resetForm();
 			})
@@ -180,6 +175,11 @@
 			});
 	}
 
+	function reloadVehicles() {
+		VehicleService.getVehicles().then((data) => {
+			vehicles = data as Array<Vehicle>;
+		});
+	}
 </script>
 
 <svelte:head>
@@ -211,6 +211,14 @@
 	<button onclick={showAddVehicle}>Add Vehicle</button>
 	<p>This is a protected page!</p>
 	{#each vehicles as vehicle (vehicle.id)}
-		<VehicleCard data={vehicle} clickDelete={()=>{showDeleteVehicle(vehicle)}} clickEdit={() => {showEditVehicle(vehicle)}}></VehicleCard>
+		<VehicleCard
+			data={vehicle}
+			clickDelete={() => {
+				showDeleteVehicle(vehicle);
+			}}
+			clickEdit={() => {
+				showEditVehicle(vehicle);
+			}}
+		></VehicleCard>
 	{/each}
 </div>

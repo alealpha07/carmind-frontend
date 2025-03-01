@@ -20,7 +20,7 @@
 	let showDialog = $state(false);
 	let formData: object = $state({});
 	let formFields: Array<Field> = $state([]);
-	let formClickRight: Function = $state(()=>{});
+	let formClickRight: Function = $state(() => {});
 	let formTitle = $state('');
 	let formError = $state('');
 	let formSuccessMessage: string = $state('');

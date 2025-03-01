@@ -1,7 +1,7 @@
 <script lang="ts">
 	//TODO template image removal => use files instead
 	//TODO handle files
-	import image from "$lib/images/mdi--car.png";
+	import image from '$lib/images/mdi--car.png';
 
 	let {
 		data = {
@@ -61,12 +61,7 @@
 	<div class="row">
 		<div class="col-6">
 			<!-- TODO remove template image, TODO handle img -->
-			<img
-				id="vehicle-image"
-				width="100%"
-				src={data.image || image}
-				alt="vehicle image"
-			/>
+			<img id="vehicle-image" width="100%" src={data.image || image} alt="vehicle image" />
 			<p>{data.type}</p>
 			<p>{data.brand} - {data.model}</p>
 			<p>{data.registrationYear}</p>
