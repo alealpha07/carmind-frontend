@@ -206,22 +206,83 @@
 >
 	<p class="success-box"><b>{formSuccessMessage}</b></p>
 </Dialog>
-<div class="text-column">
-	<h1>Vehicles</h1>
-	<button onclick={showAddVehicle}>Add Vehicle</button>
-	<p>This is a protected page!</p>
-	{#each vehicles as vehicle (vehicle.id)}
-		<VehicleCard
-			data={vehicle}
-			clickDelete={() => {
-				showDeleteVehicle(vehicle);
-			}}
-			clickEdit={() => {
-				showEditVehicle(vehicle);
-			}}
-			clickManageFiles={() => {
-				//TODO Handle files
-			}}
-		></VehicleCard>
-	{/each}
+<div class="container">
+	<div class="row">
+		<div class="col">
+			<h1>Vehicles</h1>
+			<button style="margin: auto; display: block;" onclick={showAddVehicle}>Add Vehicle</button>
+		</div>
+	</div>
+	<div id="vehicle-card-row" class="row justify-content-start">
+		{#each vehicles as vehicle (vehicle.id)}
+				<div id="vehicle-card-container" class="col">
+				<VehicleCard
+					data={vehicle}
+					clickDelete={() => {
+						showDeleteVehicle(vehicle);
+					}}
+					clickEdit={() => {
+						showEditVehicle(vehicle);
+					}}
+					clickManageFiles={() => {
+						//TODO Handle files
+					}}
+				></VehicleCard>
+			</div>
+		{/each}
+	</div>
 </div>
+
+<style>
+
+	@media only screen and (max-width: 575px) {
+		#vehicle-card-row {
+			gap: 0%;
+			justify-content: center !important;
+		}
+	}
+
+	@media only screen and (min-width: 576px) {
+		#vehicle-card-row {
+			justify-content: center !important;
+			gap: 0%;
+		}
+	}
+
+	@media only screen and (min-width: 768px) {
+		#vehicle-card-row {
+			gap: 1%;
+			justify-content: start !important;
+		}
+	}
+
+	@media only screen and (min-width: 992px) {
+		#vehicle-card-row {
+			padding-left: 8%;
+			padding-right: 8%;
+			gap: 6%;
+		}
+	}
+
+	@media only screen and (min-width: 1200px) {
+		#vehicle-card-row {
+			padding: 0;
+			gap: 3%;
+		}
+	}
+
+	@media only screen and (min-width: 1400px) {
+		#vehicle-card-row {
+			padding: 0;
+			gap: 10%;
+		}
+	}
+
+	#vehicle-card-container{
+		margin-left: 15px; 
+		margin-top: 15px; 
+		margin-bottom: 45px; 
+		max-width: fit-content !important;
+		padding:0;
+	}
+</style>

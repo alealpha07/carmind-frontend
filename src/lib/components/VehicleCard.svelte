@@ -19,7 +19,8 @@
 		},
 		clickDelete,
 		clickEdit,
-		clickManageFiles
+		clickManageFiles,
+		...others
 	} = $props();
 
 	let currentDate = new Date();
@@ -59,7 +60,7 @@
 
 </script>
 
-<div id="vehicle-container">
+<div id="vehicle-container" {...others}>
 	<div class="row">
 		<div class="col-6">
 			<!-- TODO remove template image, TODO handle img -->
