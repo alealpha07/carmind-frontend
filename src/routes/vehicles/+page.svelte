@@ -13,6 +13,7 @@
 
 	let vehicles: Array<Vehicle> = $state([]);
 	let showDialog = $state(false);
+	let showManageFileDialog = $state(true);
 	let formId: number = $state(-1);
 	let formData: object = $state({});
 	let formFields: Array<Field> = $state([]);
@@ -103,6 +104,8 @@
 		formTitle = 'Do you really want to delete the vehicle';
 		showDialog = true;
 	}
+
+	function showManageFiles(vehicle: Vehicle) {}
 
 	function resetForm() {
 		showDialog = false;
@@ -199,6 +202,37 @@
 		clickRight={formClickRight}
 	></DataForm>
 </Dialog>
+<Dialog show={showManageFileDialog}>
+	<div class="container">
+		<div class="row">
+			<h1>Manage Files</h1>
+		</div>
+		<div class="row manage-file align-content-center">
+			<p><b>View Insurance</b></p>
+			<div>
+				<button aria-label="Edit"><span class="mdi--pencil"></span></button>
+				<button aria-label="Delete" class="button-secondary"><span class="mdi--bin"></span></button>
+			</div>
+		</div>
+		<div class="row manage-file">
+			<p><b>View Revision</b></p>
+			<div>
+				<button aria-label="Edit"><span class="mdi--pencil"></span></button>
+				<button aria-label="Delete" class="button-secondary"><span class="mdi--bin"></span></button>
+			</div>
+		</div>
+		<div class="row manage-file">
+			<p><b>View Bill</b></p>
+			<div>
+				<button aria-label="Edit"><span class="mdi--pencil"></span></button>
+				<button aria-label="Delete" class="button-secondary"><span class="mdi--bin"></span></button>
+			</div>
+		</div>
+		<div class="row" style="margin-top:8px !important;">
+			<button class="button-minor">Close</button>
+		</div>
+	</div>
+</Dialog>
 <Dialog
 	unpersistent
 	show={showSuccess}
@@ -215,7 +249,7 @@
 	</div>
 	<div id="vehicle-card-row" class="row justify-content-start">
 		{#each vehicles as vehicle (vehicle.id)}
-				<div id="vehicle-card-container" class="col">
+			<div id="vehicle-card-container" class="col">
 				<VehicleCard
 					data={vehicle}
 					clickDelete={() => {
@@ -225,7 +259,7 @@
 						showEditVehicle(vehicle);
 					}}
 					clickManageFiles={() => {
-						//TODO Handle files
+						showManageFiles(vehicle);
 					}}
 				></VehicleCard>
 			</div>
@@ -234,6 +268,28 @@
 </div>
 
 <style>
+	.row.manage-file {
+		position: relative;
+		margin-top: 8px !important;
+	}
+	.row.manage-file button {
+		width: fit-content;
+	}
+
+	.row.manage-file div {
+		position: absolute;
+		right: 0;
+		width: fit-content;
+	}
+
+	.row.manage-file p {
+		margin-top: 9px;
+		cursor: pointer;
+	}
+
+	.row.manage-file p:hover {
+		color: var(--color-theme-1);
+	}
 
 	@media only screen and (max-width: 575px) {
 		#vehicle-card-row {
@@ -278,11 +334,39 @@
 		}
 	}
 
-	#vehicle-card-container{
-		margin-left: 15px; 
-		margin-top: 15px; 
-		margin-bottom: 45px; 
+	#vehicle-card-container {
+		margin-left: 15px;
+		margin-top: 15px;
+		margin-bottom: 45px;
 		max-width: fit-content !important;
-		padding:0;
+		padding: 0;
+	}
+
+	.mdi--pencil {
+		display: inline-block;
+		width: 16px;
+		height: 16px;
+		--svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83l3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75z'/%3E%3C/svg%3E");
+		background-color: currentColor;
+		-webkit-mask-image: var(--svg);
+		mask-image: var(--svg);
+		-webkit-mask-repeat: no-repeat;
+		mask-repeat: no-repeat;
+		-webkit-mask-size: 100% 100%;
+		mask-size: 100% 100%;
+	}
+
+	.mdi--bin {
+		display: inline-block;
+		width: 16px;
+		height: 16px;
+		--svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M19 4h-3.5l-1-1h-5l-1 1H5v2h14M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6z'/%3E%3C/svg%3E");
+		background-color: currentColor;
+		-webkit-mask-image: var(--svg);
+		mask-image: var(--svg);
+		-webkit-mask-repeat: no-repeat;
+		mask-repeat: no-repeat;
+		-webkit-mask-size: 100% 100%;
+		mask-size: 100% 100%;
 	}
 </style>
