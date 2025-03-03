@@ -8,12 +8,10 @@
 	import { isLoggedIn } from '../../stores/auth';
 	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
-	import { json } from '@sveltejs/kit';
-	import { resolveRoute } from '$app/paths';
 
 	let vehicles: Array<Vehicle> = $state([]);
 	let showDialog = $state(false);
-	let showManageFileDialog = $state(true);
+	let showManageFileDialog = $state(false);
 	let formId: number = $state(-1);
 	let formData: object = $state({});
 	let formFields: Array<Field> = $state([]);
@@ -105,7 +103,11 @@
 		showDialog = true;
 	}
 
-	function showManageFiles(vehicle: Vehicle) {}
+	function showManageFiles(vehicle: Vehicle) {
+		//TODO handle manage files
+
+		showManageFileDialog = true;
+	}
 
 	function resetForm() {
 		showDialog = false;
@@ -115,6 +117,10 @@
 		formTitle = '';
 		formError = '';
 		formClickRight = () => {};
+	}
+	
+	function resetManageFileDialog(){
+		showManageFileDialog = false;
 	}
 
 	function confirmAddVehicle(result: Vehicle) {
@@ -202,7 +208,7 @@
 		clickRight={formClickRight}
 	></DataForm>
 </Dialog>
-<Dialog show={showManageFileDialog}>
+<Dialog show={showManageFileDialog} style="margin-top: 30vh;">
 	<div class="container">
 		<div class="row">
 			<h1>Manage Files</h1>
@@ -210,26 +216,26 @@
 		<div class="row manage-file align-content-center">
 			<p><b>View Insurance</b></p>
 			<div>
-				<button aria-label="Edit"><span class="mdi--pencil"></span></button>
 				<button aria-label="Delete" class="button-secondary"><span class="mdi--bin"></span></button>
+				<button aria-label="Edit"><span class="mdi--pencil"></span></button>
 			</div>
 		</div>
 		<div class="row manage-file">
 			<p><b>View Revision</b></p>
 			<div>
-				<button aria-label="Edit"><span class="mdi--pencil"></span></button>
 				<button aria-label="Delete" class="button-secondary"><span class="mdi--bin"></span></button>
+				<button aria-label="Edit"><span class="mdi--pencil"></span></button>
 			</div>
 		</div>
 		<div class="row manage-file">
 			<p><b>View Bill</b></p>
 			<div>
-				<button aria-label="Edit"><span class="mdi--pencil"></span></button>
 				<button aria-label="Delete" class="button-secondary"><span class="mdi--bin"></span></button>
+				<button aria-label="Edit"><span class="mdi--pencil"></span></button>
 			</div>
 		</div>
 		<div class="row" style="margin-top:8px !important;">
-			<button class="button-minor">Close</button>
+			<button onclick={resetManageFileDialog} class="button-minor">Close</button>
 		</div>
 	</div>
 </Dialog>
