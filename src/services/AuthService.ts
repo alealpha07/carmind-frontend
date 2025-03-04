@@ -1,11 +1,22 @@
 import axios from 'axios';
+import { locale, waitLocale } from 'svelte-i18n';
 const BASE_URL: string = import.meta.env.VITE_BASE_URL;
+
+await waitLocale();
+let currentLocale: string;
+$: locale.subscribe((value) => {
+	currentLocale = value as string;
+});
 
 class AuthService {
 	static logout() {
 		return new Promise(async (resolve, reject) => {
 			try {
-				const res = await axios.post(`${BASE_URL}/auth/logout`, {}, { withCredentials: true });
+				const res = await axios.post(
+					`${BASE_URL}/auth/logout?lang=${currentLocale}`,
+					{},
+					{ withCredentials: true }
+				);
 				const data = res.data;
 				resolve(data);
 			} catch (error) {
@@ -18,7 +29,7 @@ class AuthService {
 		return new Promise(async (resolve, reject) => {
 			try {
 				const res = await axios.post(
-					`${BASE_URL}/auth/login`,
+					`${BASE_URL}/auth/login?lang=${currentLocale}`,
 					{ username: username, password: password },
 					{ withCredentials: true }
 				);
@@ -41,7 +52,7 @@ class AuthService {
 		return new Promise(async (resolve, reject) => {
 			try {
 				const res = await axios.post(
-					`${BASE_URL}/auth/register`,
+					`${BASE_URL}/auth/register?lang=${currentLocale}`,
 					{
 						username: username,
 						password: password,
@@ -63,7 +74,9 @@ class AuthService {
 	static getUser() {
 		return new Promise(async (resolve, reject) => {
 			try {
-				const res = await axios.get(`${BASE_URL}/auth/user`, { withCredentials: true });
+				const res = await axios.get(`${BASE_URL}/auth/user?lang=${currentLocale}`, {
+					withCredentials: true
+				});
 				const data = res.data;
 				resolve(data);
 			} catch (error) {
@@ -76,7 +89,7 @@ class AuthService {
 		return new Promise(async (resolve, reject) => {
 			try {
 				const res = await axios.post(
-					`${BASE_URL}/auth/reset`,
+					`${BASE_URL}/auth/reset?lang=${currentLocale}`,
 					{ password: password, newPassword: newPassword, confirmNewPassword: confirmNewPassword },
 					{ withCredentials: true }
 				);
@@ -92,7 +105,7 @@ class AuthService {
 		return new Promise(async (resolve, reject) => {
 			try {
 				const res = await axios.post(
-					`${BASE_URL}/auth/editprofile`,
+					`${BASE_URL}/auth/editprofile?lang=${currentLocale}`,
 					{ name: name, surname: surname, birthDate: birthDate },
 					{ withCredentials: true }
 				);

@@ -2,6 +2,7 @@
 	//TODO template image removal => use files instead
 	//TODO handle files
 	import image from '$lib/images/mdi--car.png';
+	import { _, getLocaleFromNavigator } from 'svelte-i18n';
 
 	let {
 		data = {
@@ -48,7 +49,7 @@
 
 	function formatDate(date: Date) {
 		date = new Date(date);
-		return date.toLocaleDateString('it-IT');
+		return date.toLocaleDateString(getLocaleFromNavigator() as string);
 	}
 
 	function isWithin30Days(date: Date, currentDate: Date): boolean {
@@ -57,7 +58,6 @@
 		const differenceInDays = differenceInMs / (1000 * 60 * 60 * 24);
 		return differenceInDays <= 30 && differenceInDays >= 0;
 	}
-
 </script>
 
 <div id="vehicle-container" {...others}>
@@ -72,28 +72,28 @@
 		</div>
 		<div class="col-6 right-col">
 			<div class="row">
-				<p><b>Expire Dates</b></p>
+				<p><b>{$_('vehicle.expire_dates')}</b></p>
 			</div>
 			<div class="row">
-				<p><b>Insurance</b></p>
+				<p><b>{$_('vehicle.insurance')}</b></p>
 			</div>
 			<div class="row">
 				{#if data.isInsured}<p>{formatDate(data.endDateInsurance)}</p>
 					<span class="mdi--stopwatch{insuranceIcon}"></span>{:else}
-					<p>Vehicle is not insured</p>
+					<p>{$_('vehicle.no_insurance')}</p>
 				{/if}
 			</div>
 			<div class="row">
-				<p><b>Bill</b></p>
+				<p><b>{$_('vehicle.bill')}</b></p>
 			</div>
 			<div class="row">
 				{#if data.hasBill}<p>{formatDate(data.endDateBill)}</p>
 					<span class="mdi--stopwatch{billIcon}"></span>{:else}
-					<p>Vehicle has no bill</p>
+					<p>{$_('vehicle.no_bill')}</p>
 				{/if}
 			</div>
 			<div class="row">
-				<p><b>Revision</b></p>
+				<p><b>{$_('vehicle.revision')}</b></p>
 			</div>
 			<div class="row">
 				<p>{formatDate(data.endDateRevision)}</p>
@@ -105,11 +105,28 @@
 		<div class="col-6">
 			<!-- TODO handle fiels -->
 
-			<button onclick={clickManageFiles} class="button-minor" id="manage-btn">Manage Files</button>
+			<button onclick={clickManageFiles} class="button-minor" id="manage-btn"
+				>{$_('buttons.manage_file')}</button
+			>
 		</div>
 		<div class="col-6">
-			<button onclick={clickDelete} class="button-secondary" id="delete-btn">Delete</button>
-			<button onclick={clickEdit} id="edit-btn">Edit</button>
+			<button
+				onclick={clickDelete}
+				class="button-secondary"
+				id="delete-btn"
+				aria-label="delete"
+				style="padding-left: 15px; padding-right: 15px;"
+			>
+				<span class="mdi--bin"></span>
+			</button>
+			<button
+				onclick={clickEdit}
+				id="edit-btn"
+				aria-label="edit"
+				style="padding-left: 15px; padding-right: 15px;"
+			>
+				<span class="mdi--pencil"></span>
+			</button>
 		</div>
 	</div>
 </div>
@@ -187,6 +204,34 @@
 		height: 24px;
 		--svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M15 3H9V1h6zm-2 16c0 1.03.26 2 .71 2.83c-.55.11-1.12.17-1.71.17a9 9 0 0 1 0-18c2.12 0 4.07.74 5.62 2l1.42-1.44c.51.44.96.9 1.41 1.41l-1.42 1.42A8.96 8.96 0 0 1 21 13v.35c-.64-.22-1.3-.35-2-.35c-3.31 0-6 2.69-6 6m0-12h-2v7h2zm9.54 9.88l-1.42-1.41L19 17.59l-2.12-2.12l-1.41 1.41L17.59 19l-2.12 2.12l1.41 1.42L19 20.41l2.12 2.13l1.42-1.42L20.41 19z'/%3E%3C/svg%3E");
 		background-color: var(--color-error);
+		-webkit-mask-image: var(--svg);
+		mask-image: var(--svg);
+		-webkit-mask-repeat: no-repeat;
+		mask-repeat: no-repeat;
+		-webkit-mask-size: 100% 100%;
+		mask-size: 100% 100%;
+	}
+
+	.mdi--pencil {
+		display: inline-block;
+		width: 16px;
+		height: 16px;
+		--svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83l3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75z'/%3E%3C/svg%3E");
+		background-color: currentColor;
+		-webkit-mask-image: var(--svg);
+		mask-image: var(--svg);
+		-webkit-mask-repeat: no-repeat;
+		mask-repeat: no-repeat;
+		-webkit-mask-size: 100% 100%;
+		mask-size: 100% 100%;
+	}
+
+	.mdi--bin {
+		display: inline-block;
+		width: 16px;
+		height: 16px;
+		--svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M19 4h-3.5l-1-1h-5l-1 1H5v2h14M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6z'/%3E%3C/svg%3E");
+		background-color: currentColor;
 		-webkit-mask-image: var(--svg);
 		mask-image: var(--svg);
 		-webkit-mask-repeat: no-repeat;

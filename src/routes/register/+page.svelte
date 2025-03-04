@@ -1,6 +1,8 @@
 <script>
 	import AuthService from '$services/AuthService';
 	import { goto } from '$app/navigation';
+	import { _ } from 'svelte-i18n';
+
 	let username = $state();
 	let password = $state();
 	let confirmPassword = $state();
@@ -29,8 +31,7 @@
 </script>
 
 <svelte:head>
-	<title>Register</title>
-	<meta name="description" content="Create a new account!" />
+	<title>{$_('register')}</title>
 </svelte:head>
 
 <div class="container">
@@ -38,7 +39,7 @@
 		<div class="col-12 col-sm-8 col-md-6 col-lg-4">
 			<div class="row">
 				<div class="col-12">
-					<h1>Register</h1>
+					<h1>{$_('register')}</h1>
 				</div>
 			</div>
 			<div class="row">
@@ -49,47 +50,62 @@
 			<div class="row">
 				<div class="row">
 					<div class="col-12">
-						<label for="form-username"><b>Username</b></label> <br />
-						<input id="form-username" type="text" bind:value={username} placeholder="Username" />
+						<label for="form-username"><b>{$_('profile.email')}</b></label> <br />
+						<input
+							id="form-username"
+							type="text"
+							bind:value={username}
+							placeholder={$_('profile.email')}
+						/>
 					</div>
 					<div class="col-12">
-						<label for="form-password"><b>Password</b></label> <br />
+						<label for="form-password"><b>{$_('profile.password')}</b></label> <br />
 						<input
 							id="form-password"
 							type="password"
 							bind:value={password}
-							placeholder="Password"
+							placeholder={$_('profile.password')}
 						/>
 					</div>
 					<div class="col-12">
-						<label for="form-password"><b>Confirm Password</b></label> <br />
+						<label for="form-password"><b>{$_('profile.confirm_password')}</b></label> <br />
 						<input
 							id="form-password"
 							type="password"
 							bind:value={confirmPassword}
-							placeholder="Confirm Password"
+							placeholder={$_('profile.confirm_password')}
 						/>
 					</div>
 					<div class="col-12">
-						<label for="form-name"><b>Name</b></label> <br />
-						<input id="form-name" type="text" bind:value={name} placeholder="Name" />
+						<label for="form-name"><b>{$_('profile.name')}</b></label> <br />
+						<input id="form-name" type="text" bind:value={name} placeholder={$_('profile.name')} />
 					</div>
 					<div class="col-12">
-						<label for="form-surname"><b>Surname</b></label> <br />
-						<input id="form-surname" type="text" bind:value={surname} placeholder="Surname" />
+						<label for="form-surname"><b>{$_('profile.surname')}</b></label> <br />
+						<input
+							id="form-surname"
+							type="text"
+							bind:value={surname}
+							placeholder={$_('profile.surname')}
+						/>
 					</div>
 
 					<div class="col-12">
-						<label for="form-date"><b>Birthdate</b></label> <br />
-						<input id="form-date" type="date" bind:value={birthDate} placeholder="Birthdate" />
+						<label for="form-date"><b>{$_('profile.birth_date')}</b></label> <br />
+						<input
+							id="form-date"
+							type="date"
+							bind:value={birthDate}
+							placeholder={$_('profile.birth_date')}
+						/>
 					</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-12">
-					<button onclick={() => register()}>Register</button>
+					<button onclick={() => register()}>{$_('register')}</button>
 					<p style="width:100%; text-align:center;">
-						Already have an account? <a href="/login">Login</a>
+						{$_('register.message')} <a href="/login">{$_('login')}</a>
 					</p>
 				</div>
 			</div>

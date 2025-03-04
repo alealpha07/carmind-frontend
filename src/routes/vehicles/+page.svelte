@@ -8,6 +8,7 @@
 	import { isLoggedIn } from '../../stores/auth';
 	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
+	import { _ } from 'svelte-i18n';
 
 	let vehicles: Array<Vehicle> = $state([]);
 	let showDialog = $state(false);
@@ -17,6 +18,7 @@
 	let formFields: Array<Field> = $state([]);
 	let formClickRight: Function = $state(() => {});
 	let formTitle = $state('');
+	let formDescription = $state('');
 	let formError = $state('');
 	let formSuccessMessage: string = $state('');
 	let showSuccess = $derived.by(() => {
@@ -29,17 +31,17 @@
 		return result;
 	});
 	const EDIT_ADD_FORM_FIELDS = [
-		{ type: 'text', label: 'Type', key: 'type' },
-		{ type: 'text', label: 'Brand', key: 'brand' },
-		{ type: 'text', label: 'Model', key: 'model' },
-		{ type: 'text', label: 'Registration Year', key: 'registrationYear' },
-		{ type: 'text', label: 'Plate Number', key: 'plateNumber' },
-		{ type: 'boolean', label: 'Is Insured?', key: 'isInsured' },
-		{ type: 'date', label: 'Start Date Insurance', key: 'startDateInsurance' },
-		{ type: 'date', label: 'End Date Insurance', key: 'endDateInsurance' },
-		{ type: 'boolean', label: 'Has Bill?', key: 'hasBill' },
-		{ type: 'date', label: 'End Date Bill', key: 'endDateBill' },
-		{ type: 'date', label: 'End Date Revision', key: 'endDateRevision' }
+		{ type: 'text', label: $_('vehicle.type'), key: 'type' },
+		{ type: 'text', label: $_('vehicle.brand'), key: 'brand' },
+		{ type: 'text', label: $_('vehicle.model'), key: 'model' },
+		{ type: 'text', label: $_('vehicle.registration_year'), key: 'registrationYear' },
+		{ type: 'text', label: $_('vehicle.plate_number'), key: 'plateNumber' },
+		{ type: 'boolean', label: $_('vehicle.is_insured'), key: 'isInsured' },
+		{ type: 'date', label: $_('vehicle.start_date_insurance'), key: 'startDateInsurance' },
+		{ type: 'date', label: $_('vehicle.end_date_insurance'), key: 'endDateInsurance' },
+		{ type: 'boolean', label: $_('vehicle.has_bill'), key: 'hasBill' },
+		{ type: 'date', label: $_('vehicle.end_date_bill'), key: 'endDateBill' },
+		{ type: 'date', label: $_('vehicle.end_date_revision'), key: 'endDateRevision' }
 	];
 
 	onMount(() => {
@@ -69,7 +71,7 @@
 		};
 		formFields = EDIT_ADD_FORM_FIELDS;
 		formClickRight = confirmAddVehicle;
-		formTitle = 'Add Vehicle';
+		formTitle = $_('vehicles.add_vehicle');
 		showDialog = true;
 	}
 
@@ -90,7 +92,7 @@
 		formFields = EDIT_ADD_FORM_FIELDS;
 		formId = vehicle.id;
 		formClickRight = confirmEditVehicle;
-		formTitle = 'Edit Vehicle';
+		formTitle = $_('vehicles.edit_vehicle');
 		showDialog = true;
 	}
 
@@ -99,7 +101,8 @@
 		formFields = [];
 		formId = vehicle.id;
 		formClickRight = confirmDeleteVehicle;
-		formTitle = 'Do you really want to delete the vehicle';
+		formTitle = $_('vehicles.delete_vehicle');
+		formDescription = `${$_('vehicles.delete_vehicle_message')} ${vehicle.brand} ${vehicle.model}?`;
 		showDialog = true;
 	}
 
@@ -115,11 +118,12 @@
 		formFields = [];
 		formId = -1;
 		formTitle = '';
+		formDescription = '';
 		formError = '';
 		formClickRight = () => {};
 	}
-	
-	function resetManageFileDialog(){
+
+	function resetManageFileDialog() {
 		showManageFileDialog = false;
 	}
 
@@ -193,17 +197,17 @@
 
 <svelte:head>
 	<title>Vehicles</title>
-	<meta name="description" content="Only logged in users page" />
 </svelte:head>
 
 <Dialog show={showDialog} style="top: 10vh; margin-bottom: 5vh !important;">
 	<h1>{formTitle}</h1>
+	<p style="padding-left: 10%; padding-right: 10%;">{formDescription}</p>
 	<DataForm
 		data={formData}
 		fields={formFields}
 		bind:error={formError}
-		buttonLeft={{ label: 'Cancel' }}
-		buttonRight={{ label: 'Confirm' }}
+		buttonLeft={{ label: $_('buttons.cancel') }}
+		buttonRight={{ label: $_('buttons.confirm') }}
 		clickLeft={resetForm}
 		clickRight={formClickRight}
 	></DataForm>
@@ -211,31 +215,32 @@
 <Dialog show={showManageFileDialog} style="margin-top: 30vh;">
 	<div class="container">
 		<div class="row">
-			<h1>Manage Files</h1>
+			<h1>{$_('vehicles.manage_files')}</h1>
+		</div>
+
+		<div class="row manage-file">
+			<p><b>{$_('vehicles.view_registration_card')}</b></p>
+			<div>
+				<button aria-label="Delete" class="button-secondary"><span class="mdi--bin"></span></button>
+				<button aria-label="Edit"><span class="mdi--pencil"></span></button>
+			</div>
+		</div>
+		<div class="row manage-file">
+			<p><b>{$_('vehicles.view_maintenance_manual')}</b></p>
+			<div>
+				<button aria-label="Delete" class="button-secondary"><span class="mdi--bin"></span></button>
+				<button aria-label="Edit"><span class="mdi--pencil"></span></button>
+			</div>
 		</div>
 		<div class="row manage-file align-content-center">
-			<p><b>View Insurance</b></p>
-			<div>
-				<button aria-label="Delete" class="button-secondary"><span class="mdi--bin"></span></button>
-				<button aria-label="Edit"><span class="mdi--pencil"></span></button>
-			</div>
-		</div>
-		<div class="row manage-file">
-			<p><b>View Revision</b></p>
-			<div>
-				<button aria-label="Delete" class="button-secondary"><span class="mdi--bin"></span></button>
-				<button aria-label="Edit"><span class="mdi--pencil"></span></button>
-			</div>
-		</div>
-		<div class="row manage-file">
-			<p><b>View Bill</b></p>
+			<p><b>{$_('vehicles.view_insurance')}</b></p>
 			<div>
 				<button aria-label="Delete" class="button-secondary"><span class="mdi--bin"></span></button>
 				<button aria-label="Edit"><span class="mdi--pencil"></span></button>
 			</div>
 		</div>
 		<div class="row" style="margin-top:8px !important;">
-			<button onclick={resetManageFileDialog} class="button-minor">Close</button>
+			<button onclick={resetManageFileDialog} class="button-minor">{$_('buttons.close')}</button>
 		</div>
 	</div>
 </Dialog>
@@ -249,8 +254,10 @@
 <div class="container">
 	<div class="row">
 		<div class="col">
-			<h1>Vehicles</h1>
-			<button style="margin: auto; display: block;" onclick={showAddVehicle}>Add Vehicle</button>
+			<h1>{$_('vehicles.title')}</h1>
+			<button style="margin: auto; display: block;" onclick={showAddVehicle}
+				>{$_('vehicles.add_vehicle')}</button
+			>
 		</div>
 	</div>
 	<div id="vehicle-card-row" class="row justify-content-start">

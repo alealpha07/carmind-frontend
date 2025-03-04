@@ -6,6 +6,7 @@
 	import { onMount } from 'svelte';
 	import Dialog from '$lib/components/Dialog.svelte';
 	import DataForm from '$lib/components/DataForm.svelte';
+	import { _ } from 'svelte-i18n';
 
 	let user: User = $state({
 		id: 0,
@@ -52,24 +53,24 @@
 	function showResetPasswordDialog() {
 		formData = { password: '', newPassword: '', confirmNewPassword: '' };
 		formFields = [
-			{ type: 'password', label: 'Old Password', key: 'password' },
-			{ type: 'password', label: 'New Password', key: 'newPassword' },
-			{ type: 'password', label: 'Confirm New Password', key: 'confirmNewPassword' }
+			{ type: 'password', label: $_('profile.old_password'), key: 'password' },
+			{ type: 'password', label: $_('profile.new_password'), key: 'newPassword' },
+			{ type: 'password', label: $_('profile.confirm_new_password'), key: 'confirmNewPassword' }
 		];
 		formClickRight = confirmResetPassword;
-		formTitle = 'Reset Password';
+		formTitle = $_('profile.reset_password');
 		showDialog = true;
 	}
 
 	function showEditProfileDialog() {
 		formData = { name: user.name, surname: user.surname, birthDate: user.birthDate };
 		formFields = [
-			{ type: 'text', label: 'Name', key: 'name' },
-			{ type: 'text', label: 'Surname', key: 'surname' },
-			{ type: 'date', label: 'Birthdate', key: 'birthDate' }
+			{ type: 'text', label: $_('profile.name'), key: 'name' },
+			{ type: 'text', label: $_('profile.surname'), key: 'surname' },
+			{ type: 'date', label: $_('profile.birth_date'), key: 'birthDate' }
 		];
 		formClickRight = confirmEditProfile;
-		formTitle = 'Edit Profile';
+		formTitle = $_('Edit Profile');
 		showDialog = true;
 	}
 
@@ -109,8 +110,7 @@
 </script>
 
 <svelte:head>
-	<title>Profile</title>
-	<meta name="description" content="Only logged in users page" />
+	<title>{$_('profile.title')}</title>
 </svelte:head>
 
 <Dialog show={showDialog} style="top: 30vh;">
@@ -119,8 +119,8 @@
 		data={formData}
 		fields={formFields}
 		bind:error={formError}
-		buttonLeft={{ label: 'Cancel' }}
-		buttonRight={{ label: 'Confirm' }}
+		buttonLeft={{ label: $_('buttons.cancel') }}
+		buttonRight={{ label: $_('buttons.confirm') }}
 		clickLeft={resetForm}
 		clickRight={formClickRight}
 	></DataForm>
@@ -163,10 +163,10 @@
 				<div class="row">
 					<div class="align-container">
 						<span style="margin-right: 50px;" class="mdi--lock-outline"></span>
-						<p>Reset Password</p>
+						<p>{$_('profile.reset_password')}</p>
 						<button
 							id="reset-password-btn"
-							aria-label="Reset Password"
+							aria-label={$_('profile.reset_password')}
 							onclick={showResetPasswordDialog}
 						>
 							<span style="margin-left: 5px;" class="mdi--reload"></span>
@@ -178,7 +178,7 @@
 						style="width: 85%; margin: auto; margin-top: 30px; margin-bottom: 20px;"
 						onclick={showEditProfileDialog}
 					>
-						Edit Profile
+						{$_('profile.edit')}
 					</button>
 				</div>
 			</div>

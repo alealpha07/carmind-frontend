@@ -2,6 +2,7 @@
 	import AuthService from '$services/AuthService';
 	import { isLoggedIn } from '../../stores/auth';
 	import { goto } from '$app/navigation';
+	import { _ } from 'svelte-i18n';
 
 	let username = $state();
 	let password = $state();
@@ -28,15 +29,14 @@
 </script>
 
 <svelte:head>
-	<title>Login</title>
-	<meta name="description" content="Log in to your account!" />
+	<title>{$_('login')}</title>
 </svelte:head>
 <div class="container">
 	<div class="row align-content-center justify-content-center">
 		<div class="col-12 col-sm-8 col-md-6 col-lg-4">
 			<div class="row">
 				<div class="col-12">
-					<h1>Login</h1>
+					<h1>{$_('login')}</h1>
 				</div>
 			</div>
 			<div class="row">
@@ -47,25 +47,30 @@
 			<div class="row">
 				<div class="row">
 					<div class="col-12">
-						<label for="form-username"><b>Username</b></label> <br />
-						<input id="form-username" type="text" bind:value={username} placeholder="Username" />
+						<label for="form-username"><b>{$_('profile.email')}</b></label> <br />
+						<input
+							id="form-username"
+							type="text"
+							bind:value={username}
+							placeholder={$_('profile.email')}
+						/>
 					</div>
 					<div class="col-12">
-						<label for="form-password"><b>Password</b></label> <br />
+						<label for="form-password"><b>{$_('profile.password')}</b></label> <br />
 						<input
 							id="form-password"
 							type="password"
 							bind:value={password}
-							placeholder="Password"
+							placeholder={$_('profile.password')}
 						/>
 					</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-12 align-content-center">
-					<button onclick={() => login()}>Login</button>
+					<button onclick={() => login()}>{$_('login')}</button>
 					<p style="width:100%; text-align:center;">
-						Don't have an account? <a href="/register">Register</a>
+						{$_('login.message')} <a href="/register">{$_('register')}</a>
 					</p>
 				</div>
 			</div>

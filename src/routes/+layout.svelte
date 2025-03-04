@@ -1,3 +1,14 @@
+<script lang="ts" module>
+	import { browser } from '$app/environment';
+	import '$lib/i18n';
+	import { locale, waitLocale, getLocaleFromNavigator } from 'svelte-i18n';
+
+	if (browser) {
+		locale.set(getLocaleFromNavigator()?.split('-')[0]);
+	}
+	await waitLocale();
+</script>
+
 <script lang="ts">
 	import Header from './Header.svelte';
 	import '../app.css';

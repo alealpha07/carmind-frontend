@@ -2,6 +2,7 @@
 	import { page } from '$app/stores';
 	import logo from '$lib/images/svelte-logo.svg';
 	import AuthService from '$services/AuthService';
+	import { _ } from 'svelte-i18n';
 	import { goto } from '$app/navigation';
 	import { isLoggedIn } from '../stores/auth';
 	import { onMount } from 'svelte';
@@ -9,7 +10,6 @@
 	$: isLoggedIn.subscribe((value) => {
 		loggedIn = value;
 	});
-
 	onMount(() => {
 		AuthService.getUser()
 			.then(() => {
@@ -45,22 +45,22 @@
 			{#if loggedIn}
 				<li aria-current={$page.url.pathname.startsWith('/vehicles') ? 'page' : undefined}>
 					<a href="/vehicles">
-						<p class="nav-text"><b>Vehicles</b></p>
+						<p class="nav-text"><b>{$_('vehicles.title')}</b></p>
 						<span class="mdi--car nav-icon"></span>
 					</a>
 				</li>
 				<li aria-current={$page.url.pathname.startsWith('/profile') ? 'page' : undefined}>
 					<a href="/profile">
-						<p class="nav-text"><b>Profile</b></p>
+						<p class="nav-text"><b>{$_('profile.title')}</b></p>
 						<span class="mdi--user nav-icon"></span>
 					</a>
 				</li>
 			{/if}
 			<li aria-current={$page.url.pathname.startsWith('/login') ? 'page' : undefined}>
 				{#if loggedIn}
-					<button on:click={logout}>Logout</button>
+					<button on:click={logout}>{$_('logout')}</button>
 				{:else}
-					<a href="/login">Login</a>
+					<a href="/login">{$_('login')}</a>
 				{/if}
 			</li>
 		</ul>
