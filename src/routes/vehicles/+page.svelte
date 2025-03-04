@@ -2,6 +2,7 @@
 	import Dialog from '$lib/components/Dialog.svelte';
 	import DataForm from '$lib/components/DataForm.svelte';
 	import VehicleCard from '$lib/components/VehicleCard.svelte';
+	import FileManageForm from '$lib/components/FileManageForm.svelte';
 	import AuthService from '$services/AuthService';
 	import VehicleService from '$services/VehicleService';
 	import type { Vehicle, Field } from '$types';
@@ -14,6 +15,10 @@
 	let showDialog = $state(false);
 	let showManageFileDialog = $state(false);
 	let manageFileDescription = $state("");
+	let manageFileVehicleId = $state(-1);
+	let manageFileregistrationCardUrl = $state("");
+	let manageFilemaintenanceManualUrl = $state("");
+	let manageFileinsuranceUrl = $state("");
 	let formId: number = $state(-1);
 	let formData: object = $state({});
 	let formFields: Array<Field> = $state([]);
@@ -110,7 +115,14 @@
 	function showManageFiles(vehicle: Vehicle) {
 		//TODO handle manage files
 		manageFileDescription = vehicle.brand + " " + vehicle.model + " " + vehicle.plateNumber;
-
+		manageFileVehicleId = vehicle.id;
+		
+		//TODO requests to backend to get the data for
+		/*
+		manageFileregistrationCardUrl
+		manageFilemaintenanceManualUrl
+		manageFileinsuranceUrl	
+		*/
 		showManageFileDialog = true;
 	}
 
@@ -215,37 +227,7 @@
 	></DataForm>
 </Dialog>
 <Dialog show={showManageFileDialog} style="margin-top: 1vh;">
-	<div class="container">
-		<div class="row">
-			<h1 style="margin-bottom: 0;">{$_('vehicles.manage_files')}</h1>
-			<p style="width: fit-content; margin: auto; margin-top: 0;">{manageFileDescription}</p>
-		</div>
-
-		<div class="row manage-file">
-			<p><b>{$_('vehicles.view_registration_card')}</b></p>
-			<div>
-				<button aria-label="Delete" class="button-secondary"><span class="mdi--bin"></span></button>
-				<button aria-label="Edit"><span class="mdi--pencil"></span></button>
-			</div>
-		</div>
-		<div class="row manage-file">
-			<p><b>{$_('vehicles.view_maintenance_manual')}</b></p>
-			<div>
-				<button aria-label="Delete" class="button-secondary"><span class="mdi--bin"></span></button>
-				<button aria-label="Edit"><span class="mdi--pencil"></span></button>
-			</div>
-		</div>
-		<div class="row manage-file align-content-center">
-			<p><b>{$_('vehicles.view_insurance')}</b></p>
-			<div>
-				<button aria-label="Delete" class="button-secondary"><span class="mdi--bin"></span></button>
-				<button aria-label="Edit"><span class="mdi--pencil"></span></button>
-			</div>
-		</div>
-		<div class="row" style="margin-top:8px !important;">
-			<button onclick={resetManageFileDialog} class="button-minor">{$_('buttons.close')}</button>
-		</div>
-	</div>
+	<FileManageForm vehicleId={manageFileVehicleId} registrationCardUrl={manageFileregistrationCardUrl} maintenanceManualUrl={manageFilemaintenanceManualUrl} insuranceUrl={manageFileinsuranceUrl} description={manageFileDescription} clickClose={()=>{resetManageFileDialog()}}></FileManageForm>
 </Dialog>
 <Dialog
 	unpersistent
@@ -284,30 +266,6 @@
 </div>
 
 <style>
-	.row.manage-file {
-		position: relative;
-		margin-top: 8px !important;
-	}
-	.row.manage-file button {
-		width: fit-content;
-	}
-
-	.row.manage-file div {
-		position: absolute;
-		right: 0;
-		width: fit-content;
-		z-index: 1;
-		background-color: var(--color-dialog);
-	}
-
-	.row.manage-file p {
-		margin-top: 9px;
-		cursor: pointer;
-	}
-
-	.row.manage-file p:hover {
-		color: var(--color-theme-1);
-	}
 
 	@media only screen and (max-width: 575px) {
 		#vehicle-card-row {
@@ -359,33 +317,5 @@
 		margin-bottom: 45px;
 		max-width: fit-content !important;
 		padding: 0;
-	}
-
-	.mdi--pencil {
-		display: inline-block;
-		width: 16px;
-		height: 16px;
-		--svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83l3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75z'/%3E%3C/svg%3E");
-		background-color: currentColor;
-		-webkit-mask-image: var(--svg);
-		mask-image: var(--svg);
-		-webkit-mask-repeat: no-repeat;
-		mask-repeat: no-repeat;
-		-webkit-mask-size: 100% 100%;
-		mask-size: 100% 100%;
-	}
-
-	.mdi--bin {
-		display: inline-block;
-		width: 16px;
-		height: 16px;
-		--svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M19 4h-3.5l-1-1h-5l-1 1H5v2h14M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6z'/%3E%3C/svg%3E");
-		background-color: currentColor;
-		-webkit-mask-image: var(--svg);
-		mask-image: var(--svg);
-		-webkit-mask-repeat: no-repeat;
-		mask-repeat: no-repeat;
-		-webkit-mask-size: 100% 100%;
-		mask-size: 100% 100%;
 	}
 </style>

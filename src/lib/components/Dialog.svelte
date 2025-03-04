@@ -58,6 +58,7 @@
 		top: 0;
 		left: 0;
 		z-index: 999998;
+		backdrop-filter: blur(1px);
 	}
 
 	dialog {
