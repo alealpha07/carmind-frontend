@@ -13,6 +13,7 @@
 	let vehicles: Array<Vehicle> = $state([]);
 	let showDialog = $state(false);
 	let showManageFileDialog = $state(false);
+	let manageFileDescription = $state("");
 	let formId: number = $state(-1);
 	let formData: object = $state({});
 	let formFields: Array<Field> = $state([]);
@@ -102,12 +103,13 @@
 		formId = vehicle.id;
 		formClickRight = confirmDeleteVehicle;
 		formTitle = $_('vehicles.delete_vehicle');
-		formDescription = `${$_('vehicles.delete_vehicle_message')} ${vehicle.brand} ${vehicle.model}?`;
+		formDescription = `${$_('vehicles.delete_vehicle_message')} ${vehicle.brand} ${vehicle.model} ${vehicle.plateNumber}?`;
 		showDialog = true;
 	}
 
 	function showManageFiles(vehicle: Vehicle) {
 		//TODO handle manage files
+		manageFileDescription = vehicle.brand + " " + vehicle.model + " " + vehicle.plateNumber;
 
 		showManageFileDialog = true;
 	}
@@ -199,7 +201,7 @@
 	<title>Vehicles</title>
 </svelte:head>
 
-<Dialog show={showDialog} style="top: 10vh; margin-bottom: 5vh !important;">
+<Dialog show={showDialog} style="top: 1vh; margin-bottom: 5vh !important;">
 	<h1>{formTitle}</h1>
 	<p style="padding-left: 10%; padding-right: 10%;">{formDescription}</p>
 	<DataForm
@@ -212,10 +214,11 @@
 		clickRight={formClickRight}
 	></DataForm>
 </Dialog>
-<Dialog show={showManageFileDialog} style="margin-top: 30vh;">
+<Dialog show={showManageFileDialog} style="margin-top: 1vh;">
 	<div class="container">
 		<div class="row">
-			<h1>{$_('vehicles.manage_files')}</h1>
+			<h1 style="margin-bottom: 0;">{$_('vehicles.manage_files')}</h1>
+			<p style="width: fit-content; margin: auto; margin-top: 0;">{manageFileDescription}</p>
 		</div>
 
 		<div class="row manage-file">
@@ -293,6 +296,8 @@
 		position: absolute;
 		right: 0;
 		width: fit-content;
+		z-index: 1;
+		background-color: var(--color-dialog);
 	}
 
 	.row.manage-file p {
@@ -342,8 +347,9 @@
 
 	@media only screen and (min-width: 1400px) {
 		#vehicle-card-row {
-			padding: 0;
-			gap: 10%;
+			padding-left: 6%;
+			padding-right: 6%;
+			gap: 4%;
 		}
 	}
 

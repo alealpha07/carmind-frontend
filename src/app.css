@@ -22,6 +22,7 @@
 	--color-error: #e74c3c;
 	--color-error-transparent: rgba(231, 76, 60, 0.2);
 	--color-success-transparent: rgba(46, 204, 113, 0.2);
+	--color-dialog: #e3ebf2;
 
 	font-family: var(--font-body);
 	color: var(--color-text);

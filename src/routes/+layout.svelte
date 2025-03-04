@@ -46,6 +46,7 @@
 		margin: 0 auto;
 		box-sizing: border-box;
 		min-height: fit-content;
+		position: relative;
 	}
 
 	footer {

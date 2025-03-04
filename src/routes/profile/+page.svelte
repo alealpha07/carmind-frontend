@@ -113,7 +113,7 @@
 	<title>{$_('profile.title')}</title>
 </svelte:head>
 
-<Dialog show={showDialog} style="top: 30vh;">
+<Dialog show={showDialog} style="top: 20vh;">
 	<h1>{formTitle}</h1>
 	<DataForm
 		data={formData}
