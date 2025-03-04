@@ -125,11 +125,7 @@
 		clickRight={formClickRight}
 	></DataForm>
 </Dialog>
-<Dialog
-	unpersistent
-	show={showSuccess}
-	style="background-color: transparent; border: none; box-shadow: none; bottom: 10px; margin-right: 30px;"
->
+<Dialog unpersistent show={showSuccess} style="background-color: transparent; border: none; box-shadow: none; bottom: 10px; margin-right: 30px;">
 	<p class="success-box"><b>{formSuccessMessage}</b></p>
 </Dialog>
 <div class="container" style="padding-top: 25px;">
@@ -164,20 +160,13 @@
 					<div class="align-container">
 						<span style="margin-right: 50px;" class="mdi--lock-outline"></span>
 						<p>{$_('profile.reset_password')}</p>
-						<button
-							id="reset-password-btn"
-							aria-label={$_('profile.reset_password')}
-							onclick={showResetPasswordDialog}
-						>
+						<button id="reset-password-btn" aria-label={$_('profile.reset_password')} onclick={showResetPasswordDialog}>
 							<span style="margin-left: 5px;" class="mdi--reload"></span>
 						</button>
 					</div>
 				</div>
 				<div class="row">
-					<button
-						style="width: 85%; margin: auto; margin-top: 30px; margin-bottom: 20px;"
-						onclick={showEditProfileDialog}
-					>
+					<button style="width: 85%; margin: auto; margin-top: 30px; margin-bottom: 20px;" onclick={showEditProfileDialog}>
 						{$_('profile.edit')}
 					</button>
 				</div>

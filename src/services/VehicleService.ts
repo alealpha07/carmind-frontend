@@ -1,3 +1,4 @@
+import type { Vehicle } from '$types';
 import axios from 'axios';
 const BASE_URL: string = import.meta.env.VITE_BASE_URL;
 import { locale, waitLocale } from 'svelte-i18n';
@@ -8,38 +9,12 @@ $: locale.subscribe((value) => {
 });
 
 class VehicleService {
-	static addVehicle(
-		type: string,
-		brand: string,
-		model: string,
-		registrationYear: number,
-		plateNumber: string,
-		isInsured: boolean,
-		startDateInsurance: Date,
-		endDateInsurance: Date,
-		hasBill: boolean,
-		endDateBill: Date,
-		endDateRevision: Date
-	) {
+	static addVehicle(vehicle: Vehicle) {
 		return new Promise(async (resolve, reject) => {
 			try {
-				const res = await axios.post(
-					`${BASE_URL}/vehicle?lang=${currentLocale}`,
-					{
-						type,
-						brand,
-						model,
-						registrationYear,
-						plateNumber,
-						isInsured,
-						startDateInsurance,
-						endDateInsurance,
-						hasBill,
-						endDateBill,
-						endDateRevision
-					},
-					{ withCredentials: true }
-				);
+				const res = await axios.post(`${BASE_URL}/vehicle?lang=${currentLocale}`, vehicle, {
+					withCredentials: true
+				});
 				const data = res.data;
 				resolve(data);
 			} catch (error) {
@@ -62,40 +37,10 @@ class VehicleService {
 		});
 	}
 
-	static editVehicle(
-		type: string,
-		brand: string,
-		model: string,
-		registrationYear: number,
-		plateNumber: string,
-		isInsured: boolean,
-		startDateInsurance: Date,
-		endDateInsurance: Date,
-		hasBill: boolean,
-		endDateBill: Date,
-		endDateRevision: Date,
-		id: number
-	) {
+	static editVehicle(vehicle: Vehicle, id: number) {
 		return new Promise(async (resolve, reject) => {
 			try {
-				const res = await axios.put(
-					`${BASE_URL}/vehicle?lang=${currentLocale}`,
-					{
-						type,
-						brand,
-						model,
-						registrationYear,
-						plateNumber,
-						isInsured,
-						startDateInsurance,
-						endDateInsurance,
-						hasBill,
-						endDateBill,
-						endDateRevision,
-						id
-					},
-					{ withCredentials: true }
-				);
+				const res = await axios.put(`${BASE_URL}/vehicle?lang=${currentLocale}`, { ...vehicle, ...{ id: id } }, { withCredentials: true });
 				const data = res.data;
 				resolve(data);
 			} catch (error) {

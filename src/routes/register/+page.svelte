@@ -51,30 +51,15 @@
 				<div class="row">
 					<div class="col-12">
 						<label for="form-username"><b>{$_('profile.email')}</b></label> <br />
-						<input
-							id="form-username"
-							type="text"
-							bind:value={username}
-							placeholder={$_('profile.email')}
-						/>
+						<input id="form-username" type="text" bind:value={username} placeholder={$_('profile.email')} />
 					</div>
 					<div class="col-12">
 						<label for="form-password"><b>{$_('profile.password')}</b></label> <br />
-						<input
-							id="form-password"
-							type="password"
-							bind:value={password}
-							placeholder={$_('profile.password')}
-						/>
+						<input id="form-password" type="password" bind:value={password} placeholder={$_('profile.password')} />
 					</div>
 					<div class="col-12">
 						<label for="form-password"><b>{$_('profile.confirm_password')}</b></label> <br />
-						<input
-							id="form-password"
-							type="password"
-							bind:value={confirmPassword}
-							placeholder={$_('profile.confirm_password')}
-						/>
+						<input id="form-password" type="password" bind:value={confirmPassword} placeholder={$_('profile.confirm_password')} />
 					</div>
 					<div class="col-12">
 						<label for="form-name"><b>{$_('profile.name')}</b></label> <br />
@@ -82,22 +67,12 @@
 					</div>
 					<div class="col-12">
 						<label for="form-surname"><b>{$_('profile.surname')}</b></label> <br />
-						<input
-							id="form-surname"
-							type="text"
-							bind:value={surname}
-							placeholder={$_('profile.surname')}
-						/>
+						<input id="form-surname" type="text" bind:value={surname} placeholder={$_('profile.surname')} />
 					</div>
 
 					<div class="col-12">
 						<label for="form-date"><b>{$_('profile.birth_date')}</b></label> <br />
-						<input
-							id="form-date"
-							type="date"
-							bind:value={birthDate}
-							placeholder={$_('profile.birth_date')}
-						/>
+						<input id="form-date" type="date" bind:value={birthDate} placeholder={$_('profile.birth_date')} />
 					</div>
 				</div>
 			</div>

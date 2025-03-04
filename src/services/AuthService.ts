@@ -12,11 +12,7 @@ class AuthService {
 	static logout() {
 		return new Promise(async (resolve, reject) => {
 			try {
-				const res = await axios.post(
-					`${BASE_URL}/auth/logout?lang=${currentLocale}`,
-					{},
-					{ withCredentials: true }
-				);
+				const res = await axios.post(`${BASE_URL}/auth/logout?lang=${currentLocale}`, {}, { withCredentials: true });
 				const data = res.data;
 				resolve(data);
 			} catch (error) {
@@ -41,14 +37,7 @@ class AuthService {
 		});
 	}
 
-	static register(
-		username: string,
-		password: string,
-		confirmPassword: string,
-		name: string,
-		surname: string,
-		birthDate: Date
-	) {
+	static register(username: string, password: string, confirmPassword: string, name: string, surname: string, birthDate: Date) {
 		return new Promise(async (resolve, reject) => {
 			try {
 				const res = await axios.post(

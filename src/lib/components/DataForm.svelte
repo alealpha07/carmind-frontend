@@ -62,22 +62,12 @@
 			{#if field.type == 'text'}
 				<div class="col-12">
 					<label for="form-element-{field.key}"><b>{field.label}</b></label> <br />
-					<input
-						type="text"
-						id="form-element-{field.key}"
-						placeholder={field.label}
-						bind:value={tempData[field.key]}
-					/>
+					<input type="text" id="form-element-{field.key}" placeholder={field.label} bind:value={tempData[field.key]} />
 				</div>
 			{:else if field.type == 'password'}
 				<div class="col-12">
 					<label for="form-element-{field.key}"><b>{field.label}</b></label> <br />
-					<input
-						type="password"
-						id="form-element-{field.key}"
-						placeholder={field.label}
-						bind:value={tempData[field.key]}
-					/>
+					<input type="password" id="form-element-{field.key}" placeholder={field.label} bind:value={tempData[field.key]} />
 				</div>
 			{:else if field.type == 'date'}
 				<div class="col-12">
@@ -108,11 +98,7 @@
 					<div class="align-container">
 						<b>{field.label}</b>
 						<label style="display: inline-block;" class="switch" for="form-element-{field.key}">
-							<input
-								type="checkbox"
-								id="form-element-{field.key}"
-								bind:checked={tempData[field.key]}
-							/>
+							<input type="checkbox" id="form-element-{field.key}" bind:checked={tempData[field.key]} />
 							<div class="slider round"></div>
 						</label>
 					</div>

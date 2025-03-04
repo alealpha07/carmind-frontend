@@ -48,21 +48,11 @@
 				<div class="row">
 					<div class="col-12">
 						<label for="form-username"><b>{$_('profile.email')}</b></label> <br />
-						<input
-							id="form-username"
-							type="text"
-							bind:value={username}
-							placeholder={$_('profile.email')}
-						/>
+						<input id="form-username" type="text" bind:value={username} placeholder={$_('profile.email')} />
 					</div>
 					<div class="col-12">
 						<label for="form-password"><b>{$_('profile.password')}</b></label> <br />
-						<input
-							id="form-password"
-							type="password"
-							bind:value={password}
-							placeholder={$_('profile.password')}
-						/>
+						<input id="form-password" type="password" bind:value={password} placeholder={$_('profile.password')} />
 					</div>
 				</div>
 			</div>

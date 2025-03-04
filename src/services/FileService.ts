@@ -18,14 +18,10 @@ class FileService {
 	static upload(file: FormData, vehicleId: Number, type: string) {
 		return new Promise(async (resolve, reject) => {
 			try {
-				const res = await axios.post(
-					`${BASE_URL}/upload?id=${vehicleId}&type=${type}&lang=${currentLocale}`,
-					file,
-					{
-						withCredentials: true,
-						headers: { 'Content-Type': 'multipart/form-data' }
-					}
-				);
+				const res = await axios.post(`${BASE_URL}/upload?id=${vehicleId}&type=${type}&lang=${currentLocale}`, file, {
+					withCredentials: true,
+					headers: { 'Content-Type': 'multipart/form-data' }
+				});
 				const data = res.data;
 				resolve(data);
 			} catch (error) {
@@ -37,13 +33,10 @@ class FileService {
 	static get(vehicleId: Number, type: string) {
 		return new Promise(async (resolve, reject) => {
 			try {
-				const res = await axios.get(
-					`${BASE_URL}/upload?id=${vehicleId}&type=${type}&lang=${currentLocale}`,
-					{
-						withCredentials: true,
-						responseType: 'blob'
-					}
-				);
+				const res = await axios.get(`${BASE_URL}/upload?id=${vehicleId}&type=${type}&lang=${currentLocale}`, {
+					withCredentials: true,
+					responseType: 'blob'
+				});
 				let url = URL.createObjectURL(new Blob([res.data]));
 				resolve(url);
 			} catch (error) {

@@ -12,13 +12,11 @@
 	import { _ } from 'svelte-i18n';
 
 	let vehicles: Array<Vehicle> = $state([]);
-	let showDialog = $state(false);
+	let showVehicleFormDialog = $state(false);
 	let showManageFileDialog = $state(false);
-	let manageFileDescription = $state("");
-	let manageFileVehicleId = $state(-1);
-	let manageFileregistrationCardUrl = $state("");
-	let manageFilemaintenanceManualUrl = $state("");
-	let manageFileinsuranceUrl = $state("");
+
+	let manageFileVehicle: Vehicle | null = $state(null);
+
 	let formId: number = $state(-1);
 	let formData: object = $state({});
 	let formFields: Array<Field> = $state([]);
@@ -36,6 +34,7 @@
 		}
 		return result;
 	});
+
 	const EDIT_ADD_FORM_FIELDS = [
 		{ type: 'text', label: $_('vehicle.type'), key: 'type' },
 		{ type: 'text', label: $_('vehicle.brand'), key: 'brand' },
@@ -78,28 +77,16 @@
 		formFields = EDIT_ADD_FORM_FIELDS;
 		formClickRight = confirmAddVehicle;
 		formTitle = $_('vehicles.add_vehicle');
-		showDialog = true;
+		showVehicleFormDialog = true;
 	}
 
 	function showEditVehicle(vehicle: Vehicle) {
-		formData = {
-			type: vehicle.type,
-			brand: vehicle.brand,
-			model: vehicle.model,
-			registrationYear: vehicle.registrationYear,
-			plateNumber: vehicle.plateNumber,
-			isInsured: vehicle.isInsured,
-			startDateInsurance: vehicle.startDateInsurance,
-			endDateInsurance: vehicle.endDateInsurance,
-			hasBill: vehicle.hasBill,
-			endDateBill: vehicle.endDateBill,
-			endDateRevision: vehicle.endDateRevision
-		};
+		formData = vehicle;
 		formFields = EDIT_ADD_FORM_FIELDS;
 		formId = vehicle.id;
 		formClickRight = confirmEditVehicle;
 		formTitle = $_('vehicles.edit_vehicle');
-		showDialog = true;
+		showVehicleFormDialog = true;
 	}
 
 	function showDeleteVehicle(vehicle: Vehicle) {
@@ -109,25 +96,19 @@
 		formClickRight = confirmDeleteVehicle;
 		formTitle = $_('vehicles.delete_vehicle');
 		formDescription = `${$_('vehicles.delete_vehicle_message')} ${vehicle.brand} ${vehicle.model} ${vehicle.plateNumber}?`;
-		showDialog = true;
+		showVehicleFormDialog = true;
 	}
 
 	function showManageFiles(vehicle: Vehicle) {
-		//TODO handle manage files
-		manageFileDescription = vehicle.brand + " " + vehicle.model + " " + vehicle.plateNumber;
-		manageFileVehicleId = vehicle.id;
-		
-		//TODO requests to backend to get the data for
-		/*
-		manageFileregistrationCardUrl
-		manageFilemaintenanceManualUrl
-		manageFileinsuranceUrl	
-		*/
+		manageFileVehicle = vehicle;
+	}
+
+	function displayManageFiles() {
 		showManageFileDialog = true;
 	}
 
 	function resetForm() {
-		showDialog = false;
+		showVehicleFormDialog = false;
 		formData = [];
 		formFields = [];
 		formId = -1;
@@ -138,23 +119,13 @@
 	}
 
 	function resetManageFileDialog() {
+		manageFileVehicle = null;
 		showManageFileDialog = false;
 	}
 
 	function confirmAddVehicle(result: Vehicle) {
-		VehicleService.addVehicle(
-			result.type,
-			result.brand,
-			result.model,
-			Number(result.registrationYear),
-			result.plateNumber,
-			result.isInsured,
-			result.startDateInsurance,
-			result.endDateInsurance,
-			result.hasBill,
-			result.endDateBill,
-			result.endDateRevision
-		)
+		result.registrationYear = Number(result.registrationYear);
+		VehicleService.addVehicle(result)
 			.then((res) => {
 				reloadVehicles();
 				formSuccessMessage = res as string;
@@ -166,20 +137,8 @@
 	}
 
 	function confirmEditVehicle(result: Vehicle) {
-		VehicleService.editVehicle(
-			result.type,
-			result.brand,
-			result.model,
-			Number(result.registrationYear),
-			result.plateNumber,
-			result.isInsured,
-			result.startDateInsurance,
-			result.endDateInsurance,
-			result.hasBill,
-			result.endDateBill,
-			result.endDateRevision,
-			formId
-		)
+		result.registrationYear = Number(result.registrationYear);
+		VehicleService.editVehicle(result, formId)
 			.then((res) => {
 				reloadVehicles();
 				formSuccessMessage = res as string;
@@ -213,7 +172,7 @@
 	<title>Vehicles</title>
 </svelte:head>
 
-<Dialog show={showDialog} style="top: 1vh; margin-bottom: 5vh !important;">
+<Dialog show={showVehicleFormDialog} style="top: 1vh; margin-bottom: 5vh !important;">
 	<h1>{formTitle}</h1>
 	<p style="padding-left: 10%; padding-right: 10%;">{formDescription}</p>
 	<DataForm
@@ -227,27 +186,29 @@
 	></DataForm>
 </Dialog>
 <Dialog show={showManageFileDialog} style="margin-top: 1vh;">
-	<FileManageForm vehicleId={manageFileVehicleId} registrationCardUrl={manageFileregistrationCardUrl} maintenanceManualUrl={manageFilemaintenanceManualUrl} insuranceUrl={manageFileinsuranceUrl} description={manageFileDescription} clickClose={()=>{resetManageFileDialog()}}></FileManageForm>
+	<FileManageForm
+		vehicle={manageFileVehicle}
+		clickClose={() => {
+			resetManageFileDialog();
+		}}
+		loadedCallback={() => {
+			displayManageFiles();
+		}}
+	></FileManageForm>
 </Dialog>
-<Dialog
-	unpersistent
-	show={showSuccess}
-	style="background-color: transparent; border: none; box-shadow: none; bottom: 10px; margin-right: 30px;"
->
+<Dialog unpersistent show={showSuccess} style="background-color: transparent; border: none; box-shadow: none; bottom: 10px; margin-right: 30px;">
 	<p class="success-box"><b>{formSuccessMessage}</b></p>
 </Dialog>
 <div class="container">
 	<div class="row">
 		<div class="col">
 			<h1>{$_('vehicles.title')}</h1>
-			<button style="margin: auto; display: block;" onclick={showAddVehicle}
-				>{$_('vehicles.add_vehicle')}</button
-			>
+			<button style="margin: auto; display: block;" onclick={showAddVehicle}>{$_('vehicles.add_vehicle')}</button>
 		</div>
 	</div>
 	<div id="vehicle-card-row" class="row justify-content-start">
 		{#each vehicles as vehicle (vehicle.id)}
-			<div id="vehicle-card-container" class="col">
+			<div style="margin: 15px 0 45px 15px; max-width: fit-content !important; padding: 0;" class="col">
 				<VehicleCard
 					data={vehicle}
 					clickDelete={() => {
@@ -266,18 +227,10 @@
 </div>
 
 <style>
-
-	@media only screen and (max-width: 575px) {
+	@media only screen and (max-width: 767px) {
 		#vehicle-card-row {
 			gap: 0%;
 			justify-content: center !important;
-		}
-	}
-
-	@media only screen and (min-width: 576px) {
-		#vehicle-card-row {
-			justify-content: center !important;
-			gap: 0%;
 		}
 	}
 
@@ -309,13 +262,5 @@
 			padding-right: 6%;
 			gap: 4%;
 		}
-	}
-
-	#vehicle-card-container {
-		margin-left: 15px;
-		margin-top: 15px;
-		margin-bottom: 45px;
-		max-width: fit-content !important;
-		padding: 0;
 	}
 </style>

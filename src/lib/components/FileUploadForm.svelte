@@ -48,11 +48,7 @@
 	<div class="row">
 		<div class="col-12" style="margin-top: 5px;">
 			<label for="form-element-file"><b>{label}</b></label> <br />
-			<input
-				type="file"
-				id="form-element-file"
-				onchange={(e: any) => (file = e?.target?.files?.[0])}
-			/>
+			<input type="file" id="form-element-file" onchange={(e: any) => (file = e?.target?.files?.[0])} />
 			<button onclick={uploadFile} aria-label="Upload"><span class="mdi--upload"></span></button>
 		</div>
 	</div>

@@ -25,27 +25,9 @@
 	} = $props();
 
 	let currentDate = new Date();
-	let insuranceIcon = $state(
-		currentDate > data.endDateInsurance
-			? '-remove'
-			: isWithin30Days(data.endDateInsurance, currentDate)
-				? '-alert'
-				: ''
-	);
-	let billIcon = $state(
-		currentDate > data.endDateBill
-			? '-remove'
-			: isWithin30Days(data.endDateBill, currentDate)
-				? '-alert'
-				: ''
-	);
-	let revisionIcon = $state(
-		currentDate > data.endDateRevision
-			? '-remove'
-			: isWithin30Days(data.endDateRevision, currentDate)
-				? '-alert'
-				: ''
-	);
+	let insuranceIcon = $state(currentDate > data.endDateInsurance ? '-remove' : isWithin30Days(data.endDateInsurance, currentDate) ? '-alert' : '');
+	let billIcon = $state(currentDate > data.endDateBill ? '-remove' : isWithin30Days(data.endDateBill, currentDate) ? '-alert' : '');
+	let revisionIcon = $state(currentDate > data.endDateRevision ? '-remove' : isWithin30Days(data.endDateRevision, currentDate) ? '-alert' : '');
 
 	function formatDate(date: Date) {
 		date = new Date(date);
@@ -105,26 +87,13 @@
 		<div class="col-6">
 			<!-- TODO handle fiels -->
 
-			<button onclick={clickManageFiles} class="button-minor" id="manage-btn"
-				>{$_('buttons.manage_file')}</button
-			>
+			<button onclick={clickManageFiles} class="button-minor" id="manage-btn">{$_('buttons.manage_file')}</button>
 		</div>
 		<div class="col-6">
-			<button
-				onclick={clickDelete}
-				class="button-secondary"
-				id="delete-btn"
-				aria-label="delete"
-				style="padding-left: 15px; padding-right: 15px;"
-			>
+			<button onclick={clickDelete} class="button-secondary" id="delete-btn" aria-label="delete" style="padding-left: 15px; padding-right: 15px;">
 				<span class="mdi--bin"></span>
 			</button>
-			<button
-				onclick={clickEdit}
-				id="edit-btn"
-				aria-label="edit"
-				style="padding-left: 15px; padding-right: 15px;"
-			>
+			<button onclick={clickEdit} id="edit-btn" aria-label="edit" style="padding-left: 15px; padding-right: 15px;">
 				<span class="mdi--pencil"></span>
 			</button>
 		</div>
@@ -211,5 +180,4 @@
 		-webkit-mask-size: 100% 100%;
 		mask-size: 100% 100%;
 	}
-	
 </style>
