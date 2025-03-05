@@ -44,6 +44,29 @@ class FileService {
 			}
 		});
 	}
+
+	static getUrls(vehicleId: Number) {
+		return new Promise(async (resolve, reject) => {
+			try {
+				const res = await axios.get(`${BASE_URL}/upload/all?id=${vehicleId}&lang=${currentLocale}`, {
+					withCredentials: true
+				});
+				let data = res.data;
+
+				resolve({
+					registrationCardUrl: data.registrationCardFileExtension
+						? `${BASE_URL}/upload?id=${vehicleId}&type=${this.FileTypes.registrationCard}&lang=${currentLocale}`
+						: '',
+					maintenanceManualUrl: data.maintenanceFileExtension
+						? `${BASE_URL}/upload?id=${vehicleId}&type=${this.FileTypes.maintenance}&lang=${currentLocale}`
+						: '',
+					insuranceUrl: data.insuranceFileExtension ? `${BASE_URL}/upload?id=${vehicleId}&type=${this.FileTypes.insurance}&lang=${currentLocale}` : ''
+				});
+			} catch (error) {
+				reject(error);
+			}
+		});
+	}
 }
 
 export default FileService;

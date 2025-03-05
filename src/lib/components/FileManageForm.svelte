@@ -8,7 +8,11 @@
 	let loaded = $derived.by(() => {
 		let result = vehicle != null;
 		if (result) {
-			//TODO load Url values from to backend
+			FileService.getUrls(vehicle.id).then((res: any) => {
+				registrationCardUrl = res.registrationCardUrl;
+				maintenanceManualUrl = res.maintenanceManualUrl;
+				insuranceUrl = res.insuranceUrl;
+			});
 		}
 		return result;
 	});
@@ -38,7 +42,7 @@
 		<FileForm
 			label={formLabel}
 			fileType={formFileType}
-			vehicleId={vehicle}
+			vehicleId={vehicle.id}
 			successCallback={() => {
 				//TODO refresh manage form => callback
 				console.log('success');
@@ -64,7 +68,7 @@
 					>
 				</div>
 			{:else}
-				<p><b>{$_('vehicles.view_registration_card')}</b></p>
+				<p><a target="_blank" href={registrationCardUrl}><b>{$_('vehicles.view_registration_card')}</b></a></p>
 				<div>
 					<button aria-label="Delete" class="button-secondary"><span class="mdi--bin"></span></button>
 					<button aria-label="Edit"><span class="mdi--pencil"></span></button>
@@ -83,7 +87,7 @@
 					>
 				</div>
 			{:else}
-				<p><b>{$_('vehicles.view_maintenance_manual')}</b></p>
+				<p><a target="_blank" href={maintenanceManualUrl}><b>{$_('vehicles.view_maintenance_manual')}</b></a></p>
 				<div>
 					<button aria-label="Delete" class="button-secondary"><span class="mdi--bin"></span></button>
 					<button aria-label="Edit"><span class="mdi--pencil"></span></button>
@@ -102,7 +106,7 @@
 					>
 				</div>
 			{:else}
-				<p><b>{$_('vehicles.view_insurance')}</b></p>
+				<p><a target="_blank" href={insuranceUrl}><b>{$_('vehicles.view_insurance')}</b></a></p>
 				<div>
 					<button aria-label="Delete" class="button-secondary"><span class="mdi--bin"></span></button>
 					<button aria-label="Edit"><span class="mdi--pencil"></span></button>
@@ -134,10 +138,16 @@
 
 	.row.manage-file p {
 		margin-top: 9px;
-		/*cursor: pointer;*/
+		color: var(--color-text);
 	}
 
-	.row.manage-file p:hover {
-		/*color: var(--color-theme-1);*/
+	.row.manage-file a {
+		cursor: pointer;
+		color: var(--color-text);
+		text-decoration: none;
+	}
+
+	.row.manage-file a:hover {
+		color: var(--color-theme-1);
 	}
 </style>
