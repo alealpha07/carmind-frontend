@@ -90,6 +90,7 @@ pre {
 
 button,
 input,
+select,
 input::file-selector-button {
 	font-size: inherit;
 	font-family: inherit;
@@ -103,7 +104,8 @@ input::file-selector-button {
 }
 
 button.button-secondary,
-input::file-selector-button {
+input::file-selector-button,
+select {
 	background-color: transparent;
 	color: var(--color-theme-1);
 }

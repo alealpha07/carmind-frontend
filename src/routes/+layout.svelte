@@ -1,10 +1,11 @@
 <script lang="ts" module>
 	import { browser } from '$app/environment';
 	import '$lib/i18n';
-	import { locale, waitLocale, getLocaleFromNavigator } from 'svelte-i18n';
+	import { locale, locales, waitLocale, getLocaleFromNavigator } from 'svelte-i18n';
 
 	if (browser) {
 		locale.set(getLocaleFromNavigator()?.split('-')[0]);
+		locale.set(!!localStorage.getItem('lang') ? localStorage.getItem('lang') : getLocaleFromNavigator()?.split('-')[0]);
 	}
 	await waitLocale();
 </script>
@@ -13,7 +14,18 @@
 	import Header from './Header.svelte';
 	import '../app.css';
 	import '../grid.css';
-
+	let currentLocale: string = $state('');
+	let currentLocales: Array<string> = $state([]);
+	locale.subscribe((value) => {
+		currentLocale = value as string;
+	});
+	locales.subscribe((value) => {
+		currentLocales = value;
+	});
+	function updateLocale(event: any) {
+		locale.set(event.target.value);
+		localStorage.setItem('lang', event.target.value);
+	}
 	let { children } = $props();
 </script>
 
@@ -26,8 +38,13 @@
 
 	<footer>
 		<p>
-			visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to learn about SvelteKit
+			® {new Date().getFullYear()} <b>Alessandro Prati & Armando Scuotto</b>
 		</p>
+		<select onchange={updateLocale}>
+			{#each currentLocales as lang}
+				<option selected={currentLocale == lang} value={lang}>{lang}</option>
+			{/each}
+		</select>
 	</footer>
 </div>
 
@@ -55,10 +72,6 @@
 		justify-content: center;
 		align-items: center;
 		padding: 12px;
-	}
-
-	footer a {
-		font-weight: bold;
 	}
 
 	@media (min-width: 480px) {

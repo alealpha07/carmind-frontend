@@ -35,7 +35,7 @@
 		return result;
 	});
 
-	const EDIT_ADD_FORM_FIELDS = [
+	const VEHICLE_FORM_FIELDS = [
 		{ type: 'text', label: $_('vehicle.type'), key: 'type' },
 		{ type: 'text', label: $_('vehicle.brand'), key: 'brand' },
 		{ type: 'text', label: $_('vehicle.model'), key: 'model' },
@@ -49,6 +49,20 @@
 		{ type: 'date', label: $_('vehicle.end_date_revision'), key: 'endDateRevision' }
 	];
 
+	const EMPTY_VEHICLE = {
+		type: '',
+		brand: '',
+		model: '',
+		registrationYear: '',
+		plateNumber: '',
+		isInsured: false,
+		startDateInsurance: null,
+		endDateInsurance: null,
+		hasBill: false,
+		endDateBill: null,
+		endDateRevision: null
+	};
+
 	onMount(() => {
 		AuthService.getUser()
 			.then(() => {
@@ -60,50 +74,18 @@
 			});
 	});
 
-	function showAddVehicle() {
-		formData = {
-			type: '',
-			brand: '',
-			model: '',
-			registrationYear: '',
-			plateNumber: '',
-			isInsured: false,
-			startDateInsurance: null,
-			endDateInsurance: null,
-			hasBill: false,
-			endDateBill: null,
-			endDateRevision: null
-		};
-		formFields = EDIT_ADD_FORM_FIELDS;
-		formClickRight = confirmAddVehicle;
-		formTitle = $_('vehicles.add_vehicle');
-		showVehicleFormDialog = true;
-	}
-
-	function showEditVehicle(vehicle: Vehicle) {
-		formData = vehicle;
-		formFields = EDIT_ADD_FORM_FIELDS;
-		formId = vehicle.id;
-		formClickRight = confirmEditVehicle;
-		formTitle = $_('vehicles.edit_vehicle');
-		showVehicleFormDialog = true;
-	}
-
-	function showDeleteVehicle(vehicle: Vehicle) {
-		formData = {};
-		formFields = [];
-		formId = vehicle.id;
-		formClickRight = confirmDeleteVehicle;
-		formTitle = $_('vehicles.delete_vehicle');
-		formDescription = `${$_('vehicles.delete_vehicle_message')} ${vehicle.brand} ${vehicle.model} ${vehicle.plateNumber}?`;
+	function showForm(data: any, fields: Array<Field>, clickRight: Function, title: string, description: string = '', id = -1) {
+		formData = data;
+		formFields = fields;
+		formClickRight = clickRight;
+		formTitle = title;
+		formDescription = description;
+		formId = id;
 		showVehicleFormDialog = true;
 	}
 
 	function showManageFiles(vehicle: Vehicle) {
 		manageFileVehicle = vehicle;
-	}
-
-	function displayManageFiles() {
 		showManageFileDialog = true;
 	}
 
@@ -123,7 +105,7 @@
 		showManageFileDialog = false;
 	}
 
-	function confirmAddVehicle(result: Vehicle) {
+	function addVehicle(result: Vehicle) {
 		result.registrationYear = Number(result.registrationYear);
 		VehicleService.addVehicle(result)
 			.then((res) => {
@@ -136,7 +118,7 @@
 			});
 	}
 
-	function confirmEditVehicle(result: Vehicle) {
+	function editVehicle(result: Vehicle) {
 		result.registrationYear = Number(result.registrationYear);
 		VehicleService.editVehicle(result, formId)
 			.then((res) => {
@@ -149,7 +131,7 @@
 			});
 	}
 
-	function confirmDeleteVehicle(result: Vehicle) {
+	function deleteVehicle(result: Vehicle) {
 		VehicleService.deleteVehicle(formId)
 			.then((res) => {
 				reloadVehicles();
@@ -191,9 +173,6 @@
 		clickClose={() => {
 			resetManageFileDialog();
 		}}
-		loadedCallback={() => {
-			displayManageFiles();
-		}}
 	></FileManageForm>
 </Dialog>
 <Dialog unpersistent show={showSuccess} style="background-color: transparent; border: none; box-shadow: none; bottom: 10px; margin-right: 30px;">
@@ -203,7 +182,12 @@
 	<div class="row">
 		<div class="col">
 			<h1>{$_('vehicles.title')}</h1>
-			<button style="margin: auto; display: block;" onclick={showAddVehicle}>{$_('vehicles.add_vehicle')}</button>
+			<button
+				style="margin: auto; display: block;"
+				onclick={() => {
+					showForm(EMPTY_VEHICLE, VEHICLE_FORM_FIELDS, addVehicle, $_('vehicles.add_vehicle'));
+				}}>{$_('vehicles.add_vehicle')}</button
+			>
 		</div>
 	</div>
 	<div id="vehicle-card-row" class="row justify-content-start">
@@ -212,10 +196,17 @@
 				<VehicleCard
 					data={vehicle}
 					clickDelete={() => {
-						showDeleteVehicle(vehicle);
+						showForm(
+							{},
+							[],
+							deleteVehicle,
+							$_('vehicles.delete_vehicle'),
+							`${$_('vehicles.delete_vehicle_message')} ${vehicle.brand} ${vehicle.model} ${vehicle.plateNumber}?`,
+							vehicle.id
+						);
 					}}
 					clickEdit={() => {
-						showEditVehicle(vehicle);
+						showForm(vehicle, VEHICLE_FORM_FIELDS, editVehicle, $_('vehicles.edit_vehicle'), '', vehicle.id);
 					}}
 					clickManageFiles={() => {
 						showManageFiles(vehicle);
@@ -243,6 +234,7 @@
 
 	@media only screen and (min-width: 992px) {
 		#vehicle-card-row {
+			width: 84%;
 			padding-left: 8%;
 			padding-right: 8%;
 			gap: 6%;
@@ -258,6 +250,7 @@
 
 	@media only screen and (min-width: 1400px) {
 		#vehicle-card-row {
+			width: 88%;
 			padding-left: 6%;
 			padding-right: 6%;
 			gap: 4%;
