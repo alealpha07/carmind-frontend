@@ -31,6 +31,7 @@
 		formData.append('file', file);
 		FileService.upload(formData, vehicleId, fileType)
 			.then(() => {
+				file = undefined;
 				successCallback();
 			})
 			.catch((err) => {

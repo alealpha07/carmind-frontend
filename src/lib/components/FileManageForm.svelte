@@ -19,11 +19,11 @@
 	let formFileType = $state('');
 	let formError = $state('');
 	let formDeleteType = $state('');
-	let deleteFormDialog = $state(false);	
+	let deleteFormDialog = $state(false);
 	let registrationCardUrl = $state('');
 	let maintenanceManualUrl = $state('');
 	let insuranceUrl = $state('');
-	
+
 	function showForm(label: string, fileType: string) {
 		formLabel = label;
 		formFileType = fileType;
@@ -36,57 +36,51 @@
 		formFileType = '';
 	}
 
-	function resetDeleteForm(){
+	function resetDeleteForm() {
 		resetForm();
 		deleteFormDialog = false;
-		formDeleteType = "";
-		formError = "";
+		formDeleteType = '';
+		formError = '';
 	}
 
-	function confirmDelete(){
-		FileService.delete(vehicle.id, formDeleteType).then(() => {
-			resetDeleteForm();
-			refreshData();
-		}).catch((err) =>{
-			formError= err.response.data;
-		})
+	function confirmDelete() {
+		FileService.delete(vehicle.id, formDeleteType)
+			.then(() => {
+				resetDeleteForm();
+				refreshData();
+			})
+			.catch((err) => {
+				formError = err.response.data;
+			});
 	}
 
-	function showDeleteDialog(typeText:string, type: string){
-		formLabel = $_("vehicle.delete_file_message") + typeText + "?";
+	function showDeleteDialog(typeText: string, type: string) {
+		formLabel = $_('vehicle.delete_file_message') + typeText + '?';
 		formDeleteType = type;
 		deleteFormDialog = true;
 	}
 
-	function formSuccessCallback(){
+	function formSuccessCallback() {
 		refreshData();
 		resetForm();
 	}
 
-	function refreshData(){
-		FileService.getUrls(vehicle.id).then((res: any) => {
-				registrationCardUrl = res.registrationCardUrl;
-				maintenanceManualUrl = res.maintenanceManualUrl;
-				insuranceUrl = res.insuranceUrl;
-			});
+	function refreshData() {
+		FileService.getAvailableFilesUrls(vehicle.id).then((res: any) => {
+			registrationCardUrl = res.registrationCardUrl;
+			maintenanceManualUrl = res.maintenanceManualUrl;
+			insuranceUrl = res.insuranceUrl;
+		});
 	}
-
-	
-
 </script>
 
 {#if loaded}
 	<Dialog show={formDialog} style="margin-top: 10vh; margin-left: 0; background-color: var(--color-dialog-darker)">
-		<FileForm
-			label={formLabel}
-			fileType={formFileType}
-			vehicleId={vehicle.id}
-			successCallback={formSuccessCallback}
-			clickClose={resetForm}
+		<FileForm label={formLabel} fileType={formFileType} vehicleId={vehicle.id} successCallback={formSuccessCallback} clickClose={resetForm}
 		></FileForm>
 	</Dialog>
 	<Dialog show={deleteFormDialog} style="margin-top: 10vh; margin-left: 0; background-color: var(--color-dialog-darker)">
-		<h1>{$_("vehicle.delete_file")}</h1>
+		<h1>{$_('vehicle.delete_file')}</h1>
 		<p style="padding-left: 10%; padding-right: 10%;">{formLabel}</p>
 		<DataForm
 			data={[]}
@@ -118,10 +112,19 @@
 			{:else}
 				<p><a target="_blank" href={registrationCardUrl}><b>{$_('vehicles.view_registration_card')}</b></a></p>
 				<div>
-					<button onclick={() => {showDeleteDialog($_('vehicle.registration_card'), FileService.FileTypes.registrationCard)}} aria-label="Delete" class="button-secondary"><span class="mdi--bin"></span></button>
-					<button onclick={() => {
-						showForm($_('vehicle.registration_card'), FileService.FileTypes.registrationCard);
-					}} aria-label="Edit"><span class="mdi--pencil"></span></button>
+					<button
+						onclick={() => {
+							showDeleteDialog($_('vehicle.registration_card'), FileService.FileTypes.registrationCard);
+						}}
+						aria-label="Delete"
+						class="button-secondary"><span class="mdi--bin"></span></button
+					>
+					<button
+						onclick={() => {
+							showForm($_('vehicle.registration_card'), FileService.FileTypes.registrationCard);
+						}}
+						aria-label="Edit"><span class="mdi--pencil"></span></button
+					>
 				</div>
 			{/if}
 		</div>
@@ -139,10 +142,19 @@
 			{:else}
 				<p><a target="_blank" href={maintenanceManualUrl}><b>{$_('vehicles.view_maintenance_manual')}</b></a></p>
 				<div>
-					<button onclick={() => {showDeleteDialog($_('vehicle.maintenance_manual'), FileService.FileTypes.maintenance)}} aria-label="Delete" class="button-secondary"><span class="mdi--bin"></span></button>
-					<button onclick={() => {
-						showForm($_('vehicle.maintenance_manual'), FileService.FileTypes.maintenance);
-					}} aria-label="Edit"><span class="mdi--pencil"></span></button>
+					<button
+						onclick={() => {
+							showDeleteDialog($_('vehicle.maintenance_manual'), FileService.FileTypes.maintenance);
+						}}
+						aria-label="Delete"
+						class="button-secondary"><span class="mdi--bin"></span></button
+					>
+					<button
+						onclick={() => {
+							showForm($_('vehicle.maintenance_manual'), FileService.FileTypes.maintenance);
+						}}
+						aria-label="Edit"><span class="mdi--pencil"></span></button
+					>
 				</div>
 			{/if}
 		</div>
@@ -160,10 +172,19 @@
 			{:else}
 				<p><a target="_blank" href={insuranceUrl}><b>{$_('vehicles.view_insurance')}</b></a></p>
 				<div>
-					<button onclick={() => {showDeleteDialog($_('vehicle.insurance'), FileService.FileTypes.insurance)}} aria-label="Delete" class="button-secondary"><span class="mdi--bin"></span></button>
-					<button onclick={() => {
-						showForm($_('vehicle.insurance'), FileService.FileTypes.insurance);
-					}} aria-label="Edit"><span class="mdi--pencil"></span></button>
+					<button
+						onclick={() => {
+							showDeleteDialog($_('vehicle.insurance'), FileService.FileTypes.insurance);
+						}}
+						aria-label="Delete"
+						class="button-secondary"><span class="mdi--bin"></span></button
+					>
+					<button
+						onclick={() => {
+							showForm($_('vehicle.insurance'), FileService.FileTypes.insurance);
+						}}
+						aria-label="Edit"><span class="mdi--pencil"></span></button
+					>
 				</div>
 			{/if}
 		</div>

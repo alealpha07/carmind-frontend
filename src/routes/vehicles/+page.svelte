@@ -16,7 +16,7 @@
 	let vehicles: Array<Vehicle> = $state([]);
 	let showVehicleFormDialog = $state(false);
 	let showManageFileDialog = $state(false);
-	let showImageFormDialog	= $state(false);
+	let showImageFormDialog = $state(false);
 	let manageFileVehicle: Vehicle | null = $state(null);
 	let formId: number = $state(-1);
 	let formData: object = $state({});
@@ -24,6 +24,7 @@
 	let formClickRight: Function = $state(() => {});
 	let formTitle = $state('');
 	let formDescription = $state('');
+	let formVehicle: Vehicle | null = $state(null);
 	let formError = $state('');
 	let formSuccessMessage: string = $state('');
 	let showSuccess = $derived.by(() => {
@@ -35,8 +36,6 @@
 		}
 		return result;
 	});
-
-	let vehicleImageUrl = $state('');
 
 	const VEHICLE_FORM_FIELDS = [
 		{ type: 'text', label: $_('vehicle.type'), key: 'type' },
@@ -92,8 +91,16 @@
 		showManageFileDialog = true;
 	}
 
-	function showImageForm(){
+	function showManageImageForm(vehicle: Vehicle, description: string) {
+		formVehicle = vehicle;
+		formDescription = description;
 		showImageFormDialog = true;
+	}
+
+	function resetManageImageForm() {
+		resetForm();
+		formDescription = '';
+		formVehicle = null;
 	}
 
 	function resetForm() {
@@ -105,7 +112,7 @@
 		formDescription = '';
 		formError = '';
 		formClickRight = () => {};
-		showImageFormDialog = false
+		showImageFormDialog = false;
 	}
 
 	function resetManageFileDialog() {
@@ -183,13 +190,16 @@
 		}}
 	></FileManageForm>
 </Dialog>
-<Dialog show={showImageFormDialog} style="margin-top: 10vh; margin-left: 0; background-color: var(--color-dialog-darker)">
+<Dialog show={showImageFormDialog} style="margin-top: 1vh;">
 	<FileForm
 		label={formDescription}
 		fileType={FileService.FileTypes.vehicleImage}
-		vehicleId=1
-		successCallback={resetForm}
-		clickClose={resetForm}
+		vehicleId={formVehicle?.id}
+		successCallback={() => {
+			reloadVehicles();
+			resetManageImageForm();
+		}}
+		clickClose={resetManageImageForm}
 	></FileForm>
 </Dialog>
 <Dialog unpersistent show={showSuccess} style="background-color: transparent; border: none; box-shadow: none; bottom: 10px; margin-right: 30px;">
@@ -210,7 +220,6 @@
 	<div id="vehicle-card-row" class="row justify-content-start">
 		{#each vehicles as vehicle (vehicle.id)}
 			<div style="margin: 15px 0 45px 15px; max-width: fit-content !important; padding: 0;" class="col">
-				
 				<VehicleCard
 					data={vehicle}
 					clickDelete={() => {
@@ -229,8 +238,8 @@
 					clickManageFiles={() => {
 						showManageFiles(vehicle);
 					}}
-					clickManageImage={() =>{
-						showImageForm();
+					clickAddImage={() => {
+						showManageImageForm(vehicle, $_('vehicle.image'));
 					}}
 				></VehicleCard>
 			</div>

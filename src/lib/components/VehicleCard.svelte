@@ -1,6 +1,4 @@
 <script lang="ts">
-	//TODO template image removal => use files instead
-	//TODO handle files
 	import image from '$lib/images/mdi--car.png';
 	import { _, getLocaleFromNavigator } from 'svelte-i18n';
 	import FileService from '$services/FileService';
@@ -18,23 +16,23 @@
 			endDateInsurance: new Date(),
 			hasBill: false,
 			endDateBill: new Date(),
-			endDateRevision: new Date(),
+			endDateRevision: new Date()
 		},
 		clickDelete,
 		clickEdit,
 		clickManageFiles,
-		clickManageImage,
+		clickAddImage,
 		...others
 	} = $props();
 
 	let vehicleImageUrl = $state('');
 	let loaded = $derived.by(() => {
 		let result = data.id != -1;
-		FileService.getUrlImage(data.id).then((res: any) => {
-				vehicleImageUrl = res.vehicleImageUrl;
-			});
-		return result
-	})
+		FileService.getAvailableFilesUrls(data.id).then((res: any) => {
+			vehicleImageUrl = res.vehicleImageUrl;
+		});
+		return result;
+	});
 	let currentDate = new Date();
 	let insuranceIcon = $state(
 		currentDate > new Date(data.endDateInsurance) ? '-remove' : isWithin30Days(data.endDateInsurance, currentDate) ? '-alert' : ''
@@ -60,12 +58,17 @@
 <div id="vehicle-container" {...others}>
 	<div class="row">
 		<div class="col-6">
-			<!-- TODO remove template image, TODO handle img -->
-			{#if !data.vehicleImageFileExtension && loaded}
-				<img id="vehicle-image" width="100%" src={data.image || image} alt="vehicle image">
-				<button aria-label="Upload Image" onclick={clickManageImage}><span class="mdi--file-image-plus"></span></button>
-			{:else if loaded}
-				<img id="vehicle-image" width="100%" src={vehicleImageUrl} alt="vehicle image">
+			{#if (!vehicleImageUrl || vehicleImageUrl == '') && loaded}
+				<div style="width: 100%; position:relative;">
+					<img id="vehicle-image" width="100%" src={image} alt="vehicle image" />
+					<button
+						style="position: absolute; bottom:0; right: 0; padding: 5px; border-radius: 50%; width: 34px; height: 34px; "
+						aria-label="Upload Image"
+						onclick={clickAddImage}><span class="mdi--image-plus"></span></button
+					>
+				</div>
+			{:else}
+				<img id="vehicle-image" width="100%" src={vehicleImageUrl} alt="vehicle image" />
 			{/if}
 			<p>{data.type}</p>
 			<p>{data.brand} - {data.model}</p>
@@ -105,9 +108,7 @@
 	</div>
 	<div class="row">
 		<div class="col-6">
-			<!-- TODO handle fiels -->
-
-			<button onclick={clickManageFiles} class="button-minor" id="manage-btn">{$_('buttons.manage_file')}</button>
+			<button onclick={clickAddImage} class="button-minor" id="manage-btn">{$_('buttons.manage_file')}</button>
 		</div>
 		<div class="col-6">
 			<button onclick={clickDelete} class="button-secondary" id="delete-btn" aria-label="delete" style="padding-left: 15px; padding-right: 15px;">
@@ -201,11 +202,11 @@
 		mask-size: 100% 100%;
 	}
 
-	.mdi--file-image-plus {
+	.mdi--image-plus {
 		display: inline-block;
-		width: 16px;
-		height: 16px;
-		--svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M13.09 20H6l6-6l1.88 1.88c.62-.98 1.48-1.78 2.52-2.28L18 12v1.09c.33-.05.66-.09 1-.09s.67.04 1 .09V8l-6-6H6c-1.11 0-2 .89-2 2v16a2 2 0 0 0 2 2h7.81c-.35-.61-.6-1.28-.72-2M13 3.5L18.5 9H13zM8 9a2 2 0 1 1 0 4c-1.11 0-2-.89-2-2s.9-2 2-2m12 6v3h3v2h-3v3h-2v-3h-3v-2h3v-3z'/%3E%3C/svg%3E");
+		width: 20px;
+		height: 20px;
+		--svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3zm-4.7 6H5c-1.1 0-2-.9-2-2V5c0-1.1.9-2 2-2h14c1.1 0 2 .9 2 2v8.3c-.6-.2-1.3-.3-2-.3c-1.1 0-2.2.3-3.1.9L14.5 12L11 16.5l-2.5-3L5 18h8.1c-.1.3-.1.7-.1 1c0 .7.1 1.4.3 2'/%3E%3C/svg%3E");
 		background-color: currentColor;
 		-webkit-mask-image: var(--svg);
 		mask-image: var(--svg);
