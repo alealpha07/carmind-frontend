@@ -31,6 +31,8 @@
 	"vehicle.has_bill": "Ha il Bollo?",
 	"vehicle.end_date_bill": "Data Scadenza Bollo",
 	"vehicle.end_date_revision": "Data Scadenza Revisione",
+	"vehicle.delete_file": "Elimina File",
+	"vehicle.delete_file_message": "Vuoi davvero eliminare il file ",
 	"profile.title": "Profilo",
 	"profile.email": "Email",
 	"profile.password": "Password",

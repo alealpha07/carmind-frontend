@@ -31,6 +31,8 @@
 	"vehicle.end_date_bill": "End Date Bill",
 	"vehicle.end_date_revision": "End Date Revision",
 	"vehicle.expire_dates": "Expire Dates",
+	"vehicle.delete_file": "Delete File",
+	"vehicle.delete_file_message": "Do you really want to delete the file ",
 	"profile.title": "Profile",
 	"profile.email": "Email",
 	"profile.password": "Password",

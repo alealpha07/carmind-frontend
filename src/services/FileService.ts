@@ -67,6 +67,19 @@ class FileService {
 			}
 		});
 	}
+	static delete(vehicleId: Number, type: string) {
+		return new Promise(async (resolve, reject) => {
+			try {
+				const res = await axios.delete(`${BASE_URL}/upload?id=${vehicleId}&type=${type}&lang=${currentLocale}`, {
+					withCredentials: true,
+				});
+				const data = res.data;
+				resolve(data);
+			} catch (error) {
+				reject(error);
+			}
+		});
+	}
 }
 
 export default FileService;
