@@ -3,9 +3,11 @@
 	//TODO handle files
 	import image from '$lib/images/mdi--car.png';
 	import { _, getLocaleFromNavigator } from 'svelte-i18n';
+	import FileService from '$services/FileService';
 
 	let {
 		data = {
+			id: -1,
 			type: '',
 			brand: '',
 			model: '',
@@ -16,18 +18,31 @@
 			endDateInsurance: new Date(),
 			hasBill: false,
 			endDateBill: new Date(),
-			endDateRevision: new Date()
+			endDateRevision: new Date(),
 		},
 		clickDelete,
 		clickEdit,
 		clickManageFiles,
+		clickManageImage,
 		...others
 	} = $props();
 
+	let vehicleImageUrl = $state('');
+	let loaded = $derived.by(() => {
+		let result = data.id != -1;
+		FileService.getUrlImage(data.id).then((res: any) => {
+				vehicleImageUrl = res.vehicleImageUrl;
+			});
+		return result
+	})
 	let currentDate = new Date();
-	let insuranceIcon = $state(currentDate > new Date(data.endDateInsurance) ? '-remove' : isWithin30Days(data.endDateInsurance, currentDate) ? '-alert' : '');
+	let insuranceIcon = $state(
+		currentDate > new Date(data.endDateInsurance) ? '-remove' : isWithin30Days(data.endDateInsurance, currentDate) ? '-alert' : ''
+	);
 	let billIcon = $state(currentDate > new Date(data.endDateBill) ? '-remove' : isWithin30Days(data.endDateBill, currentDate) ? '-alert' : '');
-	let revisionIcon = $state(currentDate > new Date(data.endDateRevision) ? '-remove' : isWithin30Days(data.endDateRevision, currentDate) ? '-alert' : '');
+	let revisionIcon = $state(
+		currentDate > new Date(data.endDateRevision) ? '-remove' : isWithin30Days(data.endDateRevision, currentDate) ? '-alert' : ''
+	);
 
 	function formatDate(date: Date) {
 		date = new Date(date);
@@ -46,7 +61,12 @@
 	<div class="row">
 		<div class="col-6">
 			<!-- TODO remove template image, TODO handle img -->
-			<img id="vehicle-image" width="100%" src={data.image || image} alt="vehicle image" />
+			{#if !data.vehicleImageFileExtension && loaded}
+				<img id="vehicle-image" width="100%" src={data.image || image} alt="vehicle image">
+				<button aria-label="Upload Image" onclick={clickManageImage}><span class="mdi--file-image-plus"></span></button>
+			{:else if loaded}
+				<img id="vehicle-image" width="100%" src={vehicleImageUrl} alt="vehicle image">
+			{/if}
 			<p>{data.type}</p>
 			<p>{data.brand} - {data.model}</p>
 			<p>{data.registrationYear}</p>
@@ -173,6 +193,20 @@
 		height: 24px;
 		--svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M15 3H9V1h6zm-2 16c0 1.03.26 2 .71 2.83c-.55.11-1.12.17-1.71.17a9 9 0 0 1 0-18c2.12 0 4.07.74 5.62 2l1.42-1.44c.51.44.96.9 1.41 1.41l-1.42 1.42A8.96 8.96 0 0 1 21 13v.35c-.64-.22-1.3-.35-2-.35c-3.31 0-6 2.69-6 6m0-12h-2v7h2zm9.54 9.88l-1.42-1.41L19 17.59l-2.12-2.12l-1.41 1.41L17.59 19l-2.12 2.12l1.41 1.42L19 20.41l2.12 2.13l1.42-1.42L20.41 19z'/%3E%3C/svg%3E");
 		background-color: var(--color-error);
+		-webkit-mask-image: var(--svg);
+		mask-image: var(--svg);
+		-webkit-mask-repeat: no-repeat;
+		mask-repeat: no-repeat;
+		-webkit-mask-size: 100% 100%;
+		mask-size: 100% 100%;
+	}
+
+	.mdi--file-image-plus {
+		display: inline-block;
+		width: 16px;
+		height: 16px;
+		--svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M13.09 20H6l6-6l1.88 1.88c.62-.98 1.48-1.78 2.52-2.28L18 12v1.09c.33-.05.66-.09 1-.09s.67.04 1 .09V8l-6-6H6c-1.11 0-2 .89-2 2v16a2 2 0 0 0 2 2h7.81c-.35-.61-.6-1.28-.72-2M13 3.5L18.5 9H13zM8 9a2 2 0 1 1 0 4c-1.11 0-2-.89-2-2s.9-2 2-2m12 6v3h3v2h-3v3h-2v-3h-3v-2h3v-3z'/%3E%3C/svg%3E");
+		background-color: currentColor;
 		-webkit-mask-image: var(--svg);
 		mask-image: var(--svg);
 		-webkit-mask-repeat: no-repeat;

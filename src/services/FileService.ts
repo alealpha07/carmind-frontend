@@ -67,6 +67,23 @@ class FileService {
 			}
 		});
 	}
+
+	static getUrlImage(vehicleId: Number) {
+		return new Promise(async (resolve, reject) => {
+			try {
+				const res = await axios.get(`${BASE_URL}/upload/image?id=${vehicleId}&lang=${currentLocale}`, {
+					withCredentials: true,
+				});
+				resolve({
+					vehicleImageUrl: res.data.vehicleImageFileExtension
+						? `${BASE_URL}/upload?id=${vehicleId}&type=${this.FileTypes.vehicleImage}&lang=${currentLocale}`
+						: ''});
+			} catch (error) {
+				reject(error);
+			}
+		});
+	}
+
 	static delete(vehicleId: Number, type: string) {
 		return new Promise(async (resolve, reject) => {
 			try {

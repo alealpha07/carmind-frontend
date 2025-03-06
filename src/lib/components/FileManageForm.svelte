@@ -19,11 +19,11 @@
 	let formFileType = $state('');
 	let formError = $state('');
 	let formDeleteType = $state('');
-	let deleteFormDialog = $state(false);
+	let deleteFormDialog = $state(false);	
 	let registrationCardUrl = $state('');
 	let maintenanceManualUrl = $state('');
 	let insuranceUrl = $state('');
-
+	
 	function showForm(label: string, fileType: string) {
 		formLabel = label;
 		formFileType = fileType;
@@ -71,6 +71,8 @@
 			});
 	}
 
+	
+
 </script>
 
 {#if loaded}
@@ -117,7 +119,9 @@
 				<p><a target="_blank" href={registrationCardUrl}><b>{$_('vehicles.view_registration_card')}</b></a></p>
 				<div>
 					<button onclick={() => {showDeleteDialog($_('vehicle.registration_card'), FileService.FileTypes.registrationCard)}} aria-label="Delete" class="button-secondary"><span class="mdi--bin"></span></button>
-					<button aria-label="Edit"><span class="mdi--pencil"></span></button>
+					<button onclick={() => {
+						showForm($_('vehicle.registration_card'), FileService.FileTypes.registrationCard);
+					}} aria-label="Edit"><span class="mdi--pencil"></span></button>
 				</div>
 			{/if}
 		</div>
@@ -136,7 +140,9 @@
 				<p><a target="_blank" href={maintenanceManualUrl}><b>{$_('vehicles.view_maintenance_manual')}</b></a></p>
 				<div>
 					<button onclick={() => {showDeleteDialog($_('vehicle.maintenance_manual'), FileService.FileTypes.maintenance)}} aria-label="Delete" class="button-secondary"><span class="mdi--bin"></span></button>
-					<button aria-label="Edit"><span class="mdi--pencil"></span></button>
+					<button onclick={() => {
+						showForm($_('vehicle.maintenance_manual'), FileService.FileTypes.maintenance);
+					}} aria-label="Edit"><span class="mdi--pencil"></span></button>
 				</div>
 			{/if}
 		</div>
@@ -155,7 +161,9 @@
 				<p><a target="_blank" href={insuranceUrl}><b>{$_('vehicles.view_insurance')}</b></a></p>
 				<div>
 					<button onclick={() => {showDeleteDialog($_('vehicle.insurance'), FileService.FileTypes.insurance)}} aria-label="Delete" class="button-secondary"><span class="mdi--bin"></span></button>
-					<button aria-label="Edit"><span class="mdi--pencil"></span></button>
+					<button onclick={() => {
+						showForm($_('vehicle.insurance'), FileService.FileTypes.insurance);
+					}} aria-label="Edit"><span class="mdi--pencil"></span></button>
 				</div>
 			{/if}
 		</div>

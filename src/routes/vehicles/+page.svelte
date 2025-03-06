@@ -10,13 +10,14 @@
 	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
 	import { _ } from 'svelte-i18n';
+	import FileService from '$services/FileService';
+	import FileForm from '$lib/components/FileUploadForm.svelte';
 
 	let vehicles: Array<Vehicle> = $state([]);
 	let showVehicleFormDialog = $state(false);
 	let showManageFileDialog = $state(false);
-
+	let showImageFormDialog	= $state(false);
 	let manageFileVehicle: Vehicle | null = $state(null);
-
 	let formId: number = $state(-1);
 	let formData: object = $state({});
 	let formFields: Array<Field> = $state([]);
@@ -34,6 +35,8 @@
 		}
 		return result;
 	});
+
+	let vehicleImageUrl = $state('');
 
 	const VEHICLE_FORM_FIELDS = [
 		{ type: 'text', label: $_('vehicle.type'), key: 'type' },
@@ -89,6 +92,10 @@
 		showManageFileDialog = true;
 	}
 
+	function showImageForm(){
+		showImageFormDialog = true;
+	}
+
 	function resetForm() {
 		showVehicleFormDialog = false;
 		formData = [];
@@ -98,6 +105,7 @@
 		formDescription = '';
 		formError = '';
 		formClickRight = () => {};
+		showImageFormDialog = false
 	}
 
 	function resetManageFileDialog() {
@@ -175,6 +183,15 @@
 		}}
 	></FileManageForm>
 </Dialog>
+<Dialog show={showImageFormDialog} style="margin-top: 10vh; margin-left: 0; background-color: var(--color-dialog-darker)">
+	<FileForm
+		label={formDescription}
+		fileType={FileService.FileTypes.vehicleImage}
+		vehicleId=1
+		successCallback={resetForm}
+		clickClose={resetForm}
+	></FileForm>
+</Dialog>
 <Dialog unpersistent show={showSuccess} style="background-color: transparent; border: none; box-shadow: none; bottom: 10px; margin-right: 30px;">
 	<p class="success-box"><b>{formSuccessMessage}</b></p>
 </Dialog>
@@ -193,6 +210,7 @@
 	<div id="vehicle-card-row" class="row justify-content-start">
 		{#each vehicles as vehicle (vehicle.id)}
 			<div style="margin: 15px 0 45px 15px; max-width: fit-content !important; padding: 0;" class="col">
+				
 				<VehicleCard
 					data={vehicle}
 					clickDelete={() => {
@@ -210,6 +228,9 @@
 					}}
 					clickManageFiles={() => {
 						showManageFiles(vehicle);
+					}}
+					clickManageImage={() =>{
+						showImageForm();
 					}}
 				></VehicleCard>
 			</div>
