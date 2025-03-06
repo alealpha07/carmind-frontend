@@ -25,9 +25,9 @@
 	} = $props();
 
 	let currentDate = new Date();
-	let insuranceIcon = $state(currentDate > data.endDateInsurance ? '-remove' : isWithin30Days(data.endDateInsurance, currentDate) ? '-alert' : '');
-	let billIcon = $state(currentDate > data.endDateBill ? '-remove' : isWithin30Days(data.endDateBill, currentDate) ? '-alert' : '');
-	let revisionIcon = $state(currentDate > data.endDateRevision ? '-remove' : isWithin30Days(data.endDateRevision, currentDate) ? '-alert' : '');
+	let insuranceIcon = $state(currentDate > new Date(data.endDateInsurance) ? '-remove' : isWithin30Days(data.endDateInsurance, currentDate) ? '-alert' : '');
+	let billIcon = $state(currentDate > new Date(data.endDateBill) ? '-remove' : isWithin30Days(data.endDateBill, currentDate) ? '-alert' : '');
+	let revisionIcon = $state(currentDate > new Date(data.endDateRevision) ? '-remove' : isWithin30Days(data.endDateRevision, currentDate) ? '-alert' : '');
 
 	function formatDate(date: Date) {
 		date = new Date(date);

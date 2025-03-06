@@ -56,11 +56,11 @@
 		registrationYear: '',
 		plateNumber: '',
 		isInsured: false,
-		startDateInsurance: null,
-		endDateInsurance: null,
+		startDateInsurance: new Date(),
+		endDateInsurance: new Date(),
 		hasBill: false,
-		endDateBill: null,
-		endDateRevision: null
+		endDateBill: new Date(),
+		endDateRevision: new Date()
 	};
 
 	onMount(() => {
