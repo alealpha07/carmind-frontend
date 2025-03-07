@@ -7,7 +7,7 @@
 	let { vehicle = null, clickClose } = $props();
 
 	let loaded = $derived.by(() => {
-		let result = vehicle != null;
+		let result = vehicle != null && vehicle.id != -1;
 		if (result) {
 			refreshData();
 		}

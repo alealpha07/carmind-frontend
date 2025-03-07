@@ -22,15 +22,18 @@
 		clickEdit,
 		clickManageFiles,
 		clickAddImage,
+		clickEditImage,
 		...others
 	} = $props();
 
 	let vehicleImageUrl = $state('');
 	let loaded = $derived.by(() => {
-		let result = data.id != -1;
-		FileService.getAvailableFilesUrls(data.id).then((res: any) => {
-			vehicleImageUrl = res.vehicleImageUrl;
-		});
+		let result = !!data.id && data.id != -1;
+		if (result) {
+			FileService.getAvailableFilesUrls(data.id).then((res: any) => {
+				vehicleImageUrl = res.vehicleImageUrl;
+			});
+		}
 		return result;
 	});
 	let currentDate = new Date();
@@ -60,7 +63,7 @@
 		<div class="col-6">
 			{#if (!vehicleImageUrl || vehicleImageUrl == '') && loaded}
 				<div style="width: 100%; position:relative;">
-					<img id="vehicle-image" width="100%" src={image} alt="vehicle image" />
+					<img id="vehicle-image" width="100%" src={image} alt="Vehicle" />
 					<button
 						style="position: absolute; bottom:0; right: 0; padding: 5px; border-radius: 50%; width: 34px; height: 34px; "
 						aria-label="Upload Image"
@@ -68,7 +71,14 @@
 					>
 				</div>
 			{:else}
-				<img id="vehicle-image" width="100%" src={vehicleImageUrl} alt="vehicle image" />
+				<div style="width: 100%; position:relative;">
+					<img style="max-height: 135px;" id="vehicle-image" width="100%" src={vehicleImageUrl} alt="Vehicle" />
+					<button
+						style="position: absolute; bottom:0; right: -3px; padding: 5px; border-radius: 50%; width: 34px; height: 34px; "
+						aria-label="Edit Image"
+						onclick={clickEditImage}><span class="mdi--image-edit"></span></button
+					>
+				</div>
 			{/if}
 			<p>{data.type}</p>
 			<p>{data.brand} - {data.model}</p>
@@ -108,7 +118,7 @@
 	</div>
 	<div class="row">
 		<div class="col-6">
-			<button onclick={clickAddImage} class="button-minor" id="manage-btn">{$_('buttons.manage_file')}</button>
+			<button onclick={clickManageFiles} class="button-minor" id="manage-btn">{$_('buttons.manage_file')}</button>
 		</div>
 		<div class="col-6">
 			<button onclick={clickDelete} class="button-secondary" id="delete-btn" aria-label="delete" style="padding-left: 15px; padding-right: 15px;">
@@ -207,6 +217,20 @@
 		width: 20px;
 		height: 20px;
 		--svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3zm-4.7 6H5c-1.1 0-2-.9-2-2V5c0-1.1.9-2 2-2h14c1.1 0 2 .9 2 2v8.3c-.6-.2-1.3-.3-2-.3c-1.1 0-2.2.3-3.1.9L14.5 12L11 16.5l-2.5-3L5 18h8.1c-.1.3-.1.7-.1 1c0 .7.1 1.4.3 2'/%3E%3C/svg%3E");
+		background-color: currentColor;
+		-webkit-mask-image: var(--svg);
+		mask-image: var(--svg);
+		-webkit-mask-repeat: no-repeat;
+		mask-repeat: no-repeat;
+		-webkit-mask-size: 100% 100%;
+		mask-size: 100% 100%;
+	}
+
+	.mdi--image-edit {
+		display: inline-block;
+		width: 20px;
+		height: 20px;
+		--svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='m22.7 14.3l-1 1l-2-2l1-1c.1-.1.2-.2.4-.2c.1 0 .3.1.4.2l1.3 1.3c.1.2.1.5-.1.7M13 19.9V22h2.1l6.1-6.1l-2-2zM21 5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h6v-1.9l1.1-1.1H5l3.5-4.5l2.5 3l3.5-4.5l1.6 2.1l4.9-5z'/%3E%3C/svg%3E");
 		background-color: currentColor;
 		-webkit-mask-image: var(--svg);
 		mask-image: var(--svg);

@@ -33,8 +33,8 @@ export type Vehicle = {
 	hasBill: boolean;
 	endDateBill: Date;
 	endDateRevision: Date;
-	insuranceFileExtension?: string;
-	maintenanceFileExtension?: string;
-	registrationCardFileExtension?: string;
-	vehicleImageFileExtension?: string;
+	insuranceFileExtension: string | null;
+	maintenanceFileExtension: string | null;
+	registrationCardFileExtension: string | null;
+	vehicleImageFileExtension: string | null;
 };

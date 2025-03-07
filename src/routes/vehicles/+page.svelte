@@ -17,6 +17,7 @@
 	let showVehicleFormDialog = $state(false);
 	let showManageFileDialog = $state(false);
 	let showImageFormDialog = $state(false);
+	let showImageDeleteButton = $state(false);
 	let manageFileVehicle: Vehicle | null = $state(null);
 	let formId: number = $state(-1);
 	let formData: object = $state({});
@@ -52,17 +53,23 @@
 	];
 
 	const EMPTY_VEHICLE = {
+		id: -1,
+		idUser: -1,
 		type: '',
 		brand: '',
 		model: '',
-		registrationYear: '',
+		registrationYear: new Date().getFullYear(),
 		plateNumber: '',
 		isInsured: false,
 		startDateInsurance: new Date(),
 		endDateInsurance: new Date(),
 		hasBill: false,
 		endDateBill: new Date(),
-		endDateRevision: new Date()
+		endDateRevision: new Date(),
+		insuranceFileExtension: null,
+		maintenanceFileExtension: null,
+		registrationCardFileExtension: null,
+		vehicleImageFileExtension: null
 	};
 
 	onMount(() => {
@@ -91,16 +98,18 @@
 		showManageFileDialog = true;
 	}
 
-	function showManageImageForm(vehicle: Vehicle, description: string) {
+	function showManageImageForm(vehicle: Vehicle, description: string, showDeleteButton = false) {
 		formVehicle = vehicle;
 		formDescription = description;
 		showImageFormDialog = true;
+		showImageDeleteButton = showDeleteButton;
 	}
 
 	function resetManageImageForm() {
 		resetForm();
 		formDescription = '';
 		formVehicle = null;
+		showImageDeleteButton = false;
 	}
 
 	function resetForm() {
@@ -159,6 +168,7 @@
 	}
 
 	function reloadVehicles() {
+		vehicles = [];
 		VehicleService.getVehicles().then((data) => {
 			vehicles = data as Array<Vehicle>;
 		});
@@ -200,6 +210,7 @@
 			resetManageImageForm();
 		}}
 		clickClose={resetManageImageForm}
+		deleteButton={showImageDeleteButton}
 	></FileForm>
 </Dialog>
 <Dialog unpersistent show={showSuccess} style="background-color: transparent; border: none; box-shadow: none; bottom: 10px; margin-right: 30px;">
@@ -240,6 +251,9 @@
 					}}
 					clickAddImage={() => {
 						showManageImageForm(vehicle, $_('vehicle.image'));
+					}}
+					clickEditImage={() => {
+						showManageImageForm(vehicle, $_('vehicle.image_edit'), true);
 					}}
 				></VehicleCard>
 			</div>

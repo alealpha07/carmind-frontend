@@ -63,7 +63,7 @@ class FileService {
 						? `${BASE_URL}/upload?id=${vehicleId}&type=${this.FileTypes.insurance}&lang=${currentLocale}`
 						: '',
 					vehicleImageUrl: res.data.vehicleImageFileExtension
-						? `${BASE_URL}/upload?id=${vehicleId}&type=${this.FileTypes.vehicleImage}&lang=${currentLocale}`
+						? `${BASE_URL}/upload?id=${vehicleId}&type=${this.FileTypes.vehicleImage}&lang=${currentLocale}&t=${Date.now()}`
 						: ''
 				});
 			} catch (error) {

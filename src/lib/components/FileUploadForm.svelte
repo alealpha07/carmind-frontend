@@ -1,9 +1,12 @@
 <script lang="ts">
 	import FileService from '$services/FileService';
+	import Dialog from './Dialog.svelte';
+	import DataForm from './DataForm.svelte';
 	import { _ } from 'svelte-i18n';
-	let { label, fileType, vehicleId, error = $bindable(), successCallback, clickClose } = $props();
+	let { label, fileType, vehicleId, error = $bindable(), deleteButton = false, successCallback, clickClose } = $props();
 
 	let file: any;
+	let deleteFormDialog = $state(false);
 
 	let errorShow = $derived.by(() => {
 		let result = error != '' && error != null;
@@ -38,8 +41,37 @@
 				error = err.response.data;
 			});
 	}
+
+	async function deleteFile() {
+		FileService.delete(vehicleId, fileType)
+			.then(() => {
+				successCallback();
+			})
+			.catch((err) => {
+				error = err.response.data;
+			});
+	}
+
+	function resetDeleteForm() {
+		deleteFormDialog = false;
+	}
 </script>
 
+<Dialog show={deleteFormDialog} style="margin-top: 10vh; margin-left: 0; background-color: var(--color-dialog-darker)">
+	<h1>{$_('vehicle.delete_file')}</h1>
+	<p style="padding-left: 10%; padding-right: 10%;">{$_('vehicle.delete_file_message')}?</p>
+	<DataForm
+		data={[]}
+		fields={[]}
+		bind:error
+		buttonLeft={{ label: $_('buttons.cancel') }}
+		buttonRight={{ label: $_('buttons.confirm') }}
+		clickLeft={resetDeleteForm}
+		clickRight={() => {
+			deleteFile();
+		}}
+	></DataForm>
+</Dialog>
 <div id="container">
 	<div class="row">
 		{#if errorShow}
@@ -53,6 +85,18 @@
 			<button onclick={uploadFile} aria-label="Upload"><span class="mdi--upload"></span></button>
 		</div>
 	</div>
+	{#if deleteButton}
+		<div class="row">
+			<div class="row" style="margin-top:8px !important;">
+				<button
+					onclick={() => {
+						deleteFormDialog = true;
+					}}
+					class="button-secondary">{$_('vehicle.delete_file')}</button
+				>
+			</div>
+		</div>
+	{/if}
 	<div class="row">
 		<div class="row" style="margin-top:8px !important;">
 			<button onclick={clickClose} class="button-minor">{$_('buttons.cancel')}</button>
