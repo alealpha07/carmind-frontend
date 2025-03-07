@@ -84,6 +84,7 @@
 	});
 
 	function showForm(data: any, fields: Array<Field>, clickRight: Function, title: string, description: string = '', id = -1) {
+		document.body.scrollIntoView();
 		formData = data;
 		formFields = fields;
 		formClickRight = clickRight;
@@ -94,11 +95,13 @@
 	}
 
 	function showManageFiles(vehicle: Vehicle) {
+		document.body.scrollIntoView();
 		manageFileVehicle = vehicle;
 		showManageFileDialog = true;
 	}
 
 	function showManageImageForm(vehicle: Vehicle, description: string, showDeleteButton = false) {
+		document.body.scrollIntoView();
 		formVehicle = vehicle;
 		formDescription = description;
 		showImageFormDialog = true;
@@ -250,10 +253,10 @@
 						showManageFiles(vehicle);
 					}}
 					clickAddImage={() => {
-						showManageImageForm(vehicle, $_('vehicle.image'));
+						showManageImageForm(vehicle, $_('vehicle.image') + ` ${vehicle.brand} ${vehicle.model} ${vehicle.plateNumber}`);
 					}}
 					clickEditImage={() => {
-						showManageImageForm(vehicle, $_('vehicle.image_edit'), true);
+						showManageImageForm(vehicle, $_('vehicle.image_edit') + ` ${vehicle.brand} ${vehicle.model} ${vehicle.plateNumber}`, true);
 					}}
 				></VehicleCard>
 			</div>

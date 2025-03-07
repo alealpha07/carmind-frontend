@@ -1,28 +1,29 @@
 <script lang="ts">
+	import { _ } from 'svelte-i18n';
 </script>
 
 <svelte:head>
-	<title>Gestione Veicoli</title>
+	<title>Carmind</title>
 	<script src="https://cdn.lordicon.com/lordicon.js"></script>
 </svelte:head>
 
 <section class="hero-section">
-	<h1 style="margin-bottom: 15px;">Gestisci i tuoi veicoli senza stress!</h1>
-	<p style="margin-bottom: 25px;">Tieni sotto controllo assicurazione, bollo e revisione.<br /> Ricevi notifiche prima delle scadenze.</p>
+	<h1 style="margin-bottom: 15px;">{$_('home.hero.title')}</h1>
+	<p style="margin-bottom: 25px;">{$_('home.hero.description')}<br />{$_('home.hero.description.second')}</p>
 	<div class="hero-buttons">
-		<a href="/register"><button>Registrati Gratis</button></a>
-		<a href="/login"><button class="button-secondary">Accedi</button></a>
+		<a href="/register"><button>{$_('register.free')}</button></a>
+		<a href="/login"><button class="button-secondary">{$_('login')}</button></a>
 	</div>
 </section>
 
 <section>
-	<h2>Come funziona</h2>
+	<h2>{$_('home.how')}</h2>
 	<div class="container">
 		<div class="row text-center">
 			<div class="col-md-4">
 				<lord-icon src="https://cdn.lordicon.com/vypcpgwt.json" trigger="loop" delay="2000" class="feature-icon"> </lord-icon>
-				<h3>Aggiungi i tuoi veicoli</h3>
-				<p>Carica documenti come libretto, assicurazione e bollo</p>
+				<h3>{$_('home.add')}</h3>
+				<p>{$_('home.add.description')}</p>
 			</div>
 			<div class="col-md-4">
 				<lord-icon
@@ -33,32 +34,31 @@
 					class="feature-icon"
 				>
 				</lord-icon>
-				<h3>Ricevi notifiche</h3>
-				<p>Ti avvisiamo in tempo per ogni scadenza</p>
+				<h3>{$_('home.notifications')}</h3>
+				<p>{$_('home.notifications.description')}</p>
 			</div>
 			<div class="col-md-4">
 				<lord-icon src="https://cdn.lordicon.com/knitbwfa.json" trigger="loop" delay="1500" class="feature-icon"> </lord-icon>
-				<h3>Tieni tutto sotto controllo</h3>
-				<p>Visualizza lo stato di ogni veicolo</p>
+				<h3>{$_('home.track')}</h3>
+				<p>{$_('home.track.description')}</p>
 			</div>
 		</div>
 	</div>
 </section>
 
-<!-- Sicurezza e Vantaggi -->
 <section style="background-color: #e5e7eb;">
-	<h2>Sicurezza e vantaggi</h2>
+	<h2>{$_('home.security_advantages')}</h2>
 	<div class="container">
 		<div class="row text-center">
 			<div class="col-md-4">
 				<lord-icon src="https://cdn.lordicon.com/fibgbafg.json" trigger="loop" delay="2500" class="feature-icon"> </lord-icon>
-				<h3>Protezione avanzata</h3>
-				<p>I tuoi dati sono protetti e accessibili solo a te</p>
+				<h3>{$_('home.advanced_security')}</h3>
+				<p>{$_('home.advanced_security.description')}</p>
 			</div>
 			<div class="col-md-4">
 				<lord-icon src="https://cdn.lordicon.com/tyntlpjn.json" trigger="loop" delay="1500" class="feature-icon"> </lord-icon>
-				<h3>Accesso ovunque</h3>
-				<p>Gestisci tutto da qualsiasi dispositivo</p>
+				<h3>{$_('home.access_everywhere')}</h3>
+				<p>{$_('home.access_everywhere.description')}</p>
 			</div>
 			<div class="col-md-4">
 				<lord-icon
@@ -69,8 +69,8 @@
 					class="feature-icon"
 				>
 				</lord-icon>
-				<h3>Promemoria smart</h3>
-				<p>Ricevi avvisi personalizzati e puntuali</p>
+				<h3>{$_('home.warning')}</h3>
+				<p>{$_('home.warning.description')}</p>
 			</div>
 		</div>
 	</div>
@@ -78,9 +78,6 @@
 
 <style>
 	.hero-section {
-		background-image: url('https://source.unsplash.com/1600x900/?car');
-		background-size: cover;
-		background-position: center;
 		color: var(--color-text);
 		text-align: center;
 		padding: 120px 20px;

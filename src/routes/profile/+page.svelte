@@ -70,7 +70,7 @@
 			{ type: 'date', label: $_('profile.birth_date'), key: 'birthDate' }
 		];
 		formClickRight = confirmEditProfile;
-		formTitle = $_('Edit Profile');
+		formTitle = $_('profile.edit');
 		showDialog = true;
 	}
 

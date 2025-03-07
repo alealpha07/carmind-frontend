@@ -1,11 +1,11 @@
 <script>
-	import { page } from '$app/stores';
-	import logo from '$lib/images/svelte-logo.svg';
+	import { page } from '$app/state';
 	import AuthService from '$services/AuthService';
 	import { _ } from 'svelte-i18n';
 	import { goto } from '$app/navigation';
 	import { isLoggedIn } from '../stores/auth';
 	import { onMount } from 'svelte';
+	import favicon from '$lib/images/favicon.png';
 	let loggedIn = false;
 	$: isLoggedIn.subscribe((value) => {
 		loggedIn = value;
@@ -23,7 +23,7 @@
 	function logout() {
 		AuthService.logout().then(() => {
 			isLoggedIn.set(false);
-			if ($page.url.pathname != '/about' && $page.url.pathname != '/') {
+			if (page.url.pathname != '/about' && page.url.pathname != '/') {
 				goto(`/`, { replaceState: true });
 			}
 		});
@@ -33,7 +33,7 @@
 <header style="max-width: 100%; overflow:hidden;">
 	<div class="corner">
 		<a href="/">
-			<img src={logo} alt="SvelteKit" />
+			<img width="100%" src={favicon} alt="Favicon" />
 		</a>
 	</div>
 
@@ -43,20 +43,20 @@
 		</svg>
 		<ul>
 			{#if loggedIn}
-				<li aria-current={$page.url.pathname.startsWith('/vehicles') ? 'page' : undefined}>
+				<li aria-current={page.url.pathname.startsWith('/vehicles') ? 'page' : undefined}>
 					<a href="/vehicles">
 						<p class="nav-text"><b>{$_('vehicles.title')}</b></p>
 						<span class="mdi--car nav-icon"></span>
 					</a>
 				</li>
-				<li aria-current={$page.url.pathname.startsWith('/profile') ? 'page' : undefined}>
+				<li aria-current={page.url.pathname.startsWith('/profile') ? 'page' : undefined}>
 					<a href="/profile">
 						<p class="nav-text"><b>{$_('profile.title')}</b></p>
 						<span class="mdi--user nav-icon"></span>
 					</a>
 				</li>
 			{/if}
-			<li aria-current={$page.url.pathname.startsWith('/login') ? 'page' : undefined}>
+			<li aria-current={page.url.pathname.startsWith('/login') ? 'page' : undefined}>
 				{#if loggedIn}
 					<button on:click={logout}>{$_('logout')}</button>
 				{:else}
@@ -84,6 +84,14 @@
 		.nav-icon {
 			display: inline-block !important;
 		}
+
+		.corner {
+			width: 5em !important;
+		}
+
+		.corner img {
+			width: 5em !important;
+		}
 	}
 
 	header {
@@ -92,7 +100,7 @@
 	}
 
 	.corner {
-		width: 3em;
+		width: 8em;
 		height: 3em;
 	}
 
@@ -105,8 +113,8 @@
 	}
 
 	.corner img {
-		width: 2em;
-		height: 2em;
+		width: 8em;
+		height: 3em;
 		object-fit: contain;
 	}
 
