@@ -86,11 +86,11 @@
 		}
 
 		.corner {
-			width: 5em !important;
+			width: 4em !important;
 		}
 
 		.corner img {
-			width: 5em !important;
+			width: 4em !important;
 		}
 	}
 
