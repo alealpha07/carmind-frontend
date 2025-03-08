@@ -29,7 +29,18 @@
 	</div>
 </section>
 
-
+<section style="background-color: #e5e7eb;">
+	<h2 style="margin-bottom:0px !important">{$_('about.contribute')}</h2>
+	<p style="text-align:center; margin-bottom:40px">{@html $_('about.contribute.description')}</p>
+	<div style="text-align:center">
+		<a href="https://github.com/alealpha07/carmind-frontend" style="">
+			<img width="40px" src={github} alt="GitHub" /> <br>Frontend
+		</a>
+		<a href="https://github.com/alealpha07/carmind-backend" style="width:fit-content; display:inline-block; margin-left:5px;">
+			<img width="40px" src={github} alt="GitHub" />  <br>Backend
+		</a>
+	</div>
+</section>
 
 <style>
 	.hero-section {
