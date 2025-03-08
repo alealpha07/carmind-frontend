@@ -29,7 +29,7 @@
 	</div>
 </section>
 
-<section style="background-color: #e5e7eb; margin-top: 53px">
+<section style="background-color: #e5e7eb; margin-top: 100px">
 	<h2>{$_('about.contribute')}</h2>
 	<p style="text-align:center; margin-bottom:40px">{$_('about.contribute.description')}<br>{$_('about.contribute.description2')}<br>{$_('about.contribute.description3')}</p>
 	<div style="text-align:center">
