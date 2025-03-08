@@ -29,7 +29,7 @@
 	</div>
 </section>
 
-<section style="background-color: #e5e7eb;">
+<section style="background-color: #e5e7eb; margin-top: 100px">
 	<h2 style="margin-bottom:0px !important">{$_('about.contribute')}</h2>
 	<p style="text-align:center; margin-bottom:40px">{@html $_('about.contribute.description')}</p>
 	<div style="text-align:center">
@@ -69,7 +69,7 @@
 		text-align: center;
 	}
 	h3 {
-		margin-top: 80px;
+		margin-top: 60px;
 	}
 	div.col-md-5 {
 		position: relative;
