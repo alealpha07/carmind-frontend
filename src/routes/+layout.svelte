@@ -1,20 +1,11 @@
-<script lang="ts" module>
-	import { browser } from '$app/environment';
-	import '$lib/i18n';
-	import { locale, locales, waitLocale, getLocaleFromNavigator } from 'svelte-i18n';
-
-	if (browser) {
-		locale.set(getLocaleFromNavigator()?.split('-')[0]);
-		locale.set(!!localStorage.getItem('lang') ? localStorage.getItem('lang') : getLocaleFromNavigator()?.split('-')[0]);
-	}
-	await waitLocale();
-</script>
-
 <script lang="ts">
+	import {localeReady} from '$lib/i18n';
 	import Header from './Header.svelte';
+	import {locale, locales} from 'svelte-i18n'
 	import '../app.css';
 	import '../grid.css';
 	let currentLocale: string = $state('');
+	let loading = $state(true);
 	let currentLocales: Array<string> = $state([]);
 	locale.subscribe((value) => {
 		currentLocale = value as string;
@@ -26,9 +17,12 @@
 		locale.set(event.target.value);
 		localStorage.setItem('lang', event.target.value);
 	}
+	localeReady.then(() => {
+        loading = false;
+    });
 	let { children } = $props();
 </script>
-
+{#if !loading}
 <div class="app">
 	<Header />
 
@@ -47,6 +41,8 @@
 		</select>
 	</footer>
 </div>
+
+{/if}
 
 <style>
 	.app {

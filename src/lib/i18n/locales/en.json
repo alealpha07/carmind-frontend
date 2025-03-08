@@ -78,9 +78,13 @@
 	"home.warning.description": "Receive personalized and precise reminders",
 	"about": "About Us",
 	"about.goal": "Our Goals",
-	"about.goal.description": "Our mission is to make vehicle management effortless and stress-free.<br> We aim to help vehicle owners stay on top of essential tasks such as insurance renewals,<br> road tax payments, and maintenance schedules with ease",
+	"about.goal.description": "Our mission is to make vehicle management effortless and stress-free.",
+	"about.goal.description2":"We aim to help vehicle owners stay on top of essential tasks such as insurance renewals",
+	"about.goal.description3":"road tax payments, and maintenance schedules with ease",
 	"about.alessandro": "Student of Computer Engineering at the University of Parma, passionate about technology, software development, and automation. I enjoy finding smart solutions to everyday problems and believe in the value of open-source to create useful and accessible tools for everyone",
 	"about.armando": "Student of Computer Engineering at the University of Parma, with a passion for software, innovation, and intuitive interfaces. I like exploring new technologies and finding ways to make computing more accessible, enjoyable and functional in everyday life",
 	"about.contribute": "Contribute",
-	"about.contribute.description": "This is an open-source project, If you want to contribute—whether by reporting issues,<br> suggesting improvements, or developing new features—you are more than welcome!<br>You can find the source code and actively participate on GitHub."
+	"about.contribute.description": "This is an open-source project, If you want to contribute whether by reporting issues,",
+	"about.contribute.description2": "suggesting improvements, or developing new features you are more than welcome!",
+	"about.contribute.description3": "You can find the source code and actively participate on GitHub."
 }

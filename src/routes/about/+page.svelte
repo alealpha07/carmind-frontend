@@ -10,7 +10,7 @@
 
 <section class="hero-section">
 	<h1 style="margin-bottom: 15px;">{$_('about.goal')}</h1>
-	<p style="margin-top: 50px;">{@html $_('about.goal.description')}</p>
+	<p style="margin-top: 50px;">{$_('about.goal.description')}<br>{$_('about.goal.description2')}<br>{$_('about.goal.description3')}</p>
 </section>
 
 <section>
@@ -29,9 +29,9 @@
 	</div>
 </section>
 
-<section style="background-color: #e5e7eb; margin-top: 100px">
-	<h2 style="margin-bottom:0px !important">{$_('about.contribute')}</h2>
-	<p style="text-align:center; margin-bottom:40px">{@html $_('about.contribute.description')}</p>
+<section style="background-color: #e5e7eb; margin-top: 53px">
+	<h2>{$_('about.contribute')}</h2>
+	<p style="text-align:center; margin-bottom:40px">{$_('about.contribute.description')}<br>{$_('about.contribute.description2')}<br>{$_('about.contribute.description3')}</p>
 	<div style="text-align:center">
 		<a href="https://github.com/alealpha07/carmind-frontend" style="">
 			<img width="40px" src={github} alt="GitHub" /> <br>Frontend
