@@ -75,5 +75,8 @@
 	"home.access_everywhere": "Access everywhere",
 	"home.access_everywhere.description": "Manage your data from any device",
 	"home.warning": "Smart Reminders",
-	"home.warning.description": "Receive personalized and precise reminders"
+	"home.warning.description": "Receive personalized and precise reminders",
+	"about": "About Us",
+	"about.goal": "Our Goals",
+	"about.goal.description": "Our mission is to make vehicle management effortless and stress-free.<br> We aim to help vehicle owners stay on top of essential tasks such as insurance renewals,<br> road tax payments, and maintenance schedules with ease"
 }

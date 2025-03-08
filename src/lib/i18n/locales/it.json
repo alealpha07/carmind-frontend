@@ -75,5 +75,8 @@
 	"home.access_everywhere": "Accesso ovunque",
 	"home.access_everywhere.description": "Gestisci tutto da qualsiasi dispositivo",
 	"home.warning": "Promemoria smart",
-	"home.warning.description": "Ricevi avvisi personalizzati e puntuali"
+	"home.warning.description": "Ricevi avvisi personalizzati e puntuali",
+	"about": "Chi Siamo",
+	"about.goal": "I Nostri Obbiettivi",
+	"about.goal.description": "La nostra missione è rendere la gestione dei veicoli semplice e senza stress. <br>Il nostro obiettivo è aiutare i proprietari di veicoli a tenere sotto controllo attività essenziali come i rinnovi assicurativi,<br> i pagamenti della tassa di circolazione e le scadenze di manutenzione con facilità"
 }
