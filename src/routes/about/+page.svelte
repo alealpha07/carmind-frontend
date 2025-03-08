@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { _ } from 'svelte-i18n';
+	import github from '$lib/images/github-mark.png';
 </script>
 
 <svelte:head>
@@ -17,46 +18,18 @@
 	<div class="container">
 		<div class="row text-center justify-content-center">
 			<div class="col-md-5">
-				<h4>Alessandro Prati</h4>
+				<h3>Alessandro Prati</h3>
 				<p>{$_('about.alessandro')}</p>
 			</div>
 			<div class="col-md-5">
-				<h4>Armando Scuotto</h4>
-				<p>{$_('home.armando')}</p>
+				<h3>Armando Scuotto</h3>
+				<p>{$_('about.armando')}</p>
 			</div>
 		</div>
 	</div>
 </section>
 
-<section style="background-color: #e5e7eb;">
-	<h2>{$_('home.security_advantages')}</h2>
-	<div class="container">
-		<div class="row text-center">
-			<div class="col-md-4">
-				<lord-icon src="https://cdn.lordicon.com/fibgbafg.json" trigger="loop" delay="2500" class="feature-icon"> </lord-icon>
-				<h3>{$_('home.advanced_security')}</h3>
-				<p>{$_('home.advanced_security.description')}</p>
-			</div>
-			<div class="col-md-4">
-				<lord-icon src="https://cdn.lordicon.com/tyntlpjn.json" trigger="loop" delay="1500" class="feature-icon"> </lord-icon>
-				<h3>{$_('home.access_everywhere')}</h3>
-				<p>{$_('home.access_everywhere.description')}</p>
-			</div>
-			<div class="col-md-4">
-				<lord-icon
-					src="https://cdn.lordicon.com/laobovmg.json"
-					trigger="loop"
-					delay="2000"
-					colors="primary:#121331,secondary:#ebe6ef,tertiary:#3a3347,quaternary:#3498db,quinary:#f9c9c0"
-					class="feature-icon"
-				>
-				</lord-icon>
-				<h3>{$_('home.warning')}</h3>
-				<p>{$_('home.warning.description')}</p>
-			</div>
-		</div>
-	</div>
-</section>
+
 
 <style>
 	.hero-section {
@@ -65,31 +38,27 @@
 		padding: 70px 80px;
 		padding-bottom: 60px;
 	}
-
+	div a {
+		width:fit-content; 
+		display:inline-block; 
+		margin-right:5px; 
+		text-decoration:none; 
+		color: var(--color-text);
+	}
+	div a:hover{
+		color: var(--color-theme-1);
+	}
 	section {
 		padding: 80px 20px;
 	}
 	h2 {
 		font-size: 2rem;
 		font-weight: bold;
-		margin-bottom: 40px;
+		margin-bottom: 0px;
 		text-align: center;
 	}
 	h3 {
-		margin-top: 100px;
-	}
-	.feature-icon {
-		width: 80px;
-		height: 80px;
-		margin-bottom: 20px;
-		position: absolute;
-		left: calc(50% - 40px);
-	}
-	div.col-md-4 {
-		position: relative;
-	}
-	div.col-md-4 * {
-		text-align: center;
+		margin-top: 80px;
 	}
 	div.col-md-5 {
 		position: relative;

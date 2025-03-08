@@ -78,5 +78,9 @@
 	"home.warning.description": "Ricevi avvisi personalizzati e puntuali",
 	"about": "Chi Siamo",
 	"about.goal": "I Nostri Obbiettivi",
-	"about.goal.description": "La nostra missione è rendere la gestione dei veicoli semplice e senza stress. <br>Il nostro obiettivo è aiutare i proprietari di veicoli a tenere sotto controllo attività essenziali come i rinnovi assicurativi,<br> i pagamenti della tassa di circolazione e le scadenze di manutenzione con facilità"
+	"about.goal.description": "La nostra missione è rendere la gestione dei veicoli semplice e senza stress. <br>Il nostro obiettivo è aiutare i proprietari di veicoli a tenere sotto controllo attività essenziali come i rinnovi assicurativi,<br> i pagamenti della tassa di circolazione e le scadenze di manutenzione con facilità",
+	"about.alessandro": "Studente di Ingegneria Informatica all'Università di Parma, mi sono occupato dello sviluppo e dell’architettura del progetto. Credo nell’efficienza del software e nell’open-source come strumento per creare soluzioni accessibili e utili",
+	"about.armando": "Studente di Ingegneria Informatica all'Università di Parma, con una passione per il software, l’innovazione e le interfacce intuitive. Mi piace esplorare nuove tecnologie e trovare modi per rendere l’informatica più accessibile nella vita di tutti i giorni",
+	"about.contribute": "Contribuisci",
+	"about.contribute.description": "Questo è un progetto open-source, se vuoi contribuire, che sia segnalando problemi,<br> proponendo miglioramenti o sviluppando nuove funzionalità, sei il benvenuto!<br>Puoi trovare il codice sorgente e partecipare attivamente su GitHub."
 }
