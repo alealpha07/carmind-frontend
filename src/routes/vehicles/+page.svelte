@@ -39,7 +39,7 @@
 	});
 
 	const VEHICLE_FORM_FIELDS = [
-		{ type: 'text', label: $_('vehicle.type'), key: 'type'},
+		{ type: 'text', label: $_('vehicle.type'), key: 'type', suggestions:['Car', 'Motorcycle']},
 		{ type: 'text', label: $_('vehicle.brand'), key: 'brand' },
 		{ type: 'text', label: $_('vehicle.model'), key: 'model' },
 		{ type: 'text', label: $_('vehicle.registration_year'), key: 'registrationYear' },
