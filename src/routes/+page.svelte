@@ -1,5 +1,12 @@
 <script lang="ts">
-	import { _ } from 'svelte-i18n';
+    import { _ } from 'svelte-i18n';
+    import { onMount } from 'svelte';
+    import NotificationService from '$services/NotificationService';
+
+    onMount(async () => {
+        NotificationService.register();
+    });
+
 </script>
 
 <svelte:head>
