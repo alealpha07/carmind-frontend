@@ -90,6 +90,7 @@
 	"passenger.car": "Passenger car",
 	"bus": "bus",
 	"truck": "Truck",
-	"road.tractor": "Road tractor"
-
+	"road.tractor": "Road tractor",
+	"articulated.lorry": "Articulated lorry",
+	"articulated.bus": "Articulated bus"
 }

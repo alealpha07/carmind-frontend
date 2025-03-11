@@ -90,5 +90,7 @@
 	"passenger.car": "Autovettura",
 	"bus": "Autobus",
 	"truck": "Autocarro",
-	"road.tractor": "Trattore stradale"
+	"road.tractor": "Trattore stradale",
+	"articulated.lorry": "Autosnodato",
+	"articulated.bus": "Autoarticolato"
 }
