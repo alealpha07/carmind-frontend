@@ -62,7 +62,7 @@
 			{#if field.type == 'text'}
 				<div class="col-12">
 					<label for="form-element-{field.key}"><b>{field.label}</b></label> <br />
-					<input type="text" id="form-element-{field.key}" placeholder={field.label} bind:value={tempData[field.key]} />
+					<input type="text" id="form-element-{field.key}" placeholder={field.label} bind:value={tempData[field.key]} list="form-datalist-{field.key}" />
 					<datalist id="form-datalist-{field.key}">
 						{#if !!field.suggestions}
 							{#each field.suggestions as suggestion}
