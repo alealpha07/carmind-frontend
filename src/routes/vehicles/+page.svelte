@@ -37,9 +37,9 @@
 		}
 		return result;
 	});
-
+	const VEHICLE_SUGGESTIONS = ["passenger.car", "bus", "truck", "road.tractor", "articulated.lorry", "articulated.bus", "motorhome", "construction.vehicle", "motorcycle", "motorized.quadricycle", "moped"];
 	const VEHICLE_FORM_FIELDS = [
-		{ type: 'text', label: $_('vehicle.type'), key: 'type', suggestions:['Car', 'Motorcycle']},
+		{ type: 'text', label: $_('vehicle.type'), key: 'type', suggestions:VEHICLE_SUGGESTIONS.map(s => $_(s))},
 		{ type: 'text', label: $_('vehicle.brand'), key: 'brand' },
 		{ type: 'text', label: $_('vehicle.model'), key: 'model' },
 		{ type: 'text', label: $_('vehicle.registration_year'), key: 'registrationYear' },
