@@ -63,6 +63,13 @@
 				<div class="col-12">
 					<label for="form-element-{field.key}"><b>{field.label}</b></label> <br />
 					<input type="text" id="form-element-{field.key}" placeholder={field.label} bind:value={tempData[field.key]} />
+					<datalist id="form-datalist-{field.key}">
+						{#if !!field.suggestions}
+							{#each field.suggestions as suggestion}
+								<option value={suggestion}>{suggestion}</option>
+							{/each}
+						{/if}
+					</datalist>
 				</div>
 			{:else if field.type == 'password'}
 				<div class="col-12">

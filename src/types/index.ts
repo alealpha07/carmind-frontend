@@ -17,6 +17,7 @@ export type Field = {
 	min?: number | Date;
 	max?: number | Date;
 	step?: number;
+	suggestions?: Array<string>;
 };
 
 export type Vehicle = {
