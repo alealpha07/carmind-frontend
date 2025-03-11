@@ -2,6 +2,7 @@ import axios from 'axios';
 import { locale, waitLocale } from 'svelte-i18n';
 const NOTIFICATION_URL: string = import.meta.env.VITE_NOTIFICATION_URL;
 const PUBLIC_VAPID_KEY: string = import.meta.env.VITE_PUBLIC_VAPID_KEY;
+const BASE_URL: string = import.meta.env.VITE_BASE_URL;
 
 await waitLocale();
 let currentLocale: string;
@@ -31,7 +32,7 @@ class NotificationService {
             });
 			//console.log('Service Worker registered:', swReg);
 
-			const subscription = await this.subscribeUser(swReg);
+			const subscription = await this.createSubscriptionUser(swReg);
 			//console.log("User subscriped", subscription)
 			if (subscription) {
 				await this.sendSubscriptionToServer(subscription);
@@ -41,7 +42,7 @@ class NotificationService {
 		}
     }
 
-    private static async subscribeUser(swReg: any) {
+    private static async createSubscriptionUser(swReg: any) {
 		const vapidPublicKey = PUBLIC_VAPID_KEY;
 		const convertedVapidKey = this.urlBase64ToUint8Array(vapidPublicKey);
 
@@ -58,7 +59,7 @@ class NotificationService {
 	}
 
 	private static async sendSubscriptionToServer(subscription: any) {
-		await axios.post('http://localhost:3000/subscribe', subscription);
+		await axios.post(`${BASE_URL}/subscribe`, subscription);
 	}
 
 	private static urlBase64ToUint8Array(base64String: any) {
