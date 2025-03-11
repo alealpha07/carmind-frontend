@@ -22,7 +22,7 @@ self.addEventListener("push", async (event) => {
         return;
     }
 
-    console.log("Push data:", data);
+   // console.log("Push data:", data);
 
     self.registration.showNotification(data.title, {
         body: data.body,
