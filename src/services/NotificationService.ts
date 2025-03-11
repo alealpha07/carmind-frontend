@@ -24,7 +24,7 @@ class NotificationService {
 		}
 
 		try {
-			const swReg = await navigator.serviceWorker.register('/sw.js')
+			const swReg = await navigator.serviceWorker.register('/sw.js');
 
             navigator.serviceWorker.ready.then((sw) => {
                 sw.active?.postMessage({ notificationUrl: NOTIFICATION_URL });
