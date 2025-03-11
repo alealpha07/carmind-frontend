@@ -94,5 +94,7 @@
 	"articulated.lorry": "Autosnodato",
 	"articulated.bus": "Autoarticolato",
 	"motorhome": "Autocaravan",
-	"construction.vehicle": "Mezzo d'opera"
+	"construction.vehicle": "Mezzo d'opera",
+	"motorcycle": "Motociclo",
+	"motorized.quadricycle": "Quadriciclo a motore"
 }

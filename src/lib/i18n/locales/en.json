@@ -94,5 +94,7 @@
 	"articulated.lorry": "Articulated lorry",
 	"articulated.bus": "Articulated bus",
 	"motorhome": "Motorhome",
-	"construction.vehicle": "Construction vehicle"
+	"construction.vehicle": "Construction vehicle",
+	"motorcycle": "Motorcycle",
+	"motorized.quadricycle": "Motorized quadricycle"
 }
