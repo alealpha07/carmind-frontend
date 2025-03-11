@@ -6,14 +6,19 @@
 	import { isLoggedIn } from '../stores/auth';
 	import { onMount } from 'svelte';
 	import favicon from '$lib/images/favicon.png';
+    import NotificationService from '$services/NotificationService';
+
 	let loggedIn = false;
 	$: isLoggedIn.subscribe((value) => {
 		loggedIn = value;
+		if(loggedIn){
+			NotificationService.register();
+		}
 	});
 	onMount(() => {
 		AuthService.getUser()
 			.then(() => {
-				isLoggedIn.set(true);
+				isLoggedIn.set(true);			
 			})
 			.catch(() => {
 				isLoggedIn.set(false);
