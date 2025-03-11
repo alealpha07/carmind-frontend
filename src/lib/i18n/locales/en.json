@@ -87,5 +87,9 @@
 	"about.contribute.description": "This is an open-source project, If you want to contribute whether by reporting issues,",
 	"about.contribute.description2": "suggesting improvements, or developing new features you are more than welcome!",
 	"about.contribute.description3": "You can find the source code and actively participate on GitHub.",
-	"passenger.car": "Passenger car"
+	"passenger.car": "Passenger car",
+	"bus": "bus",
+	"truck": "Truck",
+	"road.tractor": "Road tractor"
+
 }
