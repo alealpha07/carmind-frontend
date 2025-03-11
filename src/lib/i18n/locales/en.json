@@ -92,5 +92,7 @@
 	"truck": "Truck",
 	"road.tractor": "Road tractor",
 	"articulated.lorry": "Articulated lorry",
-	"articulated.bus": "Articulated bus"
+	"articulated.bus": "Articulated bus",
+	"motorhome": "Motorhome",
+	"construction.vehicle": "Construction vehicle"
 }

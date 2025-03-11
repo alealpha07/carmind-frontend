@@ -92,5 +92,7 @@
 	"truck": "Autocarro",
 	"road.tractor": "Trattore stradale",
 	"articulated.lorry": "Autosnodato",
-	"articulated.bus": "Autoarticolato"
+	"articulated.bus": "Autoarticolato",
+	"motorhome": "Autocaravan",
+	"construction.vehicle": "Mezzo d'opera"
 }
