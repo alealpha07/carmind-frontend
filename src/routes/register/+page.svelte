@@ -1,14 +1,14 @@
-<script>
+<script lang="ts">
 	import AuthService from '$services/AuthService';
 	import { goto } from '$app/navigation';
 	import { _ } from 'svelte-i18n';
 
-	let username = $state();
-	let password = $state();
-	let confirmPassword = $state();
-	let name = $state();
-	let surname = $state();
-	let birthDate = $state();
+	let username = $state("");
+	let password = $state("");
+	let confirmPassword = $state("");
+	let name = $state("");
+	let surname = $state("");
+	let birthDate = $state(new Date());
 	let error = $state();
 
 	let errorShow = $derived.by(() => {
@@ -22,11 +22,12 @@
 	});
 
 	async function register() {
-		AuthService.register(username, password, confirmPassword, name, surname, birthDate)
-			.then(() => {
-				goto(`/login`, { replaceState: true });
-			})
-			.catch((err) => (error = err.response.data));
+		try {
+			await AuthService.register(username, password, confirmPassword, name, surname, birthDate);
+			goto(`/login`, { replaceState: true });
+		} catch (err:any) {
+			error = err.response.data;
+		}
 	}
 </script>
 

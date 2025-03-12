@@ -35,15 +35,15 @@
 		return result;
 	});
 
-	onMount(() => {
-		AuthService.getUser()
-			.then((result) => {
-				isLoggedIn.set(true);
-				user = result as User;
-			})
-			.catch(() => {
+	onMount(async () => {
+		try	{
+			let result = await AuthService.getUser();
+			isLoggedIn.set(true);
+			user = result as User;
+			}
+			catch{
 				goto(`/`, { replaceState: true });
-			});
+		}
 	});
 
 	function formatDate(date: Date) {
