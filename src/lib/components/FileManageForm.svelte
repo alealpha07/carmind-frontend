@@ -4,6 +4,8 @@
 	import Dialog from '$lib/components/Dialog.svelte';
 	import DataForm from './DataForm.svelte';
 	import FileService from '$services/FileService';
+	import type { Vehicle } from '$types';
+	import VehicleService from '$services/VehicleService';
 	let { vehicle = null, clickClose } = $props();
 
 	let loaded = $derived.by(() => {
@@ -66,10 +68,10 @@
 
 	async function refreshData() {
 		try {
-			const res: any = await FileService.getAvailableFilesUrls(vehicle.id);
-			registrationCardUrl = res.registrationCardUrl;
-			maintenanceManualUrl = res.maintenanceManualUrl;
-			insuranceUrl = res.insuranceUrl;
+			const res = (await VehicleService.getVehicle(vehicle.id) as Vehicle);
+			registrationCardUrl = res.registrationCardFileExtension ? (await FileService.get(vehicle.id, FileService.FileTypes.registrationCard) as string) : '';
+			maintenanceManualUrl = res.maintenanceFileExtension ? (await FileService.get(vehicle.id, FileService.FileTypes.maintenance) as string) : '';
+			insuranceUrl = res.insuranceFileExtension ? (await FileService.get(vehicle.id, FileService.FileTypes.insurance) as string) : '';
 		} catch {}
 	}
 </script>

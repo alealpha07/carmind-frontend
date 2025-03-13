@@ -41,37 +41,36 @@ self.addEventListener('notificationclick', (event) => {
 
 const CACHE_LIMIT = 50;
 
-self.addEventListener('fetch', async (event) => {
-	const { request } = event;
+self.addEventListener('fetch', (event) => {
+    const { request } = event;
 
     if (request.method !== 'GET') return;
 
     let cacheName = null;
     if (request.url.includes('/vehicle')) cacheName = 'vehicles-cache';
     else if (request.url.includes('/auth/user')) cacheName = 'user-cache';
-    else if (request.url.includes('/upload/available')) cacheName = 'image-available-cache';
 
     if (!cacheName) return;
 
-    event.respondWith(handleRequest(request, cacheName));
+    event.respondWith(networkFirst(request, cacheName));
 });
 
-async function handleRequest(request, cacheName) {
+async function networkFirst(request, cacheName) {
     const cache = await caches.open(cacheName);
-    const cachedResponse = await cache.match(request);
-
-    if (cachedResponse) return cachedResponse;
 
     try {
-        const networkResponse = await fetch(request);
-        cache.put(request, networkResponse.clone());
+        const response = await fetch(request);
 
-        limitCacheSize(cacheName);
+        if (response.ok) {
+            cache.put(request, response.clone());
+            limitCacheSize(cacheName);
+        }
 
-        return networkResponse;
+        return response;
     } catch (error) {
-        console.error(`Network request failed for ${request.url}:`, error);
-        return new Response('Network error and no cache available', { status: 503 });
+        console.warn(`Network request failed for ${request.url}, trying cache...`, error);
+        const cachedResponse = await cache.match(request);
+        return cachedResponse || new Response('Network error and no cache available', { status: 503 });
     }
 }
 

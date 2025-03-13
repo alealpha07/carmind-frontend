@@ -29,9 +29,9 @@
 	let vehicleImageUrl = $state('');
 	let loaded = $derived.by(() => {
 		let result = !!data.id && data.id != -1;
-		if (result) {
-			FileService.getAvailableFilesUrls(data.id).then((res: any) => {
-				vehicleImageUrl = res.vehicleImageUrl;
+		if (result && !!data.vehicleImageFileExtension) {
+			FileService.get(data.id, FileService.FileTypes.vehicleImage).then((res: any) => {
+				vehicleImageUrl = res;
 			});
 		}
 		return result;
