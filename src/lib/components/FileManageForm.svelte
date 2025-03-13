@@ -43,15 +43,15 @@
 		formError = '';
 	}
 
-	function confirmDelete() {
-		FileService.delete(vehicle.id, formDeleteType)
-			.then(() => {
-				resetDeleteForm();
-				refreshData();
-			})
-			.catch((err) => {
-				formError = err.response.data;
-			});
+	async function confirmDelete() {
+		try{
+			await FileService.delete(vehicle.id, formDeleteType);
+			resetDeleteForm();
+			refreshData();
+		}
+		catch{(err:any) =>{
+			formError = err.response.data;
+		}}
 	}
 
 	function showDeleteDialog(typeText: string, type: string) {

@@ -26,32 +26,32 @@
     }).catch((error) => console.log(error));*/
 
 	async function uploadFile() {
-		if (!file) {
-			error = 'Error, select a file!';
-			return;
-		}
-		const formData = new FormData();
-		formData.append('file', file);
-		FileService.upload(formData, vehicleId, fileType)
-			.then(() => {
-				file = undefined;
-				successCallback();
-			})
-			.catch((err) => {
-				error = err.response.data;
-			});
+	if (!file) {
+		error = "Error, select a file!";
+		return;
 	}
 
-	async function deleteFile() {
-		FileService.delete(vehicleId, fileType)
-			.then(() => {
-				successCallback();
-			})
-			.catch((err) => {
-				error = err.response.data;
-			});
-	}
+	const formData = new FormData();
+	formData.append("file", file);
 
+	try {
+		await FileService.upload(formData, vehicleId, fileType);
+		file = undefined;
+		successCallback();
+	} catch (err:any) {
+		error = err.response?.data || "An unexpected error occurred";
+	}
+}
+
+async function deleteFile() {
+		try {
+			await FileService.delete(vehicleId, fileType)
+			successCallback();
+		} catch {(err:any) =>{
+			error = err.response.data;
+		}}
+	}
+	
 	function resetDeleteForm() {
 		deleteFormDialog = false;
 	}
