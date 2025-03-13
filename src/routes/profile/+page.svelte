@@ -35,16 +35,18 @@
 		return result;
 	});
 
-	onMount(async () => {
-		try	{
-			let result = await AuthService.getUser();
-			isLoggedIn.set(true);
-			user = result as User;
-			}
-			catch{
-				goto(`/`, { replaceState: true });
-		}
+	onMount(() => {
+		reloadUser();
 	});
+
+	async function reloadUser() {
+		try {
+			user = (await AuthService.getUser()) as User;
+			isLoggedIn.set(true);
+		} catch {
+			goto(`/`, { replaceState: true });
+		}
+	}
 
 	function formatDate(date: Date) {
 		return new Date(date).toLocaleDateString('it-IT');
@@ -83,29 +85,25 @@
 		formClickRight = () => {};
 	}
 
-	function confirmResetPassword(result: User) {
-		AuthService.resetPassword(result.password, result.newPassword, result.confirmNewPassword)
-			.then((res) => {
-				formSuccessMessage = res as string;
-				resetForm();
-			})
-			.catch((err) => {
-				formError = err.response.data;
-			});
+	async function confirmResetPassword(result: User) {
+		try {
+			const res = await AuthService.resetPassword(result.password, result.newPassword, result.confirmNewPassword);
+			formSuccessMessage = res as string;
+			resetForm();
+		} catch (err: any) {
+			formError = err.response.data;
+		}
 	}
 
-	function confirmEditProfile(result: User) {
-		AuthService.editProfile(result.name, result.surname, result.birthDate)
-			.then((res) => {
-				AuthService.getUser().then((ress) => {
-					user = ress as User;
-					formSuccessMessage = res as string;
-					resetForm();
-				});
-			})
-			.catch((err) => {
-				formError = err.response.data;
-			});
+	async function confirmEditProfile(result: User) {
+		try {
+			const res = await AuthService.editProfile(result.name, result.surname, result.birthDate);
+			await reloadUser();
+			formSuccessMessage = res as string;
+			resetForm();
+		} catch (err: any) {
+			formError = err.response.data;
+		}
 	}
 </script>
 

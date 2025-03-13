@@ -4,13 +4,13 @@
 </script>
 
 <svelte:head>
-	<title>{$_("about")}</title>
+	<title>{$_('about')}</title>
 	<script src="https://cdn.lordicon.com/lordicon.js"></script>
 </svelte:head>
 
 <section class="hero-section">
 	<h1 style="margin-bottom: 15px;">{$_('about.goal')}</h1>
-	<p style="margin-top: 50px;">{$_('about.goal.description')}<br>{$_('about.goal.description2')}<br>{$_('about.goal.description3')}</p>
+	<p style="margin-top: 50px;">{$_('about.goal.description')}<br />{$_('about.goal.description2')}<br />{$_('about.goal.description3')}</p>
 </section>
 
 <section>
@@ -31,13 +31,15 @@
 
 <section style="background-color: #e5e7eb; margin-top: 125px">
 	<h2>{$_('about.contribute')}</h2>
-	<p style="text-align:center; margin-bottom:40px">{$_('about.contribute.description')}<br>{$_('about.contribute.description2')}<br>{$_('about.contribute.description3')}</p>
+	<p style="text-align:center; margin-bottom:40px">
+		{$_('about.contribute.description')}<br />{$_('about.contribute.description2')}<br />{$_('about.contribute.description3')}
+	</p>
 	<div style="text-align:center">
 		<a href="https://github.com/alealpha07/carmind-frontend" style="">
-			<img width="40px" src={github} alt="GitHub" /> <br>Frontend
+			<img width="40px" src={github} alt="GitHub" /> <br />Frontend
 		</a>
 		<a href="https://github.com/alealpha07/carmind-backend" style="width:fit-content; display:inline-block; margin-left:5px;">
-			<img width="40px" src={github} alt="GitHub" />  <br>Backend
+			<img width="40px" src={github} alt="GitHub" /> <br />Backend
 		</a>
 	</div>
 </section>
@@ -50,13 +52,13 @@
 		padding-bottom: 60px;
 	}
 	div a {
-		width:fit-content; 
-		display:inline-block; 
-		margin-right:5px; 
-		text-decoration:none; 
+		width: fit-content;
+		display: inline-block;
+		margin-right: 5px;
+		text-decoration: none;
 		color: var(--color-text);
 	}
-	div a:hover{
+	div a:hover {
 		color: var(--color-theme-1);
 	}
 	section {

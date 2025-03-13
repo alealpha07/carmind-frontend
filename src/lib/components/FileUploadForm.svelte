@@ -18,38 +18,32 @@
 		return result;
 	});
 
-	/*
-    let myfile = $state("");
-    FileService.get(1, FileService.FileTypes.insurance).then((result) => {
-		myfile = (result as string);
-		console.log(myfile)
-    }).catch((error) => console.log(error));*/
-
 	async function uploadFile() {
 		if (!file) {
-			error = 'Error, select a file!';
+			error = $_('delete.file.message');
 			return;
 		}
+
 		const formData = new FormData();
 		formData.append('file', file);
-		FileService.upload(formData, vehicleId, fileType)
-			.then(() => {
-				file = undefined;
-				successCallback();
-			})
-			.catch((err) => {
-				error = err.response.data;
-			});
+
+		try {
+			await FileService.upload(formData, vehicleId, fileType);
+			file = undefined;
+			successCallback();
+		} catch (err: any) {
+			error = err.response?.data || 'An unexpected error occurred';
+		}
 	}
 
 	async function deleteFile() {
-		FileService.delete(vehicleId, fileType)
-			.then(() => {
-				successCallback();
-			})
-			.catch((err) => {
-				error = err.response.data;
-			});
+		try {
+			await FileService.delete(vehicleId, fileType);
+			resetDeleteForm();
+			successCallback();
+		} catch (err: any) {
+			error = err.response.data;
+		}
 	}
 
 	function resetDeleteForm() {

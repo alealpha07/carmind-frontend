@@ -10,9 +10,8 @@ $: locale.subscribe((value) => {
 });
 
 class NotificationService {
-	
-    static async register() {
-        if (!('serviceWorker' in navigator) || !('PushManager' in window)) {
+	static async register() {
+		if (!('serviceWorker' in navigator) || !('PushManager' in window)) {
 			console.error('Push notifications not supported');
 			return;
 		}
@@ -25,10 +24,8 @@ class NotificationService {
 
 		try {
 			const swReg = await navigator.serviceWorker.register('/sw.js');
-
-            navigator.serviceWorker.ready.then((sw) => {
-                sw.active?.postMessage({ notificationUrl: NOTIFICATION_URL });
-            });
+			const sw = await navigator.serviceWorker.ready;
+			sw.active?.postMessage({ notificationUrl: NOTIFICATION_URL });
 			//console.log('Service Worker registered:', swReg);
 
 			const subscription = await this.createSubscriptionUser(swReg);
@@ -39,9 +36,9 @@ class NotificationService {
 		} catch (error) {
 			console.error('Error registering Service Worker:', error);
 		}
-    }
+	}
 
-    private static async createSubscriptionUser(swReg: any) {
+	private static async createSubscriptionUser(swReg: any) {
 		const vapidPublicKey = PUBLIC_VAPID_KEY;
 		const convertedVapidKey = this.urlBase64ToUint8Array(vapidPublicKey);
 
@@ -58,7 +55,7 @@ class NotificationService {
 	}
 
 	private static async sendSubscriptionToServer(subscription: any) {
-		await axios.post(`${BASE_URL}/subscribe`, subscription, {withCredentials:true});
+		await axios.post(`${BASE_URL}/subscribe`, subscription, { withCredentials: true });
 	}
 
 	private static urlBase64ToUint8Array(base64String: any) {

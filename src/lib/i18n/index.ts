@@ -6,13 +6,11 @@ const defaultLocale = 'en';
 register('en', () => import('./locales/en.json'));
 register('it', () => import('./locales/it.json'));
 
-const initialLang = browser
-    ? localStorage.getItem('lang') || getLocaleFromNavigator()?.split('-')[0] || defaultLocale
-    : defaultLocale;
+const initialLang = browser ? localStorage.getItem('lang') || getLocaleFromNavigator()?.split('-')[0] || defaultLocale : defaultLocale;
 
 init({
-    fallbackLocale: defaultLocale,
-    initialLocale: initialLang,
+	fallbackLocale: defaultLocale,
+	initialLocale: initialLang
 });
 
 export const localeReady = browser ? waitLocale() : Promise.resolve();

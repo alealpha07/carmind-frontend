@@ -78,7 +78,7 @@
 	"home.warning.description": "Ricevi avvisi personalizzati e puntuali",
 	"about": "Chi Siamo",
 	"about.goal": "I Nostri Obbiettivi",
-	"about.goal.description": "La nostra missione è rendere la gestione dei veicoli semplice e senza stress.", 
+	"about.goal.description": "La nostra missione è rendere la gestione dei veicoli semplice e senza stress.",
 	"about.goal.description2": "Il nostro obiettivo è aiutare i proprietari di veicoli a tenere sotto controllo attività essenziali come i rinnovi assicurativi",
 	"about.goal.description3": "i pagamenti della tassa di circolazione e le scadenze di manutenzione con facilità",
 	"about.alessandro": "Studente di Ingegneria Informatica all'Università di Parma, mi sono occupato dello sviluppo e dell’architettura del progetto. Credo nell’efficienza del software e nell’open-source come strumento per creare soluzioni accessibili e utili",
@@ -97,5 +97,6 @@
 	"construction.vehicle": "Mezzo d'opera",
 	"motorcycle": "Motociclo",
 	"motorized.quadricycle": "Quadriciclo a motore",
-	"moped": "Ciclomotore"
+	"moped": "Ciclomotore",
+	"delete.file.message": "Errore, seleziona un file!"
 }

@@ -43,15 +43,14 @@
 		formError = '';
 	}
 
-	function confirmDelete() {
-		FileService.delete(vehicle.id, formDeleteType)
-			.then(() => {
-				resetDeleteForm();
-				refreshData();
-			})
-			.catch((err) => {
-				formError = err.response.data;
-			});
+	async function confirmDelete() {
+		try {
+			await FileService.delete(vehicle.id, formDeleteType);
+			resetDeleteForm();
+			refreshData();
+		} catch (err: any) {
+			formError = err.response.data;
+		}
 	}
 
 	function showDeleteDialog(typeText: string, type: string) {
@@ -65,12 +64,13 @@
 		resetForm();
 	}
 
-	function refreshData() {
-		FileService.getAvailableFilesUrls(vehicle.id).then((res: any) => {
+	async function refreshData() {
+		try {
+			const res: any = await FileService.getAvailableFilesUrls(vehicle.id);
 			registrationCardUrl = res.registrationCardUrl;
 			maintenanceManualUrl = res.maintenanceManualUrl;
 			insuranceUrl = res.insuranceUrl;
-		});
+		} catch {}
 	}
 </script>
 
