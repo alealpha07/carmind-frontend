@@ -3,11 +3,11 @@
 	import { goto } from '$app/navigation';
 	import { _ } from 'svelte-i18n';
 
-	let username = $state("");
-	let password = $state("");
-	let confirmPassword = $state("");
-	let name = $state("");
-	let surname = $state("");
+	let username = $state('');
+	let password = $state('');
+	let confirmPassword = $state('');
+	let name = $state('');
+	let surname = $state('');
 	let birthDate = $state(new Date());
 	let error = $state();
 
@@ -25,7 +25,7 @@
 		try {
 			await AuthService.register(username, password, confirmPassword, name, surname, birthDate);
 			goto(`/login`, { replaceState: true });
-		} catch (err:any) {
+		} catch (err: any) {
 			error = err.response.data;
 		}
 	}

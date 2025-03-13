@@ -4,9 +4,9 @@
 	import { goto } from '$app/navigation';
 	import { _ } from 'svelte-i18n';
 
-	let username = $state("");
-	let password = $state("");
-	let error = $state("");
+	let username = $state('');
+	let password = $state('');
+	let error = $state('');
 
 	let errorShow = $derived.by(() => {
 		let result = error != '' && error != null;
@@ -19,12 +19,13 @@
 	});
 
 	async function login() {
-		try{
-			await AuthService.login(username, password)
+		try {
+			await AuthService.login(username, password);
 			isLoggedIn.set(true);
 			goto(`/vehicles`, { replaceState: true });
+		} catch (err: any) {
+			error = err.response.data;
 		}
-		catch{(err:any) => (error = err.response.data)};
 	}
 </script>
 

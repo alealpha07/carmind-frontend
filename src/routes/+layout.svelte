@@ -1,7 +1,7 @@
 <script lang="ts">
-	import {localeReady} from '$lib/i18n';
+	import { localeReady } from '$lib/i18n';
 	import Header from './Header.svelte';
-	import {locale, locales} from 'svelte-i18n'
+	import { locale, locales } from 'svelte-i18n';
 	import '../app.css';
 	import '../grid.css';
 	let currentLocale: string = $state('');
@@ -18,30 +18,30 @@
 		localStorage.setItem('lang', event.target.value);
 	}
 	localeReady.then(() => {
-        loading = false;
-    });
+		loading = false;
+	});
 	let { children } = $props();
 </script>
+
 {#if !loading}
-<div class="app">
-	<Header />
+	<div class="app">
+		<Header />
 
-	<main>
-		{@render children()}
-	</main>
+		<main>
+			{@render children()}
+		</main>
 
-	<footer>
-		<p>
-			® {new Date().getFullYear()} <b>Alessandro Prati & Armando Scuotto</b>
-		</p>
-		<select onchange={updateLocale}>
-			{#each currentLocales as lang}
-				<option selected={currentLocale == lang} value={lang}>{lang}</option>
-			{/each}
-		</select>
-	</footer>
-</div>
-
+		<footer>
+			<p>
+				® {new Date().getFullYear()} <b>Alessandro Prati & Armando Scuotto</b>
+			</p>
+			<select onchange={updateLocale}>
+				{#each currentLocales as lang}
+					<option selected={currentLocale == lang} value={lang}>{lang}</option>
+				{/each}
+			</select>
+		</footer>
+	</div>
 {/if}
 
 <style>

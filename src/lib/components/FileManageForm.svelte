@@ -44,14 +44,13 @@
 	}
 
 	async function confirmDelete() {
-		try{
+		try {
 			await FileService.delete(vehicle.id, formDeleteType);
 			resetDeleteForm();
 			refreshData();
-		}
-		catch{(err:any) =>{
+		} catch (err: any) {
 			formError = err.response.data;
-		}}
+		}
 	}
 
 	function showDeleteDialog(typeText: string, type: string) {
@@ -65,12 +64,13 @@
 		resetForm();
 	}
 
-	function refreshData() {
-		FileService.getAvailableFilesUrls(vehicle.id).then((res: any) => {
+	async function refreshData() {
+		try {
+			const res: any = await FileService.getAvailableFilesUrls(vehicle.id);
 			registrationCardUrl = res.registrationCardUrl;
 			maintenanceManualUrl = res.maintenanceManualUrl;
 			insuranceUrl = res.insuranceUrl;
-		});
+		} catch {}
 	}
 </script>
 

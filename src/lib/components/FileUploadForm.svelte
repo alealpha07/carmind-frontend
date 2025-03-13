@@ -18,41 +18,34 @@
 		return result;
 	});
 
-	/*
-    let myfile = $state("");
-    FileService.get(1, FileService.FileTypes.insurance).then((result) => {
-		myfile = (result as string);
-		console.log(myfile)
-    }).catch((error) => console.log(error));*/
-
 	async function uploadFile() {
-	if (!file) {
-		error = $_("Delete.file.message");
-		return;
-	}
+		if (!file) {
+			error = $_('delete.file.message');
+			return;
+		}
 
-	const formData = new FormData();
-	formData.append("file", file);
+		const formData = new FormData();
+		formData.append('file', file);
 
-	try {
-		await FileService.upload(formData, vehicleId, fileType);
-		file = undefined;
-		successCallback();
-	} catch (err:any) {
-		error = err.response?.data || "An unexpected error occurred";
-	}
-}
-
-async function deleteFile() {
 		try {
-			await FileService.delete(vehicleId, fileType)
-			resetDeleteForm()
+			await FileService.upload(formData, vehicleId, fileType);
+			file = undefined;
 			successCallback();
-		} catch {(err:any) =>{
-			error = err.response.data;
-		}}
+		} catch (err: any) {
+			error = err.response?.data || 'An unexpected error occurred';
+		}
 	}
-	
+
+	async function deleteFile() {
+		try {
+			await FileService.delete(vehicleId, fileType);
+			resetDeleteForm();
+			successCallback();
+		} catch (err: any) {
+			error = err.response.data;
+		}
+	}
+
 	function resetDeleteForm() {
 		deleteFormDialog = false;
 	}

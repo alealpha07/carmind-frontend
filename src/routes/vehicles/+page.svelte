@@ -37,9 +37,21 @@
 		}
 		return result;
 	});
-	const VEHICLE_SUGGESTIONS = ["passenger.car", "bus", "truck", "road.tractor", "articulated.lorry", "articulated.bus", "motorhome", "construction.vehicle", "motorcycle", "motorized.quadricycle", "moped"];
+	const VEHICLE_SUGGESTIONS = [
+		'passenger.car',
+		'bus',
+		'truck',
+		'road.tractor',
+		'articulated.lorry',
+		'articulated.bus',
+		'motorhome',
+		'construction.vehicle',
+		'motorcycle',
+		'motorized.quadricycle',
+		'moped'
+	];
 	const VEHICLE_FORM_FIELDS = [
-		{ type: 'text', label: $_('vehicle.type'), key: 'type', suggestions:VEHICLE_SUGGESTIONS.map(s => $_(s))},
+		{ type: 'text', label: $_('vehicle.type'), key: 'type', suggestions: VEHICLE_SUGGESTIONS.map((s) => $_(s)) },
 		{ type: 'text', label: $_('vehicle.brand'), key: 'brand' },
 		{ type: 'text', label: $_('vehicle.model'), key: 'model' },
 		{ type: 'text', label: $_('vehicle.registration_year'), key: 'registrationYear' },
@@ -72,15 +84,14 @@
 		vehicleImageFileExtension: null
 	};
 
-	onMount(() => {
-		AuthService.getUser()
-			.then(() => {
-				isLoggedIn.set(true);
-				reloadVehicles();
-			})
-			.catch(() => {
-				goto(`/`, { replaceState: true });
-			});
+	onMount(async () => {
+		try {
+			await AuthService.getUser();
+			isLoggedIn.set(true);
+			reloadVehicles();
+		} catch {
+			goto(`/`, { replaceState: true });
+		}
 	});
 
 	function showForm(data: any, fields: Array<Field>, clickRight: Function, title: string, description: string = '', id = -1) {
@@ -132,49 +143,46 @@
 		showManageFileDialog = false;
 	}
 
-	function addVehicle(result: Vehicle) {
+	async function addVehicle(result: Vehicle) {
 		result.registrationYear = Number(result.registrationYear);
-		VehicleService.addVehicle(result)
-			.then((res) => {
-				reloadVehicles();
-				formSuccessMessage = res as string;
-				resetForm();
-			})
-			.catch((err) => {
-				formError = err.response.data;
-			});
+		try {
+			const res = await VehicleService.addVehicle(result);
+			await reloadVehicles();
+			formSuccessMessage = res as string;
+			resetForm();
+		} catch (err: any) {
+			formError = err.response.data;
+		}
 	}
 
-	function editVehicle(result: Vehicle) {
+	async function editVehicle(result: Vehicle) {
 		result.registrationYear = Number(result.registrationYear);
-		VehicleService.editVehicle(result, formId)
-			.then((res) => {
-				reloadVehicles();
-				formSuccessMessage = res as string;
-				resetForm();
-			})
-			.catch((err) => {
-				formError = err.response.data;
-			});
+		try {
+			const res = await VehicleService.editVehicle(result, formId);
+			await reloadVehicles();
+			formSuccessMessage = res as string;
+			resetForm();
+		} catch (err: any) {
+			formError = err.response.data;
+		}
 	}
 
-	function deleteVehicle(result: Vehicle) {
-		VehicleService.deleteVehicle(formId)
-			.then((res) => {
-				reloadVehicles();
-				formSuccessMessage = res as string;
-				resetForm();
-			})
-			.catch((err) => {
-				formError = err.response.data;
-			});
+	async function deleteVehicle(result: Vehicle) {
+		try {
+			const res = await VehicleService.deleteVehicle(formId);
+			await reloadVehicles();
+			formSuccessMessage = res as string;
+			resetForm();
+		} catch (err: any) {
+			formError = err.response.data;
+		}
 	}
 
-	function reloadVehicles() {
+	async function reloadVehicles() {
 		vehicles = [];
-		VehicleService.getVehicles().then((data) => {
-			vehicles = data as Array<Vehicle>;
-		});
+		try {
+			vehicles = (await VehicleService.getVehicles()) as Array<Vehicle>;
+		} catch {}
 	}
 </script>
 
