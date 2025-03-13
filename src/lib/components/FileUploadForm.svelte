@@ -27,7 +27,7 @@
 
 	async function uploadFile() {
 	if (!file) {
-		error = "Error, select a file!";
+		error = $_("Delete.file.message");
 		return;
 	}
 
@@ -46,6 +46,7 @@
 async function deleteFile() {
 		try {
 			await FileService.delete(vehicleId, fileType)
+			resetDeleteForm()
 			successCallback();
 		} catch {(err:any) =>{
 			error = err.response.data;

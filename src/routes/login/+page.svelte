@@ -1,12 +1,12 @@
-<script>
+<script lang="ts">
 	import AuthService from '$services/AuthService';
 	import { isLoggedIn } from '../../stores/auth';
 	import { goto } from '$app/navigation';
 	import { _ } from 'svelte-i18n';
 
-	let username = $state();
-	let password = $state();
-	let error = $state();
+	let username = $state("");
+	let password = $state("");
+	let error = $state("");
 
 	let errorShow = $derived.by(() => {
 		let result = error != '' && error != null;
@@ -19,12 +19,12 @@
 	});
 
 	async function login() {
-		AuthService.login(username, password)
-			.then(() => {
-				isLoggedIn.set(true);
-				goto(`/vehicles`, { replaceState: true });
-			})
-			.catch((err) => (error = err.response.data));
+		try{
+			await AuthService.login(username, password)
+			isLoggedIn.set(true);
+			goto(`/vehicles`, { replaceState: true });
+		}
+		catch{(err:any) => (error = err.response.data)};
 	}
 </script>
 

@@ -83,15 +83,15 @@
 		formClickRight = () => {};
 	}
 
-	function confirmResetPassword(result: User) {
-		AuthService.resetPassword(result.password, result.newPassword, result.confirmNewPassword)
-			.then((res) => {
-				formSuccessMessage = res as string;
-				resetForm();
-			})
-			.catch((err) => {
+	async function confirmResetPassword(result: User) {
+		try{
+			const res = await AuthService.resetPassword(result.password, result.newPassword, result.confirmNewPassword)
+			formSuccessMessage = res as string;
+			resetForm();
+		}
+		catch{(err:any) => {
 				formError = err.response.data;
-			});
+		}};
 	}
 
 	function confirmEditProfile(result: User) {

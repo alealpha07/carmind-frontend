@@ -97,5 +97,6 @@
 	"construction.vehicle": "Mezzo d'opera",
 	"motorcycle": "Motociclo",
 	"motorized.quadricycle": "Quadriciclo a motore",
-	"moped": "Ciclomotore"
+	"moped": "Ciclomotore",
+	"Delete.file.message": "Errore, seleziona un file!"
 }
