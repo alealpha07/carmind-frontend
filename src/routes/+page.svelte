@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { _ } from 'svelte-i18n';
+	import favicon from '$lib/images/favicon.png';
 </script>
 
 <svelte:head>
@@ -8,7 +9,8 @@
 </svelte:head>
 
 <section class="hero-section">
-	<h1 style="margin-bottom: 15px;">{$_('home.hero.title')}</h1>
+	<img style="position: absolute; left: calc(50% - 175px);" width="350px" src={favicon} alt="Favicon" />
+	<h1 style="margin-bottom: 15px; margin-top: 100px;">{$_('home.hero.title')}</h1>
 	<p style="margin-bottom: 25px;">{$_('home.hero.description')}<br />{$_('home.hero.description.second')}</p>
 	<div class="hero-buttons">
 		<a href="/register"><button>{$_('register.free')}</button></a>
@@ -80,7 +82,7 @@
 	.hero-section {
 		color: var(--color-text);
 		text-align: center;
-		padding: 120px 20px;
+		padding: 120px 20px 10px 20px;
 	}
 	.hero-buttons {
 		width: fit-content;
