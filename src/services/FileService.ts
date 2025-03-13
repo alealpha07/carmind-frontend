@@ -82,7 +82,6 @@ class FileService {
                         withCredentials: true,
                         responseType: 'blob'
                     });
-					console.log("diocan")
                     const blob = new Blob([res.data]);
                     saveToDB(vehicleId, type, blob);
                     resolve(URL.createObjectURL(blob));
