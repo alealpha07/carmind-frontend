@@ -1,8 +1,7 @@
 import type { Vehicle } from '$types';
 import axios from 'axios';
 const BASE_URL: string = import.meta.env.VITE_BASE_URL;
-import { locale, waitLocale } from 'svelte-i18n';
-await waitLocale();
+import { locale } from 'svelte-i18n';
 let currentLocale: string;
 $: locale.subscribe((value) => {
 	currentLocale = value as string;

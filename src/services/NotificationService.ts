@@ -1,10 +1,9 @@
 import axios from 'axios';
-import { locale, waitLocale } from 'svelte-i18n';
+import { locale } from 'svelte-i18n';
 const NOTIFICATION_URL: string = import.meta.env.VITE_NOTIFICATION_URL;
 const PUBLIC_VAPID_KEY: string = import.meta.env.VITE_PUBLIC_VAPID_KEY;
 const BASE_URL: string = import.meta.env.VITE_BASE_URL;
 
-await waitLocale();
 let currentLocale: string;
 $: locale.subscribe((value) => {
 	currentLocale = value as string;
