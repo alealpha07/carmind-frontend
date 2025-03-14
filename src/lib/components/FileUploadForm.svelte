@@ -3,10 +3,11 @@
 	import Dialog from './Dialog.svelte';
 	import DataForm from './DataForm.svelte';
 	import { _ } from 'svelte-i18n';
-	let { label, fileType, vehicleId, error = $bindable(), deleteButton = false, successCallback, clickClose } = $props();
+	let { label, fileType, vehicleId, deleteButton = false, successCallback, clickClose } = $props();
 
 	let file: any;
 	let deleteFormDialog = $state(false);
+	let error: string = $state('');
 
 	let errorShow = $derived.by(() => {
 		let result = error != '' && error != null;

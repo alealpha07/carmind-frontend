@@ -23,7 +23,7 @@ class NotificationService {
 		}
 
 		try {
-			const swReg = await navigator.serviceWorker.register('/sw.js');
+			const swReg: ServiceWorkerRegistration = await navigator.serviceWorker.register('/sw.js');
 			const sw = await navigator.serviceWorker.ready;
 			sw.active?.postMessage({ notificationUrl: NOTIFICATION_URL });
 			//console.log('Service Worker registered:', swReg);
@@ -38,7 +38,7 @@ class NotificationService {
 		}
 	}
 
-	private static async createSubscriptionUser(swReg: any) {
+	private static async createSubscriptionUser(swReg: ServiceWorkerRegistration) {
 		const vapidPublicKey = PUBLIC_VAPID_KEY;
 		const convertedVapidKey = this.urlBase64ToUint8Array(vapidPublicKey);
 
@@ -54,11 +54,11 @@ class NotificationService {
 		}
 	}
 
-	private static async sendSubscriptionToServer(subscription: any) {
+	private static async sendSubscriptionToServer(subscription: PushSubscription) {
 		await axios.post(`${BASE_URL}/subscribe?locale=${currentLocale}`, subscription, { withCredentials: true });
 	}
 
-	private static urlBase64ToUint8Array(base64String: any) {
+	private static urlBase64ToUint8Array(base64String: string) {
 		const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
 		const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
 		const rawData = atob(base64);

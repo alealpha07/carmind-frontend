@@ -30,8 +30,8 @@
 	let loaded = $derived.by(() => {
 		let result = !!data.id && data.id != -1;
 		if (result && !!data.vehicleImageFileExtension) {
-			FileService.get(data.id, FileService.FileTypes.vehicleImage).then((res: any) => {
-				vehicleImageUrl = res;
+			FileService.get(data.id, FileService.FileTypes.vehicleImage).then((res) => {
+				vehicleImageUrl = res as string;
 			});
 		}
 		return result;

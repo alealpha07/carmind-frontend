@@ -6,7 +6,7 @@
 	import FileService from '$services/FileService';
 	import type { Vehicle } from '$types';
 	import VehicleService from '$services/VehicleService';
-	let { vehicle = null, clickClose } = $props();
+	let { vehicle = null, clickClose }: {vehicle: Vehicle | null, clickClose: Function} = $props();
 
 	let loaded = $derived.by(() => {
 		let result = vehicle != null && vehicle.id != -1;
@@ -47,7 +47,7 @@
 
 	async function confirmDelete() {
 		try {
-			await FileService.delete(vehicle.id, formDeleteType);
+			await FileService.delete((vehicle as Vehicle).id, formDeleteType);
 			resetDeleteForm();
 			refreshData();
 		} catch (err: any) {
@@ -68,17 +68,17 @@
 
 	async function refreshData() {
 		try {
-			const res = (await VehicleService.getVehicle(vehicle.id) as Vehicle);
-			registrationCardUrl = res.registrationCardFileExtension ? (await FileService.get(vehicle.id, FileService.FileTypes.registrationCard) as string) : '';
-			maintenanceManualUrl = res.maintenanceFileExtension ? (await FileService.get(vehicle.id, FileService.FileTypes.maintenance) as string) : '';
-			insuranceUrl = res.insuranceFileExtension ? (await FileService.get(vehicle.id, FileService.FileTypes.insurance) as string) : '';
+			const res = (await VehicleService.getVehicle((vehicle as Vehicle).id) as Vehicle);
+			registrationCardUrl = res.registrationCardFileExtension ? (await FileService.get((vehicle as Vehicle).id, FileService.FileTypes.registrationCard) as string) : '';
+			maintenanceManualUrl = res.maintenanceFileExtension ? (await FileService.get((vehicle as Vehicle).id, FileService.FileTypes.maintenance) as string) : '';
+			insuranceUrl = res.insuranceFileExtension ? (await FileService.get((vehicle as Vehicle).id, FileService.FileTypes.insurance) as string) : '';
 		} catch {}
 	}
 </script>
 
 {#if loaded}
 	<Dialog show={formDialog} style="margin-top: 10vh; margin-left: 0; background-color: var(--color-dialog-darker)">
-		<FileForm label={formLabel} fileType={formFileType} vehicleId={vehicle.id} successCallback={formSuccessCallback} clickClose={resetForm}
+		<FileForm label={formLabel} fileType={formFileType} vehicleId={(vehicle as Vehicle).id} successCallback={formSuccessCallback} clickClose={resetForm}
 		></FileForm>
 	</Dialog>
 	<Dialog show={deleteFormDialog} style="margin-top: 10vh; margin-left: 0; background-color: var(--color-dialog-darker)">
@@ -97,7 +97,7 @@
 	<div class="container">
 		<div class="row">
 			<h1 style="margin-bottom: 0;">{$_('vehicles.manage_files')}</h1>
-			<p style="width: fit-content; margin: auto; margin-top: 0;">{vehicle.brand} {vehicle.model} {vehicle.plateNumber}</p>
+			<p style="width: fit-content; margin: auto; margin-top: 0;">{(vehicle as Vehicle).brand} {(vehicle as Vehicle).model} {(vehicle as Vehicle).plateNumber}</p>
 		</div>
 
 		<div class="row manage-file">
@@ -191,7 +191,7 @@
 			{/if}
 		</div>
 		<div class="row" style="margin-top:8px !important;">
-			<button onclick={clickClose} class="button-minor">{$_('buttons.close')}</button>
+			<button onclick={()=>{clickClose}} class="button-minor">{$_('buttons.close')}</button>
 		</div>
 	</div>
 {/if}
