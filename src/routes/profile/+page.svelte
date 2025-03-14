@@ -139,25 +139,25 @@
 				<div class="row">
 					<div class="align-container">
 						<span style="margin-right: 50px;" class="mdi--user-outline"></span>
-						<p>{user.name} {user.surname}</p>
+						<article>{user.name} {user.surname}</article>
 					</div>
 				</div>
 				<div class="row">
 					<div class="align-container">
 						<span style="margin-right: 50px;" class="mdi--email-outline"></span>
-						<p>{user.email}</p>
+						<article data-fulltext={user.email}>{user.email}</article>
 					</div>
 				</div>
 				<div class="row">
 					<div class="align-container">
 						<span style="margin-right: 50px;" class="mdi--cake-variant-outline"></span>
-						<p>{formatDate(user.birthDate)}</p>
+						<article>{formatDate(user.birthDate)}</article>
 					</div>
 				</div>
 				<div class="row">
 					<div class="align-container">
 						<span style="margin-right: 50px;" class="mdi--lock-outline"></span>
-						<p>{$_('profile.reset_password')}</p>
+						<article style="width: 70% !important;">{$_('profile.reset_password')}</article>
 						<button id="reset-password-btn" aria-label={$_('profile.reset_password')} onclick={showResetPasswordDialog}>
 							<span style="margin-left: 5px;" class="mdi--reload"></span>
 						</button>
@@ -200,10 +200,13 @@
 		left: calc(50% - 47px);
 	}
 
-	.row p {
-		font-size: 24px;
-		width: fit-content;
-		display: inline-block;
+	.row article {
+		font-size: 18px;
+		width: 100%;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		-webkit-box-orient: vertical;
+		white-space: normal;
 	}
 
 	.mdi--account {
@@ -284,8 +287,8 @@
 
 	.mdi--reload {
 		display: inline-block;
-		width: 36px;
-		height: 36px;
+		width: 32px;
+		height: 32px;
 		margin-left: 2px;
 		margin-right: 2px;
 		--svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M2 12a9 9 0 0 0 9 9c2.39 0 4.68-.94 6.4-2.6l-1.5-1.5A6.7 6.7 0 0 1 11 19c-6.24 0-9.36-7.54-4.95-11.95S18 5.77 18 12h-3l4 4h.1l3.9-4h-3a9 9 0 0 0-18 0'/%3E%3C/svg%3E");

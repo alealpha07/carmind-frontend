@@ -98,5 +98,6 @@
 	"motorcycle": "Motociclo",
 	"motorized.quadricycle": "Quadriciclo a motore",
 	"moped": "Ciclomotore",
-	"delete.file.message": "Errore, seleziona un file!"
+	"delete.file.message": "Errore, seleziona un file!",
+	"login.persistent": "Resta collegato?"
 }
