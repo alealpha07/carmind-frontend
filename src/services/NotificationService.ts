@@ -55,7 +55,7 @@ class NotificationService {
 	}
 
 	private static async sendSubscriptionToServer(subscription: any) {
-		await axios.post(`${BASE_URL}/subscribe`, subscription, { withCredentials: true });
+		await axios.post(`${BASE_URL}/subscribe?locale=${currentLocale}`, subscription, { withCredentials: true });
 	}
 
 	private static urlBase64ToUint8Array(base64String: any) {
