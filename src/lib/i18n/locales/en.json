@@ -98,5 +98,6 @@
 	"motorcycle": "Motorcycle",
 	"motorized.quadricycle": "Motorized quadricycle",
 	"moped": "Moped",
-	"delete.file.message": "Error, select a file!"
+	"delete.file.message": "Error, select a file!",
+	"login.persistent": "Stay logged in?"
 }

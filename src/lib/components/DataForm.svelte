@@ -153,45 +153,4 @@
 		display: inline-block;
 	}
 
-	.switch {
-		display: inline-block;
-		height: 25px;
-		position: relative;
-		width: 50px;
-	}
-	.switch input {
-		display: none;
-	}
-	.slider {
-		background-color: var(--color-bg-4);
-		bottom: 0;
-		cursor: pointer;
-		left: 0;
-		position: absolute;
-		right: 0;
-		top: 0;
-		transition: 0.4s;
-	}
-	.slider:before {
-		background-color: var(--color-text-light);
-		bottom: 4px;
-		content: '';
-		height: 18px;
-		left: 4px;
-		position: absolute;
-		transition: 0.4s;
-		width: 18px;
-	}
-	input:checked + .slider {
-		background-color: var(--color-theme-1);
-	}
-	input:checked + .slider:before {
-		transform: translateX(24px);
-	}
-	.slider.round {
-		border-radius: 34px;
-	}
-	.slider.round:before {
-		border-radius: 50%;
-	}
 </style>

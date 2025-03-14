@@ -13,6 +13,8 @@ class AuthService {
 			try {
 				const res = await axios.post(`${BASE_URL}/auth/logout?lang=${currentLocale}`, {}, { withCredentials: true });
 				const data = res.data;
+				localStorage.removeItem("username");
+				localStorage.removeItem("password");
 				resolve(data);
 			} catch (error) {
 				reject(error);
@@ -20,7 +22,7 @@ class AuthService {
 		});
 	}
 
-	static login(username: string, password: string) {
+	static login(username: string, password: string, persistent: boolean = false) {
 		return new Promise(async (resolve, reject) => {
 			try {
 				const res = await axios.post(
@@ -29,6 +31,10 @@ class AuthService {
 					{ withCredentials: true }
 				);
 				const data = res.data;
+				if(persistent){
+					localStorage.setItem("username", username);
+					localStorage.setItem("password", password);
+				}
 				resolve(data);
 			} catch (error) {
 				reject(error);
@@ -68,7 +74,21 @@ class AuthService {
 				const data = res.data;
 				resolve(data);
 			} catch (error) {
-				reject(error);
+				const username = localStorage.getItem("username");
+				const password = localStorage.getItem("password");
+				if (!username || !password){
+					return reject(error);
+				}
+				try {
+					await this.login(username, password);
+					const res = await axios.get(`${BASE_URL}/auth/user?lang=${currentLocale}`, {
+						withCredentials: true
+					});
+					const data = res.data;
+					resolve(data);
+				} catch (error) {
+					return reject(error);
+				}
 			}
 		});
 	}

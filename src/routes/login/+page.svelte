@@ -7,6 +7,7 @@
 	let username = $state('');
 	let password = $state('');
 	let error = $state('');
+	let persistent = $state(false);
 
 	let errorShow = $derived.by(() => {
 		let result = error != '' && error != null;
@@ -20,7 +21,7 @@
 
 	async function login() {
 		try {
-			await AuthService.login(username, password);
+			await AuthService.login(username, password, persistent);
 			isLoggedIn.set(true);
 			goto(`/vehicles`, { replaceState: true });
 		} catch (err: any) {
@@ -54,6 +55,19 @@
 					<div class="col-12">
 						<label for="form-password"><b>{$_('profile.password')}</b></label> <br />
 						<input id="form-password" type="password" bind:value={password} placeholder={$_('profile.password')} />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="row">
+					<div class="col-12 align-content-end">
+						<div class="align-container">
+							<b>{$_('login.persistent')}</b>
+							<label style="display: inline-block;" class="switch" for="form-element-persistent-login">
+								<input type="checkbox" id="form-element-persistent-login" bind:checked={persistent} />
+								<div class="slider round"></div>
+							</label>
+						</div>
 					</div>
 				</div>
 			</div>
