@@ -1,0 +1,10 @@
+node_modules
+.env
+.idea
+.vscode
+.output
+.vercel
+.netlify
+.wrangler
+/.svelte-kit
+/build
