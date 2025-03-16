@@ -3,7 +3,7 @@ services:
     build:
       context: .
     ports:
-      - "PUT_YOUR_PORT_HERE:4173"
+      - "PUT_YOUR_PORT_HERE:3000"
     environment:
       - VITE_BASE_URL=PUT_YOUR_BACKEND_URL_HERE
       - VITE_NOTIFICATION_URL=PUT_YOUR_FRONTEND_URL_HERE
