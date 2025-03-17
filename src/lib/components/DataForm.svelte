@@ -51,7 +51,7 @@
 	}
 </script>
 
-<div class="container" style="position: relative; width: 95%; margin: auto;">
+<div class="container" id="data-form">
 	<div class="row">
 		{#if errorShow}
 			<p class="error-box"><b>{error}</b></p>
@@ -110,7 +110,7 @@
 				<div class="col-12 align-content-end">
 					<div class="align-container">
 						<b>{field.label}</b>
-						<label style="display: inline-block;" class="switch" for="form-element-{field.key}">
+						<label class="switch" for="form-element-{field.key}">
 							<input type="checkbox" id="form-element-{field.key}" bind:checked={tempData[field.key]} />
 							<div class="slider round"></div>
 						</label>
@@ -119,18 +119,18 @@
 			{/if}
 		{/each}
 	</div>
-	<div class="row">
-		<div class="col-12" style="height: 42px;">
-			<div style="width: 100%; display:flex; flex-direction:row-reverse;">
+	<div class="row" id="data-form-controls">
+		<div class="col-12">
+			<div>
 				<button
-					style="width: fit-content; margin:0; margin-left:5px;"
+					id="data-form-btn-left"
 					onclick={() => {
 						clickRight(getSanitizedData());
 					}}
 					>{buttonRight.label}
 				</button>
 				<button
-					style="width: fit-content; margin:0;"
+					id="data-form-btn-right"
 					onclick={() => {
 						clickLeft();
 					}}
@@ -142,10 +142,30 @@
 </div>
 
 <style>
+	.container#data-form {
+		position: relative;
+		width: 95%;
+		margin: auto;
+	}
+	#data-form-controls div.col-12 {
+		height: 42px;
+	}
+	#data-form-controls div.col-12 div {
+		width: 100%;
+		display: flex;
+		flex-direction: row-reverse;
+	}
+	#data-form-btn-left,
+	#data-form-btn-right {
+		width: fit-content;
+		margin: 0;
+	}
+	#data-form-btn-left {
+		margin-left: 5px;
+	}
 	.col-12 {
 		margin-top: 15px;
 	}
-
 	input,
 	button {
 		width: calc(100% - 22px);

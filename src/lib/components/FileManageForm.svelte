@@ -92,7 +92,7 @@
 	</Dialog>
 	<Dialog show={deleteFormDialog} style="margin-top: 10vh; margin-left: 0; background-color: var(--color-dialog-darker)">
 		<h1>{$_('vehicle.delete_file')}</h1>
-		<p style="padding-left: 10%; padding-right: 10%;">{formLabel}</p>
+		<p id="delete-form-text">{formLabel}</p>
 		<DataForm
 			data={[]}
 			fields={[]}
@@ -105,105 +105,105 @@
 	</Dialog>
 	<div class="container">
 		<div class="row">
-			<h1 style="margin-bottom: 0;">{$_('vehicles.manage_files')}</h1>
-			<p style="width: fit-content; margin: auto; margin-top: 0;">
+			<h1>{$_('vehicles.manage_files')}</h1>
+			<p class="vehicle-details">
 				{(vehicle as Vehicle).brand}
 				{(vehicle as Vehicle).model}
 				{(vehicle as Vehicle).plateNumber}
 			</p>
 		</div>
 
-		<div class="row manage-file">
+		<div class="row file-management">
 			{#if !registrationCardUrl}
 				<p><b>{$_('vehicles.no_registration_card_file')}</b></p>
-				<div>
+				<div class="actions">
 					<button
 						onclick={() => {
 							showForm($_('vehicle.registration_card'), FileService.FileTypes.registrationCard);
 						}}
-						aria-label="Add"><span class="mdi--add"></span></button
+						aria-label="Add"><span class="mdi mdi--add"></span></button
 					>
 				</div>
 			{:else}
 				<p><a target="_blank" href={registrationCardUrl}><b>{$_('vehicles.view_registration_card')}</b></a></p>
-				<div>
+				<div class="actions">
 					<button
 						onclick={() => {
 							showDeleteDialog($_('vehicle.registration_card'), FileService.FileTypes.registrationCard);
 						}}
 						aria-label="Delete"
-						class="button-secondary"><span class="mdi--bin"></span></button
+						class="button-secondary"><span class="mdi mdi--bin"></span></button
 					>
 					<button
 						onclick={() => {
 							showForm($_('vehicle.registration_card'), FileService.FileTypes.registrationCard);
 						}}
-						aria-label="Edit"><span class="mdi--pencil"></span></button
+						aria-label="Edit"><span class="mdi mdi--pencil"></span></button
 					>
 				</div>
 			{/if}
 		</div>
-		<div class="row manage-file">
+		<div class="row file-management">
 			{#if !maintenanceManualUrl}
 				<p><b>{$_('vehicles.no_maintenance_file')}</b></p>
-				<div>
+				<div class="actions">
 					<button
 						onclick={() => {
 							showForm($_('vehicle.maintenance_manual'), FileService.FileTypes.maintenance);
 						}}
-						aria-label="Add"><span class="mdi--add"></span></button
+						aria-label="Add"><span class="mdi mdi--add"></span></button
 					>
 				</div>
 			{:else}
 				<p><a target="_blank" href={maintenanceManualUrl}><b>{$_('vehicles.view_maintenance_manual')}</b></a></p>
-				<div>
+				<div class="actions">
 					<button
 						onclick={() => {
 							showDeleteDialog($_('vehicle.maintenance_manual'), FileService.FileTypes.maintenance);
 						}}
 						aria-label="Delete"
-						class="button-secondary"><span class="mdi--bin"></span></button
+						class="button-secondary"><span class="mdi mdi--bin"></span></button
 					>
 					<button
 						onclick={() => {
 							showForm($_('vehicle.maintenance_manual'), FileService.FileTypes.maintenance);
 						}}
-						aria-label="Edit"><span class="mdi--pencil"></span></button
+						aria-label="Edit"><span class="mdi mdi--pencil"></span></button
 					>
 				</div>
 			{/if}
 		</div>
-		<div class="row manage-file align-content-center">
+		<div class="row file-management align-content-center">
 			{#if !insuranceUrl}
 				<p><b>{$_('vehicles.no_insurance_file')}</b></p>
-				<div>
+				<div class="actions">
 					<button
 						onclick={() => {
 							showForm($_('vehicle.insurance'), FileService.FileTypes.insurance);
 						}}
-						aria-label="Add"><span class="mdi--add"></span></button
+						aria-label="Add"><span class="mdi mdi--add"></span></button
 					>
 				</div>
 			{:else}
 				<p><a target="_blank" href={insuranceUrl}><b>{$_('vehicles.view_insurance')}</b></a></p>
-				<div>
+				<div class="actions">
 					<button
 						onclick={() => {
 							showDeleteDialog($_('vehicle.insurance'), FileService.FileTypes.insurance);
 						}}
 						aria-label="Delete"
-						class="button-secondary"><span class="mdi--bin"></span></button
+						class="button-secondary"><span class="mdi mdi--bin"></span></button
 					>
 					<button
 						onclick={() => {
 							showForm($_('vehicle.insurance'), FileService.FileTypes.insurance);
 						}}
-						aria-label="Edit"><span class="mdi--pencil"></span></button
+						aria-label="Edit"><span class="mdi mdi--pencil"></span></button
 					>
 				</div>
 			{/if}
 		</div>
-		<div class="row" style="margin-top:8px !important;">
+		<div class="row form-controls">
 			<button
 				onclick={() => {
 					clickClose();
@@ -215,15 +215,40 @@
 {/if}
 
 <style>
-	.row.manage-file {
-		position: relative;
-		margin-top: 8px !important;
-	}
-	.row.manage-file button {
-		width: fit-content;
+	.container .row h1 {
+		margin-bottom: 0;
 	}
 
-	.row.manage-file div {
+	.container .row {
+		margin-top: 8px !important;
+	}
+
+	.vehicle-details {
+		width: fit-content;
+		margin: auto;
+		margin-top: 0;
+	}
+
+	.file-management {
+		position: relative;
+	}
+
+	.file-management p {
+		margin-top: 9px;
+		color: var(--color-text);
+	}
+
+	.file-management a {
+		cursor: pointer;
+		color: var(--color-text);
+		text-decoration: none;
+	}
+
+	.file-management a:hover {
+		color: var(--color-theme-1);
+	}
+
+	.file-management .actions {
 		position: absolute;
 		right: 0;
 		width: fit-content;
@@ -231,18 +256,16 @@
 		background-color: var(--color-dialog);
 	}
 
-	.row.manage-file p {
-		margin-top: 9px;
-		color: var(--color-text);
+	.file-management button {
+		width: fit-content;
 	}
 
-	.row.manage-file a {
-		cursor: pointer;
-		color: var(--color-text);
-		text-decoration: none;
+	#delete-form-text {
+		padding-left: 10%;
+		padding-right: 10%;
 	}
 
-	.row.manage-file a:hover {
-		color: var(--color-theme-1);
+	.form-controls {
+		margin-top: 8px !important;
 	}
 </style>

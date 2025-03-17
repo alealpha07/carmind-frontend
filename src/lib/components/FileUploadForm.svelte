@@ -77,7 +77,7 @@
 		<div class="col-12" style="margin-top: 5px;">
 			<label for="form-element-file"><b>{label}</b></label> <br />
 			<input type="file" id="form-element-file" onchange={(e: any) => (file = e?.target?.files?.[0])} />
-			<button onclick={uploadFile} aria-label="Upload"><span class="mdi--upload"></span></button>
+			<button onclick={uploadFile} aria-label="Upload"><span class="mdi mdi--upload"></span></button>
 		</div>
 	</div>
 	{#if deleteButton}
@@ -105,16 +105,8 @@
 	}
 
 	.mdi--upload {
-		display: inline-block;
 		width: 20px;
 		height: 20px;
 		--svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M9 16v-6H5l7-7l7 7h-4v6zm-4 4v-2h14v2z'/%3E%3C/svg%3E");
-		background-color: currentColor;
-		-webkit-mask-image: var(--svg);
-		mask-image: var(--svg);
-		-webkit-mask-repeat: no-repeat;
-		mask-repeat: no-repeat;
-		-webkit-mask-size: 100% 100%;
-		mask-size: 100% 100%;
 	}
 </style>
