@@ -206,7 +206,7 @@
 		<div class="row" style="margin-top:8px !important;">
 			<button
 				onclick={() => {
-					clickClose;
+					clickClose();
 				}}
 				class="button-minor">{$_('buttons.close')}</button
 			>
