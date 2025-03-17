@@ -2,6 +2,10 @@ services:
   carmind-frontend:
     build:
       context: .
+      args:
+        VITE_BASE_URL: "PUT_YOUR_BACKEND_URL_HERE"
+        VITE_NOTIFICATION_URL: "PUT_YOUR_FRONTEND_URL_HERE"
+        VITE_PUBLIC_VAPID_KEY: "PUT_YOUR_PUBLIC_VAPID_KEY_HERE"
     ports:
       - "PUT_YOUR_PORT_HERE:3000"
     environment:
