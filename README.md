@@ -1,41 +1,89 @@
-# sv
+# Carmind Frontend
+Carmind Frontend is an open-source web application for managing automotive-related data and receiving push notifications. Built with **Svelte**, **TypeScript**, and **Docker**, it provides a fast and scalable user interface.
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+## Features
+- **Svelte** for a lightweight and reactive UI
+- **TypeScript** for type safety and maintainability
+- **Docker support** for seamless deployment
+- **Web Push Notifications** for real-time updates
+- **Environment Configuration** for flexible setups
+- **Internationalization (i18n)** for multilingual support
 
-## Creating a project
+---
 
-If you're seeing this, you've probably already done this step. Congrats!
+## Getting Started
+### Prerequisites
+Ensure you have the following installed on your system:
 
-```bash
-# create a new project in the current directory
-npx sv create
+- **Node.js v20.x.x** (Latest LTS strongly recommended)
+- **npm** (comes with Node.js)
+- **Docker** (for production setup, optional for development)
 
-# create a new project in my-app
-npx sv create my-app
+### Installation
+Clone the repository and install dependencies:
+
+```sh
+# Clone the repository
+git clone https://github.com/alealpha07/carmind-frontend.git
+cd carmind-frontend
+
+# Install dependencies
+npm install
 ```
 
-## Developing
+### Configuration
+Copy the example environment file and configure necessary variables:
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+```sh
+cp example.env .env
+```
 
-```bash
+- Ensure the backend API URL and Web Push Notification settings are correctly configured.
+
+### Development Mode
+Start the development server with hot-reloading:
+
+```sh
 npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
 ```
 
-## Building
+---
 
-To create a production version of your app:
+## Production Setup (Docker)
+### Prerequisites
+- **Docker** and **Docker Compose** installed
 
-```bash
-npm run build
-```
+### Deployment
+1. Copy the example Docker Compose file and adjust configurations as needed:
+   ```sh
+   cp example.docker-compose.yml docker-compose.yml
+   ```
+2. Build and run the container:
+   ```sh
+   docker compose up --build
+   ```
 
-You can preview the production build with `npm run preview`.
+---
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+## Documentation
 
-**Node Version**
-`20.X.X`
+#### API
+Details about the API are available [here](./API.md)
+#### Internationalization
+Details about Internationalization are available [here](./INTERNATIONALIZATION.md)
+
+---
+
+## Contributing
+We welcome contributions from the community! To contribute:
+1. Fork the repository.
+2. Create a feature branch (`git checkout -b feature-branch`).
+3. Commit your changes (`git commit -m "Add new feature"`).
+4. Push to your branch (`git push origin feature-branch`).
+5. Open a pull request.
+
+---
+
+## Authors
+- **Alessandro Prati**
+- **Armando Scuotto**
