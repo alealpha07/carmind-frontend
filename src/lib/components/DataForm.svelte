@@ -152,5 +152,4 @@
 		margin: auto;
 		display: inline-block;
 	}
-
 </style>

@@ -13,8 +13,8 @@ class AuthService {
 			try {
 				const res = await axios.post(`${BASE_URL}/auth/logout?lang=${currentLocale}`, {}, { withCredentials: true });
 				const data = res.data;
-				localStorage.removeItem("username");
-				localStorage.removeItem("password");
+				localStorage.removeItem('username');
+				localStorage.removeItem('password');
 				resolve(data);
 			} catch (error) {
 				reject(error);
@@ -31,9 +31,9 @@ class AuthService {
 					{ withCredentials: true }
 				);
 				const data = res.data;
-				if(persistent){
-					localStorage.setItem("username", username);
-					localStorage.setItem("password", password);
+				if (persistent) {
+					localStorage.setItem('username', username);
+					localStorage.setItem('password', password);
 				}
 				resolve(data);
 			} catch (error) {
@@ -74,9 +74,9 @@ class AuthService {
 				const data = res.data;
 				resolve(data);
 			} catch (error) {
-				const username = localStorage.getItem("username");
-				const password = localStorage.getItem("password");
-				if (!username || !password){
+				const username = localStorage.getItem('username');
+				const password = localStorage.getItem('password');
+				if (!username || !password) {
 					return reject(error);
 				}
 				try {

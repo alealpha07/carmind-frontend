@@ -42,43 +42,43 @@ self.addEventListener('notificationclick', (event) => {
 const CACHE_LIMIT = 50;
 
 self.addEventListener('fetch', (event) => {
-    const { request } = event;
+	const { request } = event;
 
-    if (request.method !== 'GET') return;
+	if (request.method !== 'GET') return;
 
-    let cacheName = null;
-    if (request.url.includes('/vehicle')) cacheName = 'vehicles-cache';
-    else if (request.url.includes('/auth/user')) cacheName = 'user-cache';
+	let cacheName = null;
+	if (request.url.includes('/vehicle')) cacheName = 'vehicles-cache';
+	else if (request.url.includes('/auth/user')) cacheName = 'user-cache';
 
-    if (!cacheName) return;
+	if (!cacheName) return;
 
-    event.respondWith(networkFirst(request, cacheName));
+	event.respondWith(networkFirst(request, cacheName));
 });
 
 async function networkFirst(request, cacheName) {
-    const cache = await caches.open(cacheName);
+	const cache = await caches.open(cacheName);
 
-    try {
-        const response = await fetch(request);
+	try {
+		const response = await fetch(request);
 
-        if (response.ok) {
-            cache.put(request, response.clone());
-            limitCacheSize(cacheName);
-        }
+		if (response.ok) {
+			cache.put(request, response.clone());
+			limitCacheSize(cacheName);
+		}
 
-        return response;
-    } catch (error) {
-        console.warn(`Network request failed for ${request.url}, trying cache...`, error);
-        const cachedResponse = await cache.match(request);
-        return cachedResponse || new Response('Network error and no cache available', { status: 503 });
-    }
+		return response;
+	} catch (error) {
+		console.warn(`Network request failed for ${request.url}, trying cache...`, error);
+		const cachedResponse = await cache.match(request);
+		return cachedResponse || new Response('Network error and no cache available', { status: 503 });
+	}
 }
 
 async function limitCacheSize(cacheName) {
-    const cache = await caches.open(cacheName);
-    const keys = await cache.keys();
+	const cache = await caches.open(cacheName);
+	const keys = await cache.keys();
 
-    if (keys.length > CACHE_LIMIT) {
-        await cache.delete(keys[0]);
-    }
+	if (keys.length > CACHE_LIMIT) {
+		await cache.delete(keys[0]);
+	}
 }
