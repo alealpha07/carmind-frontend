@@ -18,9 +18,6 @@
 		clickRight: Function;
 	} = $props();
 
-	//data = {txt: '',num: 0, bool: false, dte: '2024-01-31'},
-	//fields = [{ type: 'text', label: 'label', key: 'txt' }, {type: 'number', label: 'label2', placeholder: '0', min: 0, step: 0.5, key: 'num' }, {type: 'boolean', label: 'test', key: 'bool' }, {type: 'date', min: '2024-01-30', key: 'dte' }]
-
 	let errorShow = $derived.by(() => {
 		let result = error != '' && error != null;
 		if (result) {

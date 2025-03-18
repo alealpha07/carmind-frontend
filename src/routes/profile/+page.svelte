@@ -6,7 +6,7 @@
 	import { onMount } from 'svelte';
 	import Dialog from '$lib/components/Dialog.svelte';
 	import DataForm from '$lib/components/DataForm.svelte';
-	import { _ } from 'svelte-i18n';
+	import { _, getLocaleFromNavigator } from 'svelte-i18n';
 
 	let user: User = $state({
 		id: 0,
@@ -49,7 +49,8 @@
 	}
 
 	function formatDate(date: Date) {
-		return new Date(date).toLocaleDateString('it-IT');
+		date = new Date(date);
+		return date.toLocaleDateString(getLocaleFromNavigator() as string);
 	}
 
 	function showResetPasswordDialog() {
@@ -256,7 +257,7 @@
 		margin-left: 2px;
 		margin-right: 2px;
 		--svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M2 12a9 9 0 0 0 9 9c2.39 0 4.68-.94 6.4-2.6l-1.5-1.5A6.7 6.7 0 0 1 11 19c-6.24 0-9.36-7.54-4.95-11.95S18 5.77 18 12h-3l4 4h.1l3.9-4h-3a9 9 0 0 0-18 0'/%3E%3C/svg%3E");
-		background-color: currentColor;
+		background-color: var(--color-text);
 	}
 	.mdi--reload:hover {
 		background-color: var(--color-theme-1);

@@ -10,6 +10,7 @@ const CACHE_DB_NAME = 'vehicle-files-db';
 const CACHE_STORE_NAME = 'files';
 const MAX_CACHE_SIZE = 50;
 
+// Indexed DB Management
 function openDB() {
 	return new Promise<IDBDatabase>((resolve, reject) => {
 		const request = indexedDB.open(CACHE_DB_NAME, 1);
@@ -24,7 +25,7 @@ function openDB() {
 	});
 }
 
-function saveToDB(vehicleId: Number, type: string, blob: Blob) {
+function saveToCache(vehicleId: Number, type: string, blob: Blob) {
 	openDB().then((db) => {
 		const transaction = db.transaction(CACHE_STORE_NAME, 'readwrite');
 		const store = transaction.objectStore(CACHE_STORE_NAME);
@@ -66,7 +67,7 @@ function deleteOldestEntry(db: IDBDatabase) {
 	});
 }
 
-function getFromDB(vehicleId: Number, type: string) {
+function getFromCache(vehicleId: Number, type: string) {
 	return new Promise((resolve, reject) => {
 		openDB().then((db) => {
 			const transaction = db.transaction(CACHE_STORE_NAME, 'readonly');
@@ -117,14 +118,14 @@ class FileService {
 						responseType: 'blob'
 					});
 					const blob = new Blob([res.data]);
-					saveToDB(vehicleId, type, blob);
+					saveToCache(vehicleId, type, blob);
 					resolve(URL.createObjectURL(blob));
 				} else {
-					getFromDB(vehicleId, type).then(resolve).catch(reject);
+					getFromCache(vehicleId, type).then(resolve).catch(reject);
 				}
 			} catch (error) {
 				console.error('Fetch failed, trying to load from IndexedDB:', error);
-				getFromDB(vehicleId, type).then(resolve).catch(reject);
+				getFromCache(vehicleId, type).then(resolve).catch(reject);
 			}
 		});
 	}

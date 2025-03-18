@@ -3,32 +3,11 @@
 	import { _, getLocaleFromNavigator } from 'svelte-i18n';
 	import FileService from '$services/FileService';
 
-	let {
-		data = {
-			id: -1,
-			type: '',
-			brand: '',
-			model: '',
-			registrationYear: 0,
-			plateNumber: '',
-			isInsured: false,
-			startDateInsurance: new Date(),
-			endDateInsurance: new Date(),
-			hasBill: false,
-			endDateBill: new Date(),
-			endDateRevision: new Date()
-		},
-		clickDelete,
-		clickEdit,
-		clickManageFiles,
-		clickAddImage,
-		clickEditImage,
-		...others
-	} = $props();
+	let { data = null, clickDelete, clickEdit, clickManageFiles, clickAddImage, clickEditImage, ...others } = $props();
 
 	let vehicleImageUrl = $state('');
 	let loaded = $derived.by(() => {
-		let result = !!data.id && data.id != -1;
+		let result = !!data;
 		if (result && !!data.vehicleImageFileExtension) {
 			FileService.get(data.id, FileService.FileTypes.vehicleImage).then((res) => {
 				vehicleImageUrl = res as string;

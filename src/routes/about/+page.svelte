@@ -35,10 +35,10 @@
 		{$_('about.contribute.description')}<br />{$_('about.contribute.description2')}<br />{$_('about.contribute.description3')}
 	</p>
 	<div style="text-align:center">
-		<a href="https://github.com/alealpha07/carmind-frontend" style="">
+		<a target="_blank" href="https://github.com/alealpha07/carmind-frontend" style="">
 			<img width="40px" src={github} alt="GitHub" /> <br />Frontend
 		</a>
-		<a href="https://github.com/alealpha07/carmind-backend" style="width:fit-content; display:inline-block; margin-left:5px;">
+		<a target="_blank" href="https://github.com/alealpha07/carmind-backend" style="width:fit-content; display:inline-block; margin-left:5px;">
 			<img width="40px" src={github} alt="GitHub" /> <br />Backend
 		</a>
 	</div>

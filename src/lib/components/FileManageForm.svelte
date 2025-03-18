@@ -81,7 +81,10 @@
 </script>
 
 {#if loaded}
-	<Dialog show={formDialog} style="margin-top: 10vh; margin-left: 0; background-color: var(--color-dialog-darker)">
+	<Dialog
+		show={formDialog}
+		style="margin-top: 10vh; margin-left: 0; background-color: var(--color-dialog-darker); width: calc(100% - 30px) !important;"
+	>
 		<FileForm
 			label={formLabel}
 			fileType={formFileType}
@@ -90,7 +93,10 @@
 			clickClose={resetForm}
 		></FileForm>
 	</Dialog>
-	<Dialog show={deleteFormDialog} style="margin-top: 10vh; margin-left: 0; background-color: var(--color-dialog-darker)">
+	<Dialog
+		show={deleteFormDialog}
+		style="margin-top: 10vh; margin-left: 0; background-color: var(--color-dialog-darker); width: calc(100% - 30px) !important;"
+	>
 		<h1>{$_('vehicle.delete_file')}</h1>
 		<p id="delete-form-text">{formLabel}</p>
 		<DataForm

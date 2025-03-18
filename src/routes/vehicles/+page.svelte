@@ -15,17 +15,20 @@
 
 	let vehicles: Array<Vehicle> = $state([]);
 	let showVehicleFormDialog = $state(false);
-	let showManageFileDialog = $state(false);
-	let showImageFormDialog = $state(false);
-	let showImageDeleteButton = $state(false);
-	let manageFileVehicle: Vehicle | null = $state(null);
 	let formId: number = $state(-1);
 	let formData: object = $state({});
 	let formFields: Array<Field> = $state([]);
 	let formClickRight: Function = $state(() => {});
 	let formTitle = $state('');
 	let formDescription = $state('');
+
+	let showManageFileDialog = $state(false);
+	let manageFileVehicle: Vehicle | null = $state(null);
+
+	let showImageFormDialog = $state(false);
+	let showImageDeleteButton = $state(false);
 	let formVehicle: Vehicle | null = $state(null);
+
 	let formError = $state('');
 	let formSuccessMessage: string = $state('');
 	let showSuccess = $derived.by(() => {
